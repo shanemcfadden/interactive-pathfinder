@@ -164,6 +164,26 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
   );
 };
 
-function getNeighboringCoordinates(currentCoordinate, grid) {}
+function getNeighboringCoordinates(currentCoordinate, grid) {
+  const neighbors = [];
+  const [i, j] = currentCoordinate;
+  // top
+  if (i > 0 && grid[i - 1][j]) {
+    neighbors.push([i - 1, j]);
+  }
+  // right
+  if (j < grid[0].length - 1 && grid[i][j + 1]) {
+    neighbors.push([i, j + 1]);
+  }
+  // bottom
+  if (i < grid.length - 1 && grid[i + 1][j]) {
+    neighbors.push([i + 1, j]);
+  }
+  // left
+  if (j > 0 && grid[i][j - 1]) {
+    neighbors.push([i, j - 1]);
+  }
+  return neighbors;
+}
 
 function getStartToFinishPath(finishCoordinate, visitedCoordinates) {}
