@@ -4,15 +4,24 @@ import './Grid.css';
 
 const Grid = () => {
   const nodes = Array.from({ length: 20 }, () => Array.from({ length: 20 }));
-  nodes[5][1] = 'start';
-  nodes[5][2] = 'visited';
-  nodes[17][19] = 'end';
-  const [stateOfNodes, setStateOfNodes] = useState(nodes);
+  nodes[5][2] = true;
+  const [visitedNodes, setVisitedNodes] = useState(nodes);
+  const [startNode, setStartNode] = useState([5, 1]);
+  const [endNode, setEndNode] = useState([17, 19]);
+
   return (
     <div className="grid">
-      {stateOfNodes.map((row, i) => {
+      {visitedNodes.map((row, i) => {
         return row.map((val, j) => {
-          return <Node currentState={val} key={`${i}-${j}`} />;
+          let currentState;
+          if (i === startNode[0] && j === startNode[1]) {
+            currentState = 'start';
+          } else if (i === endNode[0] && j === endNode[1]) {
+            currentState = 'end';
+          } else {
+            currentState = val ? 'visited' : undefined;
+          }
+          return <Node currentState={currentState} key={`${i}-${j}`} />;
         });
       })}
     </div>
