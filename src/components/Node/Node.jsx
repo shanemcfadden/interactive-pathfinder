@@ -1,8 +1,12 @@
 import React from 'react';
 import './Node.css';
 
-const Node = () => {
-  return <div className="node"></div>;
+const Node = ({ currentState }) => {
+  return (
+    <div
+      className={`node${currentState ? ` node--${currentState}` : ''}`}
+    ></div>
+  );
 };
 
 export default Node;

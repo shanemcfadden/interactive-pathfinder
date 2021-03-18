@@ -1,3 +1,15 @@
 .node {
   border: 1px solid black;
 }
+
+.node--end {
+  background-color: red;
+}
+
+.node--start {
+  background-color: greenyellow;
+}
+
+.node--visited {
+  background-color: aqua;
+}
