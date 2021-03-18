@@ -1,4 +1,5 @@
 import React from 'react';
+import Node from '../Node/Node';
 import './Grid.css';
 
 const Grid = () => {
@@ -6,12 +7,7 @@ const Grid = () => {
   return (
     <div className="grid">
       {nodes.map((val, i) => (
-        <div
-          key={i}
-          style={{
-            border: '1px solid black',
-          }}
-        ></div>
+        <Node key={i} />
       ))}
     </div>
   );
