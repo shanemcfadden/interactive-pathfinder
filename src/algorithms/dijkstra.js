@@ -134,7 +134,8 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
     }
 
     // add this coordinate to the visited coordinates object
-    visitedCoordinates[JSON.stringify(current.coordinate)] = true;
+    visitedCoordinates[JSON.stringify(current.coordinate)] =
+      current.previousCoordinate;
 
     // get the accessible coordinates that neighbor the current value
     const neigboringCoordinates = getNeighboringCoordinates(
@@ -186,4 +187,12 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
   return neighbors;
 }
 
-function getStartToFinishPath(finishCoordinate, visitedCoordinates) {}
+function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
+  const startToFinishPath = [];
+  let current = finishCoordinate;
+  while (current) {
+    startToFinishPath.unshift(current);
+    current = visitedCoordinates[JSON.stringify(current)];
+  }
+  return startToFinishPath;
+}
