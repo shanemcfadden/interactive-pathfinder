@@ -115,14 +115,46 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
 
   // Initialize an object recording the visited coordinates
   // The keys will be stringified versions of the coordinate array
+
+  const visitedCoordinates = {};
+
   // loop through the heap
-  // pop off the minimum heap value
-  // if this value is the ending coordinate OR the distance from the start is Infinity, break the loop
-  // add this coordinate to the visited coordinates object
-  // Otherwise, get the accessible coordinates that neighbor the current value
-  // For each of the neighboring coordinates:
-  // if the coordinate has been visited, do nothing
-  // if the coordinate has been visited, add it to the heap with its current distance from start and previous coordinate
+  while (true) {
+    // pop off the minimum heap value
+    const currentCoordinate = coordinatesHeap.pop();
+    // if this value is the ending coordinate OR the distance from the start is Infinity, break the loop
+    if (
+      (currentCoordinate.coordinate[0] === endingCoordinates[0] &&
+        currentCoordinate.coordinate[1] === endingCoordinates[1]) ||
+      currentCoordinate.distanceFromStart === Infinity
+    ) {
+      break;
+    }
+
+    // add this coordinate to the visited coordinates object
+    visitedCoordinates[JSON.stringify(currentCoordinate.coordinate)] = true;
+
+    // get the accessible coordinates that neighbor the current value
+    const neigboringCoordinates = getNeighboringCoordinates(
+      currentCoordinate.coordinate,
+      grid
+    );
+    // For each of the neighboring coordinates:
+    neigboringCoordinates.forEach((coor) => {
+      // if the coordinate has been visited, do nothing
+      // if the coordinate has not been visited, add it to the heap with its current distance from start and previous coordinate
+      if (!neigboringCoordinates[JSON.stringify(coor)]) {
+        const newCoordinateData = {
+          coordinate: coor,
+          distanceFromStart: currentCoordinate.distanceFromStart + 1,
+          previousCoordinate: currentCoordinate.coordinate,
+        };
+        coordinatesHeap.push(newCoordinateData);
+      }
+    });
+  }
   // if the distance from the start is Infinity, return null
   // Otherwise, return an object with the path of start to finish in an array, (plus the distance? this is already established by length of arr - 1......)
 };
+
+function getNeighboringCoordinates(currentCoordinate, grid) {}
