@@ -93,7 +93,7 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
   // Initialize a heap with the proper comparison function
   // This will allow us to traverse the grid from nearest point to farthest point
   const coordinatesHeap = new MinHeap(
-    (a, b) => a.distanceFromStart < b.distanceFromStart
+    (a, b) => a.distanceFromStart - b.distanceFromStart
   );
 
   // Add EVERY point on grid to the heap, recording its distance from start as infinity and its previous coordinate as 0
@@ -106,6 +106,7 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
       if (i === startingCoordinates[0] && j === startingCoordinates[1]) {
         // for the starting coordinate, add it to the heap with its distance from the start being 0
         coordinateData.distanceFromStart = 0;
+        coordinateData.previousCoordinate = 'start';
       } else {
         coordinateData.distanceFromStart = Infinity;
       }
@@ -123,6 +124,13 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
   while (true) {
     // pop off the minimum heap value
     let current = coordinatesHeap.pop();
+    // add this coordinate to the visited coordinates object
+    if (visitedCoordinates[JSON.stringify(current.coordinate)]) {
+      continue;
+    }
+
+    visitedCoordinates[JSON.stringify(current.coordinate)] =
+      current.previousCoordinate;
     // if this value is the ending coordinate OR the distance from the start is Infinity, break the loop
     if (
       (current.coordinate[0] === endingCoordinates[0] &&
@@ -132,10 +140,6 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
       finalCoordinateData = current;
       break;
     }
-
-    // add this coordinate to the visited coordinates object
-    visitedCoordinates[JSON.stringify(current.coordinate)] =
-      current.previousCoordinate;
 
     // get the accessible coordinates that neighbor the current value
     const neigboringCoordinates = getNeighboringCoordinates(
@@ -190,9 +194,19 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
 function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
   const startToFinishPath = [];
   let current = finishCoordinate;
-  while (current) {
+  while (current !== 'start') {
     startToFinishPath.unshift(current);
     current = visitedCoordinates[JSON.stringify(current)];
   }
   return startToFinishPath;
 }
+
+const fakeGrid = [
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1],
+];
+
+console.log(dijkstra([0, 0], [1, 4], fakeGrid));
