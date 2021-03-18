@@ -1,3 +1,4 @@
+import Dashboard from '../Dashboard/Dashboard';
 import Grid from '../Grid/Grid';
 import './App.css';
 
@@ -6,7 +7,8 @@ function App() {
     <div className="App">
       This is an interactive pathfinder
       <div className="content-container">
-        <Grid></Grid>
+        <Dashboard />
+        <Grid />
       </div>
     </div>
   );
