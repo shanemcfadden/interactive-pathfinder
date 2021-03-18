@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Node from '../Node/Node';
 import './Grid.css';
 
@@ -7,9 +7,10 @@ const Grid = () => {
   nodes[5][1] = 'start';
   nodes[5][2] = 'visited';
   nodes[17][19] = 'end';
+  const [stateOfNodes, setStateOfNodes] = useState(nodes);
   return (
     <div className="grid">
-      {nodes.map((row, i) => {
+      {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
           return <Node currentState={val} key={`${i}-${j}`} />;
         });
