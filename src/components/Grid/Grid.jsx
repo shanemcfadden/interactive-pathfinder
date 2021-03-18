@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Node from '../Node/Node';
 import './Grid.css';
 
-const Grid = ({ startNode, endNode, onClickFunction }) => {
-  const nodes = Array.from({ length: 20 }, () => Array.from({ length: 20 }));
-  nodes[5][2] = true;
-  const [visitedNodes, setVisitedNodes] = useState(nodes);
-
+const Grid = ({ startNode, endNode, onClickFunction, visitedNodes }) => {
   return (
     <div className="grid">
       {visitedNodes.map((row, i) => {

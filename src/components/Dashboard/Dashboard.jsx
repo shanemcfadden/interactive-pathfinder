@@ -1,12 +1,25 @@
 import React from 'react';
+import { dijkstra } from '../../algorithms/dijkstra';
 
-const Dashboard = ({ setCurrentClickFunction }) => {
+const Dashboard = ({
+  startNode,
+  endNode,
+  setCurrentClickFunction,
+  visitedNodes,
+  setVisitedNodes,
+}) => {
+  const addVisitedNode = (coordinate) => {
+    const newVisitedNodes = [...visitedNodes];
+    newVisitedNodes[coordinate[0]][coordinate[1]] = true;
+    setVisitedNodes(newVisitedNodes);
+  };
   const handleStartButtonClick = () => {
     setCurrentClickFunction('setStartNode');
   };
   const handleEndButtonClick = () => {
     setCurrentClickFunction('setEndNode');
   };
+
   return (
     <div>
       <h1>This is the dashboard</h1>
@@ -16,7 +29,14 @@ const Dashboard = ({ setCurrentClickFunction }) => {
       <button type="button" onClick={handleEndButtonClick}>
         Select End
       </button>
-      <button type="button">Find Path!</button>
+      <button
+        type="button"
+        onClick={() => {
+          dijkstra(startNode, endNode, visitedNodes, addVisitedNode);
+        }}
+      >
+        Find Path!
+      </button>
     </div>
   );
 };

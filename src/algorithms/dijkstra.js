@@ -84,7 +84,7 @@ class MinHeap {
   }
 }
 
-const dijkstra = (
+export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
   gridWithState,
@@ -127,6 +127,7 @@ const dijkstra = (
 
     previousCoordinateMap[JSON.stringify(current.coordinate)] =
       current.previousCoordinate;
+    addVisitedNode(current.coordinate);
     if (
       JSON.stringify(current.coordinate) ===
         JSON.stringify(endingCoordinates) ||

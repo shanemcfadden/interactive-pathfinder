@@ -4,8 +4,10 @@ import Grid from '../Grid/Grid';
 import './App.css';
 
 function App() {
-  const [startNode, setStartNode] = useState([5, 1]);
-  const [endNode, setEndNode] = useState([17, 19]);
+  const nodes = Array.from({ length: 20 }, () => Array.from({ length: 20 }));
+  const [visitedNodes, setVisitedNodes] = useState(nodes);
+  const [startNode, setStartNode] = useState([4, 4]);
+  const [endNode, setEndNode] = useState([7, 9]);
   const [currentClickFunction, setCurrentClickFunction] = useState(
     'setStartNode'
   );
@@ -35,11 +37,18 @@ function App() {
     <div className="App">
       This is an interactive pathfinder
       <div className="content-container">
-        <Dashboard setCurrentClickFunction={setCurrentClickFunction} />
+        <Dashboard
+          setCurrentClickFunction={setCurrentClickFunction}
+          startNode={startNode}
+          endNode={endNode}
+          visitedNodes={visitedNodes}
+          setVisitedNodes={setVisitedNodes}
+        />
         <Grid
           startNode={startNode}
           endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
+          visitedNodes={visitedNodes}
         />
       </div>
     </div>
