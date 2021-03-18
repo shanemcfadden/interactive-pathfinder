@@ -88,68 +88,52 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
   // For now, the grid is going to be an array of arrays of 1's and 0's
   // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
   // The 0's are not accessible to any node
-  // starting and ending coordinates are an array pair of indices
-  // Setup:
-  // Initialize a heap with the proper comparison function
-  // This will allow us to traverse the grid from nearest point to farthest point
   const coordinatesHeap = new MinHeap(
     (a, b) => a.distanceFromStart - b.distanceFromStart
   );
 
-  // Add EVERY point on grid to the heap, recording its distance from start as infinity and its previous coordinate as 0
   grid.forEach((row, i) => {
     row.forEach((val, j) => {
       const coordinateData = {
         coordinate: [i, j],
         previousCoordinate: null,
+        distanceFromStart: Infinity,
       };
       if (i === startingCoordinates[0] && j === startingCoordinates[1]) {
-        // for the starting coordinate, add it to the heap with its distance from the start being 0
         coordinateData.distanceFromStart = 0;
         coordinateData.previousCoordinate = 'start';
-      } else {
-        coordinateData.distanceFromStart = Infinity;
       }
       coordinatesHeap.push(coordinateData);
     });
   });
 
-  // Initialize an object recording the visited coordinates
-  // The keys will be stringified versions of the coordinate array
-
-  const visitedCoordinates = {};
+  const previousCoordinateMap = {};
   let finalCoordinateData;
 
-  // loop through the heap
   while (true) {
-    // pop off the minimum heap value
     let current = coordinatesHeap.pop();
-    // add this coordinate to the visited coordinates object
-    if (visitedCoordinates[JSON.stringify(current.coordinate)]) {
+    if (previousCoordinateMap[JSON.stringify(current.coordinate)]) {
+      // previous coordinate has been set, therefore it has already been visited
+      // via a shorter path
       continue;
     }
 
-    visitedCoordinates[JSON.stringify(current.coordinate)] =
+    previousCoordinateMap[JSON.stringify(current.coordinate)] =
       current.previousCoordinate;
-    // if this value is the ending coordinate OR the distance from the start is Infinity, break the loop
     if (
-      (current.coordinate[0] === endingCoordinates[0] &&
-        current.coordinate[1] === endingCoordinates[1]) ||
+      JSON.stringify(current.coordinate) ===
+        JSON.stringify(endingCoordinates) ||
       current.distanceFromStart === Infinity
     ) {
       finalCoordinateData = current;
       break;
     }
 
-    // get the accessible coordinates that neighbor the current value
     const neigboringCoordinates = getNeighboringCoordinates(
       current.coordinate,
       grid
     );
-    // For each of the neighboring coordinates:
     neigboringCoordinates.forEach((coor) => {
-      // if the coordinate has been visited, do nothing
-      // if the coordinate has not been visited, add it to the heap with its current distance from start and previous coordinate
       if (!neigboringCoordinates[JSON.stringify(coor)]) {
         let newCoordinateData = {
           coordinate: coor,
@@ -160,12 +144,11 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
       }
     });
   }
-  // if the distance from the start is Infinity, return null
+
   if (finalCoordinateData.distanceFromStart === Infinity) return null;
-  // Otherwise, return an object with the path of start to finish in an array, (plus the distance? this is already established by length of arr - 1......)
   return getStartToFinishPath(
     finalCoordinateData.coordinate,
-    visitedCoordinates
+    previousCoordinateMap
   );
 };
 
