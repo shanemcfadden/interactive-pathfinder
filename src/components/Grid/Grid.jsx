@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Node from '../Node/Node';
 import './Grid.css';
 
@@ -8,11 +8,24 @@ const Grid = () => {
   const [visitedNodes, setVisitedNodes] = useState(nodes);
   const [startNode, setStartNode] = useState([5, 1]);
   const [endNode, setEndNode] = useState([17, 19]);
+  const clickFunctionRef = useRef({
+    setStartNode: {
+      currentFunction: setStartNode,
+      nextFunction: 'setEndNode',
+    },
+    setEndNode: {
+      currentFunction: setEndNode,
+      nextFunction: 'setStartNode',
+    },
+  });
+  const [clickFunction, setClickFunction] = useState('setStartNode');
 
-  const handleNodeClick = (i, j) => {
+  const createOnClickFunction = (i, j) => {
+    const clickFunctionSettings = clickFunctionRef.current[clickFunction];
     return (e) => {
       e.preventDefault();
-      setStartNode([i, j]);
+      clickFunctionSettings.currentFunction([i, j]);
+      setClickFunction(clickFunctionSettings.nextFunction);
     };
   };
 
@@ -33,7 +46,7 @@ const Grid = () => {
               currentState={currentState}
               row={i}
               column={j}
-              handleClick={handleNodeClick(i, j)}
+              handleClick={createOnClickFunction(i, j)}
               key={`${i}-${j}`}
             />
           );
