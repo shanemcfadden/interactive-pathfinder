@@ -9,6 +9,13 @@ const Grid = () => {
   const [startNode, setStartNode] = useState([5, 1]);
   const [endNode, setEndNode] = useState([17, 19]);
 
+  const handleNodeClick = (i, j) => {
+    return (e) => {
+      e.preventDefault();
+      setStartNode([i, j]);
+    };
+  };
+
   return (
     <div className="grid">
       {visitedNodes.map((row, i) => {
@@ -21,7 +28,15 @@ const Grid = () => {
           } else {
             currentState = val ? 'visited' : undefined;
           }
-          return <Node currentState={currentState} key={`${i}-${j}`} />;
+          return (
+            <Node
+              currentState={currentState}
+              row={i}
+              column={j}
+              handleClick={handleNodeClick(i, j)}
+              key={`${i}-${j}`}
+            />
+          );
         });
       })}
     </div>
