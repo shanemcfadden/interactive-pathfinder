@@ -184,12 +184,12 @@ function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
   return startToFinishPath;
 }
 
-const fakeGrid = [
-  [1, 1, 1, 1, 1, 1],
-  [0, 0, 0, 1, 0, 1],
-  [1, 1, 1, 1, 0, 1],
-  [1, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 1],
-];
+// const fakeGrid = [
+//   [1, 1, 1, 1, 1, 1],
+//   [0, 0, 0, 1, 0, 1],
+//   [1, 1, 1, 1, 0, 1],
+//   [1, 0, 0, 0, 0, 1],
+//   [1, 1, 1, 1, 1, 1],
+// ];
 
-console.log(dijkstra([0, 0], [4, 0], fakeGrid));
+// console.log(dijkstra([0, 0], [4, 0], fakeGrid));
