@@ -83,3 +83,27 @@ class MinHeap {
     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 }
+
+const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
+  // For now, the grid is going to be an array of arrays of 1's and 0's
+  // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
+  // The 0's are not accessible to any node
+  // starting and ending coordinates are an array pair of indices
+  // Setup:
+  // Initialize a heap with the proper comparison function
+  // This will allow us to traverse the grid from nearest point to farthest point
+  // Add EVERY point on grid to the heap, recording its distance from start as infinity and its previous coordinate as 0
+  // for the starting coordinate, add it to the heap with its distance from the start being 0
+  // Initialize an object recording the visited coordinates
+  // The keys will be stringified versions of the coordinate array
+  // loop through the heap
+  // pop off the minimum heap value
+  // if this value is the ending coordinate OR the distance from the start is Infinity, break the loop
+  // add this coordinate to the visited coordinates object
+  // Otherwise, get the accessible coordinates that neighbor the current value
+  // For each of the neighboring coordinates:
+  // if the coordinate has been visited, do nothing
+  // if the coordinate has been visited, add it to the heap with its current distance from start and previous coordinate
+  // if the distance from the start is Infinity, return null
+  // Otherwise, return an object with the path of start to finish in an array, (plus the distance? this is already established by length of arr - 1......)
+};
