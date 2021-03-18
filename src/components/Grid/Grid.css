@@ -3,5 +3,6 @@
   grid-gap: 2px;
   grid-template-columns: repeat(20, 30px);
   grid-template-rows: repeat(20, 30px);
-  font-weight: 700;
+  margin: auto;
+  width: 638px;
 }
