@@ -35,11 +35,7 @@ function App() {
     <div className="App">
       This is an interactive pathfinder
       <div className="content-container">
-        <Dashboard
-          currentClickFunction={currentClickFunction}
-          setCurrentClickFunction={setCurrentClickFunction}
-          clickFunctionRef={clickFunctionRef}
-        />
+        <Dashboard setCurrentClickFunction={setCurrentClickFunction} />
         <Grid
           startNode={startNode}
           endNode={endNode}
