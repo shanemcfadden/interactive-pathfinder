@@ -84,10 +84,17 @@ class MinHeap {
   }
 }
 
-const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
+const dijkstra = (
+  startingCoordinates,
+  endingCoordinates,
+  gridWithState,
+  addVisitedNode
+) => {
   // For now, the grid is going to be an array of arrays of 1's and 0's
   // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
   // The 0's are not accessible to any node
+  const grid = changeToOnesAndZeros(gridWithState);
+
   const coordinatesHeap = new MinHeap(
     (a, b) => a.distanceFromStart - b.distanceFromStart
   );
@@ -193,3 +200,17 @@ function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
 // ];
 
 // console.log(dijkstra([0, 0], [4, 0], fakeGrid));
+
+function changeToOnesAndZeros(gridWithState) {
+  return Array.from({ length: gridWithState.length }, () =>
+    Array.from({ length: gridWithState[0].length }, () => 1)
+  );
+}
+
+// const fakeStateGrid = [
+//   [null, null, true, 'bunk'],
+//   [null, null, true, 'bunk'],
+//   [null, null, true, 'bunk'],
+//   [null, null, true, 'bunk'],
+// ];
+// console.log(changeToOnesAndZeros(fakeStateGrid));
