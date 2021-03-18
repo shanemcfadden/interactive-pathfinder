@@ -7,6 +7,7 @@ const Dashboard = ({
   setCurrentClickFunction,
   visitedNodes,
   setVisitedNodes,
+  clearVisitedNodes,
 }) => {
   const addVisitedNode = (coordinate) => {
     const newVisitedNodes = [...visitedNodes];
@@ -14,9 +15,11 @@ const Dashboard = ({
     setVisitedNodes(newVisitedNodes);
   };
   const handleStartButtonClick = () => {
+    clearVisitedNodes();
     setCurrentClickFunction('setStartNode');
   };
   const handleEndButtonClick = () => {
+    clearVisitedNodes();
     setCurrentClickFunction('setEndNode');
   };
 
@@ -32,6 +35,7 @@ const Dashboard = ({
       <button
         type="button"
         onClick={() => {
+          setCurrentClickFunction('none');
           dijkstra(startNode, endNode, visitedNodes, addVisitedNode);
         }}
       >

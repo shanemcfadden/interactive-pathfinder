@@ -1,11 +1,12 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Dashboard from '../Dashboard/Dashboard';
 import Grid from '../Grid/Grid';
 import './App.css';
 
 function App() {
-  const nodes = Array.from({ length: 20 }, () => Array.from({ length: 20 }));
-  const [visitedNodes, setVisitedNodes] = useState(nodes);
+  const [visitedNodes, setVisitedNodes] = useState(
+    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
+  );
   const [startNode, setStartNode] = useState([4, 4]);
   const [endNode, setEndNode] = useState([7, 9]);
   const [currentClickFunction, setCurrentClickFunction] = useState(
@@ -25,6 +26,19 @@ function App() {
       nextFunction: 'none',
     },
   });
+
+  useEffect(() => {
+    clearVisitedNodes();
+  }, [startNode, endNode]);
+
+  const clearVisitedNodes = () => {
+    setVisitedNodes(
+      Array.from({ length: 20 }, () =>
+        Array.from({ length: 20 }, () => undefined)
+      )
+    );
+  };
+
   const createOnClickFunction = (functionName) => {
     const clickFunctionSettings =
       clickFunctionRef.current[currentClickFunction];
@@ -43,6 +57,7 @@ function App() {
           endNode={endNode}
           visitedNodes={visitedNodes}
           setVisitedNodes={setVisitedNodes}
+          clearVisitedNodes={clearVisitedNodes}
         />
         <Grid
           startNode={startNode}
