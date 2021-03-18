@@ -22,6 +22,10 @@ const Dashboard = ({
     clearVisitedNodes();
     setCurrentClickFunction('setEndNode');
   };
+  const handleFindPathClick = () => {
+    setCurrentClickFunction('none');
+    dijkstra(startNode, endNode, visitedNodes, addVisitedNode);
+  };
 
   return (
     <div>
@@ -32,13 +36,7 @@ const Dashboard = ({
       <button type="button" onClick={handleEndButtonClick}>
         Select End
       </button>
-      <button
-        type="button"
-        onClick={() => {
-          setCurrentClickFunction('none');
-          dijkstra(startNode, endNode, visitedNodes, addVisitedNode);
-        }}
-      >
+      <button type="button" onClick={handleFindPathClick}>
         Find Path!
       </button>
     </div>
