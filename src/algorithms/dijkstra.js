@@ -92,8 +92,27 @@ const dijkstra = (startingCoordinates, endingCoordinates, grid) => {
   // Setup:
   // Initialize a heap with the proper comparison function
   // This will allow us to traverse the grid from nearest point to farthest point
+  const coordinatesHeap = new MinHeap(
+    (a, b) => a.distanceFromStart < b.distanceFromStart
+  );
+
   // Add EVERY point on grid to the heap, recording its distance from start as infinity and its previous coordinate as 0
-  // for the starting coordinate, add it to the heap with its distance from the start being 0
+  grid.forEach((row, i) => {
+    row.forEach((val, j) => {
+      const coordinateData = {
+        coordinate: [i, j],
+        previousCoordinate: null,
+      };
+      if (i === startingCoordinates[0] && j === startingCoordinates[1]) {
+        // for the starting coordinate, add it to the heap with its distance from the start being 0
+        coordinateData.distanceFromStart = 0;
+      } else {
+        coordinateData.distanceFromStart = Infinity;
+      }
+      coordinatesHeap.push(coordinateData);
+    });
+  });
+
   // Initialize an object recording the visited coordinates
   // The keys will be stringified versions of the coordinate array
   // loop through the heap
