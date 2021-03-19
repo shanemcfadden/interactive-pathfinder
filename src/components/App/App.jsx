@@ -19,6 +19,14 @@ function App() {
   const [currentClickFunction, setCurrentClickFunction] = useState(
     'setStartNode'
   );
+  // Make state that toggles whether walls are being made
+  const [userIsAddingWalls, setUserIsAddingWalls] = useState(false);
+
+  // make its change toggle the current click function state
+  useEffect(() => {
+    setCurrentClickFunction('none');
+  }, [userIsAddingWalls]);
+
   const clickFunctionRef = useRef({
     setStartNode: {
       currentFunction: setStartNode,
@@ -70,6 +78,8 @@ function App() {
       setCurrentClickFunction(clickFunctionSettings.nextFunction);
     };
   };
+  // pass down that state to dashboard
+  // pass down that state to grid
   return (
     <div className="App">
       This is an interactive pathfinder
@@ -81,12 +91,17 @@ function App() {
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
           clearStateOfNodes={clearStateOfNodes}
+          userIsAddingWalls={userIsAddingWalls}
+          setUserIsAddingWalls={setUserIsAddingWalls}
+          // removeVisitedAndPathNodes={remo}
         />
         <Grid
           startNode={startNode}
           endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
+          setStateOfNodes={setStateOfNodes}
+          userIsAddingWalls={userIsAddingWalls}
         />
       </div>
     </div>
