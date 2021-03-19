@@ -51,7 +51,7 @@ export const dijkstra = (
       }
     }
   }, 10);
-  return;
+  return interval;
 };
 
 function addNeighboringCoordinatesToHeap(

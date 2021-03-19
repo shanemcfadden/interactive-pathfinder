@@ -10,6 +10,7 @@ const Dashboard = ({
   clearStateOfNodes,
 }) => {
   const [algorithmRunning, setAlgorithmRunning] = useState(false);
+  const [currentInterval, setCurrentInterval] = useState(null);
   const addVisitedNode = (coordinate) => {
     const newStateOfNodes = [...stateOfNodes];
     newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
@@ -31,18 +32,30 @@ const Dashboard = ({
   const handleFindPathClick = () => {
     setCurrentClickFunction('none');
     setAlgorithmRunning(true);
-    dijkstra(
+    const interval = dijkstra(
       startNode,
       endNode,
       stateOfNodes,
       addVisitedNode,
       addPathNode,
-      enableButtons
+      cleanUpDijkstra
     );
+    setCurrentInterval(interval);
   };
 
   const enableButtons = () => {
     setAlgorithmRunning(false);
+  };
+
+  const handleCancelFindPath = () => {
+    clearInterval(currentInterval);
+    clearStateOfNodes();
+    cleanUpDijkstra();
+  };
+
+  const cleanUpDijkstra = () => {
+    enableButtons();
+    setCurrentInterval(null);
   };
 
   return (
@@ -62,13 +75,19 @@ const Dashboard = ({
       >
         Select End
       </button>
-      <button
-        type="button"
-        onClick={handleFindPathClick}
-        disabled={algorithmRunning}
-      >
-        Find Path!
-      </button>
+      {currentInterval ? (
+        <button type="button" onClick={handleCancelFindPath}>
+          Cancel
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={handleFindPathClick}
+          disabled={algorithmRunning}
+        >
+          Find Path!
+        </button>
+      )}
     </div>
   );
 };
