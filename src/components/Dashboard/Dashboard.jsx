@@ -7,7 +7,6 @@ const Dashboard = ({
   setCurrentClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  clearStateOfNodes,
   drawingWallsAllowed,
   setDrawingWallsAllowed,
 }) => {
@@ -47,6 +46,20 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
+  const removeVisitedAndPathNodes = () => {
+    const newNodes = [...stateOfNodes];
+    setStateOfNodes(
+      newNodes.map((row, i) => {
+        return row.map((val, j) => {
+          if (val === 'wall') {
+            return val;
+          }
+          return undefined;
+        });
+      })
+    );
+  };
+
   const handleClearWalls = () => {
     const newNodes = [...stateOfNodes];
     setStateOfNodes(
@@ -73,7 +86,7 @@ const Dashboard = ({
   };
 
   const handleFindPathReset = () => {
-    clearStateOfNodes();
+    removeVisitedAndPathNodes();
     setFindPathButton('findPath');
   };
 

@@ -22,7 +22,9 @@ function App() {
   const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
 
   useEffect(() => {
-    setCurrentClickFunction('none');
+    if (drawingWallsAllowed) {
+      setCurrentClickFunction('none');
+    }
   }, [drawingWallsAllowed]);
 
   const clickFunctionRef = useRef({
@@ -39,34 +41,6 @@ function App() {
       nextFunction: 'none',
     },
   });
-
-  const clearStateOfNodes = () => {
-    setStateOfNodes(
-      Array.from({ length: 20 }, () =>
-        Array.from({ length: 20 }, () => undefined)
-      )
-    );
-  };
-
-  const removeVisitedAndPathNodes = () => {
-    const newNodes = [...stateOfNodes];
-
-    setStateOfNodes(
-      newNodes.map((row, i) => {
-        return row.map((val, j) => {
-          if (val === 'wall') {
-            return val;
-          }
-          return undefined;
-        });
-      })
-    );
-  };
-
-  useEffect(() => {
-    // clearStateOfNodes();
-    removeVisitedAndPathNodes();
-  }, [startNode, endNode]);
 
   const createOnClickFunction = (functionName) => {
     const clickFunctionSettings =
@@ -86,10 +60,8 @@ function App() {
           endNode={endNode}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          clearStateOfNodes={clearStateOfNodes}
           drawingWallsAllowed={drawingWallsAllowed}
           setDrawingWallsAllowed={setDrawingWallsAllowed}
-          // removeVisitedAndPathNodes={remo}
         />
         <Grid
           startNode={startNode}
