@@ -5,10 +5,17 @@ import './App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
+    Array.from({ length: 20 }, (val, i) =>
+      Array.from({ length: 20 }, (val2, j) => {
+        if (i < 16 && j === 10) {
+          return 'wall';
+        }
+        return undefined;
+      })
+    )
   );
   const [startNode, setStartNode] = useState([4, 4]);
-  const [endNode, setEndNode] = useState([7, 9]);
+  const [endNode, setEndNode] = useState([7, 16]);
   const [currentClickFunction, setCurrentClickFunction] = useState(
     'setStartNode'
   );
@@ -27,10 +34,6 @@ function App() {
     },
   });
 
-  useEffect(() => {
-    clearStateOfNodes();
-  }, [startNode, endNode]);
-
   const clearStateOfNodes = () => {
     setStateOfNodes(
       Array.from({ length: 20 }, () =>
@@ -38,6 +41,26 @@ function App() {
       )
     );
   };
+
+  const removeVisitedAndPathNodes = () => {
+    const newNodes = [...stateOfNodes];
+
+    setStateOfNodes(
+      newNodes.map((row, i) => {
+        return row.map((val, j) => {
+          if (val === 'wall') {
+            return val;
+          }
+          return undefined;
+        });
+      })
+    );
+  };
+
+  useEffect(() => {
+    // clearStateOfNodes();
+    removeVisitedAndPathNodes();
+  }, [startNode, endNode]);
 
   const createOnClickFunction = (functionName) => {
     const clickFunctionSettings =
