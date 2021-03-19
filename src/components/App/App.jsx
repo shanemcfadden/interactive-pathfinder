@@ -9,9 +9,7 @@ function App() {
   );
   const [startNode, setStartNode] = useState([4, 4]);
   const [endNode, setEndNode] = useState([7, 16]);
-  const [currentClickFunction, setCurrentClickFunction] = useState(
-    'setStartNode'
-  );
+  const [currentClickFunction, setCurrentClickFunction] = useState('none');
   const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function App() {
   const clickFunctionRef = useRef({
     setStartNode: {
       currentFunction: setStartNode,
-      nextFunction: 'setEndNode',
+      nextFunction: 'none',
     },
     setEndNode: {
       currentFunction: setEndNode,
