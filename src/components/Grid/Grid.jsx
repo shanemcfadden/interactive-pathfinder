@@ -13,12 +13,7 @@ const Grid = ({
   const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
   const addWall = (i, j) => {
     const newStateOfNodes = [...stateOfNodes];
-    if (
-      (startNode[0] !== i && startNode[1] !== j) ||
-      (endNode[0] !== i && endNode[1] !== j)
-    ) {
-      newStateOfNodes[i][j] = 'wall';
-    }
+    newStateOfNodes[i][j] = 'wall';
     setStateOfNodes(newStateOfNodes);
   };
 
