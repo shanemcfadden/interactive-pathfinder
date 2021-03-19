@@ -14,6 +14,11 @@ const Dashboard = ({
     newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
     setStateOfNodes(newStateOfNodes);
   };
+  const addPathNode = (coordinate) => {
+    const newStateOfNodes = [...stateOfNodes];
+    newStateOfNodes[coordinate[0]][coordinate[1]] = 'path';
+    setStateOfNodes(newStateOfNodes);
+  };
   const handleStartButtonClick = () => {
     clearStateOfNodes();
     setCurrentClickFunction('setStartNode');
@@ -24,7 +29,7 @@ const Dashboard = ({
   };
   const handleFindPathClick = () => {
     setCurrentClickFunction('none');
-    dijkstra(startNode, endNode, stateOfNodes, addVisitedNode);
+    dijkstra(startNode, endNode, stateOfNodes, addVisitedNode, addPathNode);
   };
 
   return (

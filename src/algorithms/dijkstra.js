@@ -88,7 +88,8 @@ export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
   gridWithState,
-  addVisitedNode
+  addVisitedNode,
+  addPathNode
 ) => {
   // For now, the grid is going to be an array of arrays of 1's and 0's
   // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
@@ -154,10 +155,15 @@ export const dijkstra = (
   }
 
   if (finalCoordinateData.distanceFromStart === Infinity) return null;
-  return getStartToFinishPath(
+  const path = getStartToFinishPath(
     finalCoordinateData.coordinate,
     previousCoordinateMap
   );
+
+  path.forEach((coor) => {
+    addPathNode(coor);
+  });
+  return;
 };
 
 function getNeighboringCoordinates(currentCoordinate, grid) {
