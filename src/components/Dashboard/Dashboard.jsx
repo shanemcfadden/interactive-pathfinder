@@ -25,10 +25,12 @@ const Dashboard = ({
   };
   const handleStartButtonClick = () => {
     handleFindPathReset();
+    setDrawingWallsAllowed(false);
     setCurrentClickFunction('setStartNode');
   };
   const handleEndButtonClick = () => {
     handleFindPathReset();
+    setDrawingWallsAllowed(false);
     setCurrentClickFunction('setEndNode');
   };
   const handleFindPathClick = () => {
@@ -107,7 +109,7 @@ const Dashboard = ({
         }}
         disabled={findPathButton === 'cancel'}
       >
-        {drawingWallsAllowed ? 'Remove' : 'Add'} Walls
+        {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
       </button>
       {renderFindPathButton()}
     </div>
