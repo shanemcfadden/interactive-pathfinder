@@ -19,10 +19,8 @@ function App() {
   const [currentClickFunction, setCurrentClickFunction] = useState(
     'setStartNode'
   );
-  // Make state that toggles whether walls are being made
   const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
 
-  // make its change toggle the current click function state
   useEffect(() => {
     setCurrentClickFunction('none');
   }, [drawingWallsAllowed]);
@@ -78,8 +76,6 @@ function App() {
       setCurrentClickFunction(clickFunctionSettings.nextFunction);
     };
   };
-  // pass down that state to dashboard
-  // pass down that state to grid
   return (
     <div className="App">
       This is an interactive pathfinder

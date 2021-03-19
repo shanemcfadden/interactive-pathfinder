@@ -11,10 +11,6 @@ const Dashboard = ({
   drawingWallsAllowed,
   setDrawingWallsAllowed,
 }) => {
-  // receive state of walls
-  // make a button to toggle it
-  // turn state off when dijkstra runs
-  // disable button when dijkstra runs
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
   const addVisitedNode = (coordinate) => {

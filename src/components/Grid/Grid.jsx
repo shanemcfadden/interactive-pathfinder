@@ -10,10 +10,6 @@ const Grid = ({
   setStateOfNodes,
   drawingWallsAllowed,
 }) => {
-  // receive state of walls
-  // receive setStateOfNodes
-  // make an add wall function
-  // add it for onMouseDown when state of walls is true
   const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
   const addWall = (i, j) => {
     const newStateOfNodes = [...stateOfNodes];
