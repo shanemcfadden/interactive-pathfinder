@@ -79,9 +79,11 @@ function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
 }
 
 function convertGridWithStateToOnesAndZeros(gridWithState) {
-  return Array.from({ length: gridWithState.length }, () =>
-    Array.from({ length: gridWithState[0].length }, () => 1)
-  );
+  return gridWithState.map((row) => {
+    return row.map((val) => {
+      return val === 'wall' ? 0 : 1;
+    });
+  });
 }
 
 function coordinatesAreEqual(coor1, coor2) {
