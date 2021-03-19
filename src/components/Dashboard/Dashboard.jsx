@@ -42,11 +42,6 @@ const Dashboard = ({
     );
     setCurrentInterval(interval);
   };
-
-  const enableButtons = () => {
-    setAlgorithmRunning(false);
-  };
-
   const handleCancelFindPath = () => {
     clearInterval(currentInterval);
     clearStateOfNodes();
@@ -54,7 +49,7 @@ const Dashboard = ({
   };
 
   const cleanUpDijkstra = () => {
-    enableButtons();
+    setAlgorithmRunning(false);
     setCurrentInterval(null);
   };
 
@@ -75,16 +70,12 @@ const Dashboard = ({
       >
         Select End
       </button>
-      {currentInterval ? (
+      {algorithmRunning ? (
         <button type="button" onClick={handleCancelFindPath}>
           Cancel
         </button>
       ) : (
-        <button
-          type="button"
-          onClick={handleFindPathClick}
-          disabled={algorithmRunning}
-        >
+        <button type="button" onClick={handleFindPathClick}>
           Find Path!
         </button>
       )}
