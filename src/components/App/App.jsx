@@ -8,43 +8,26 @@ function App() {
     Array.from({ length: 20 }, () => Array.from({ length: 20 }))
   );
   const [startNode, setStartNode] = useState([4, 4]);
-  const [endNode, setEndNode] = useState([7, 9]);
-  const [currentClickFunction, setCurrentClickFunction] = useState(
-    'setStartNode'
-  );
-  const clickFunctionRef = useRef({
-    setStartNode: {
-      currentFunction: setStartNode,
-      nextFunction: 'setEndNode',
-    },
-    setEndNode: {
-      currentFunction: setEndNode,
-      nextFunction: 'none',
-    },
-    none: {
-      currentFunction: () => {},
-      nextFunction: 'none',
-    },
-  });
+  const [endNode, setEndNode] = useState([7, 16]);
+  const [currentClickFunction, setCurrentClickFunction] = useState('none');
+  const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
 
   useEffect(() => {
-    clearStateOfNodes();
-  }, [startNode, endNode]);
+    if (drawingWallsAllowed) {
+      setCurrentClickFunction('none');
+    }
+  }, [drawingWallsAllowed]);
 
-  const clearStateOfNodes = () => {
-    setStateOfNodes(
-      Array.from({ length: 20 }, () =>
-        Array.from({ length: 20 }, () => undefined)
-      )
-    );
-  };
+  const clickFunctionRef = useRef({
+    setStartNode,
+    setEndNode,
+    none: () => {},
+  });
 
-  const createOnClickFunction = (functionName) => {
-    const clickFunctionSettings =
-      clickFunctionRef.current[currentClickFunction];
+  const createOnClickFunction = () => {
     return (i, j) => {
-      clickFunctionSettings.currentFunction([i, j]);
-      setCurrentClickFunction(clickFunctionSettings.nextFunction);
+      clickFunctionRef.current[currentClickFunction]([i, j]);
+      setCurrentClickFunction('none');
     };
   };
   return (
@@ -57,13 +40,16 @@ function App() {
           endNode={endNode}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          clearStateOfNodes={clearStateOfNodes}
+          drawingWallsAllowed={drawingWallsAllowed}
+          setDrawingWallsAllowed={setDrawingWallsAllowed}
         />
         <Grid
           startNode={startNode}
           endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
+          setStateOfNodes={setStateOfNodes}
+          drawingWallsAllowed={drawingWallsAllowed}
         />
       </div>
     </div>
