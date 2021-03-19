@@ -30,8 +30,8 @@ export const dijkstra = (
         if (current.distanceFromStart === Infinity) {
           clearInterval(interval);
         } else if (coordinatesAreEqual(current.coordinate, endingCoordinates)) {
-          finalCoordinateData = current;
           pathFound = true;
+          finalCoordinateData = current;
           path = getStartToFinishPath(
             finalCoordinateData.coordinate,
             previousCoordinateMap
