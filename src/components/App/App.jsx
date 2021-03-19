@@ -5,14 +5,7 @@ import './App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, (val, i) =>
-      Array.from({ length: 20 }, (val2, j) => {
-        if (i < 16 && j === 10) {
-          return 'wall';
-        }
-        return undefined;
-      })
-    )
+    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
   );
   const [startNode, setStartNode] = useState([4, 4]);
   const [endNode, setEndNode] = useState([7, 16]);
