@@ -47,6 +47,20 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
+  const handleClearWalls = () => {
+    const newNodes = [...stateOfNodes];
+    setStateOfNodes(
+      newNodes.map((row) => {
+        return row.map((state) => {
+          if (state !== 'wall') {
+            return state;
+          }
+          return undefined;
+        });
+      })
+    );
+  };
+
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
     setFindPathButton('reset');
@@ -110,6 +124,13 @@ const Dashboard = ({
         disabled={findPathButton === 'cancel'}
       >
         {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
+      </button>
+      <button
+        type="button"
+        onClick={handleClearWalls}
+        disabled={findPathButton === 'cancel'}
+      >
+        Clear Walls
       </button>
       {renderFindPathButton()}
     </div>
