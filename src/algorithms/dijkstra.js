@@ -117,52 +117,57 @@ export const dijkstra = (
 
   const previousCoordinateMap = {};
   let finalCoordinateData;
+  let path;
+  let pathFound = false;
+  let displayedPathNodes = 0;
 
-  while (true) {
-    let current = coordinatesHeap.pop();
-    if (previousCoordinateMap[JSON.stringify(current.coordinate)]) {
-      // previous coordinate has been set, therefore it has already been visited
-      // via a shorter path
-      continue;
-    }
-
-    previousCoordinateMap[JSON.stringify(current.coordinate)] =
-      current.previousCoordinate;
-    addVisitedNode(current.coordinate);
-    if (
-      JSON.stringify(current.coordinate) ===
-        JSON.stringify(endingCoordinates) ||
-      current.distanceFromStart === Infinity
-    ) {
-      finalCoordinateData = current;
-      break;
-    }
-
-    const neigboringCoordinates = getNeighboringCoordinates(
-      current.coordinate,
-      grid
-    );
-    neigboringCoordinates.forEach((coor) => {
-      if (!neigboringCoordinates[JSON.stringify(coor)]) {
-        let newCoordinateData = {
-          coordinate: coor,
-          distanceFromStart: current.distanceFromStart + 1,
-          previousCoordinate: current.coordinate,
-        };
-        coordinatesHeap.push(newCoordinateData);
+  const interval = setInterval(() => {
+    if (!pathFound) {
+      let current = coordinatesHeap.pop();
+      if (!previousCoordinateMap[JSON.stringify(current.coordinate)]) {
+        previousCoordinateMap[JSON.stringify(current.coordinate)] =
+          current.previousCoordinate;
+        addVisitedNode(current.coordinate);
+        if (
+          JSON.stringify(current.coordinate) ===
+            JSON.stringify(endingCoordinates) ||
+          current.distanceFromStart === Infinity
+        ) {
+          if (current.distanceFromStart === Infinity) {
+            clearInterval(interval);
+          } else {
+            finalCoordinateData = current;
+            pathFound = true;
+            path = getStartToFinishPath(
+              finalCoordinateData.coordinate,
+              previousCoordinateMap
+            );
+          }
+        } else {
+          const neigboringCoordinates = getNeighboringCoordinates(
+            current.coordinate,
+            grid
+          );
+          neigboringCoordinates.forEach((coor) => {
+            if (!neigboringCoordinates[JSON.stringify(coor)]) {
+              let newCoordinateData = {
+                coordinate: coor,
+                distanceFromStart: current.distanceFromStart + 1,
+                previousCoordinate: current.coordinate,
+              };
+              coordinatesHeap.push(newCoordinateData);
+            }
+          });
+        }
       }
-    });
-  }
-
-  if (finalCoordinateData.distanceFromStart === Infinity) return null;
-  const path = getStartToFinishPath(
-    finalCoordinateData.coordinate,
-    previousCoordinateMap
-  );
-
-  path.forEach((coor) => {
-    addPathNode(coor);
-  });
+    } else {
+      if (displayedPathNodes < path.length) {
+        addPathNode(path[displayedPathNodes++]);
+      } else {
+        clearInterval(interval);
+      }
+    }
+  }, 10);
   return;
 };
 
