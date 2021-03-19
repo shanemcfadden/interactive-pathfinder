@@ -105,14 +105,14 @@ const Dashboard = ({
       <button
         type="button"
         onClick={handleStartButtonClick}
-        disabled={findPathButton === 'cancel'}
+        disabled={findPathButton !== 'findPath'}
       >
         Select Start
       </button>
       <button
         type="button"
         onClick={handleEndButtonClick}
-        disabled={findPathButton === 'cancel'}
+        disabled={findPathButton !== 'findPath'}
       >
         Select End
       </button>
@@ -121,14 +121,14 @@ const Dashboard = ({
         onClick={() => {
           setDrawingWallsAllowed(!drawingWallsAllowed);
         }}
-        disabled={findPathButton === 'cancel'}
+        disabled={findPathButton !== 'findPath'}
       >
         {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
       </button>
       <button
         type="button"
         onClick={handleClearWalls}
-        disabled={findPathButton === 'cancel'}
+        disabled={findPathButton !== 'findPath'}
       >
         Clear Walls
       </button>
