@@ -27,7 +27,6 @@ export const dijkstra = (
         !coordinateHasBeenVisited(current.coordinate, previousCoordinateMap)
       ) {
         addToVisitedCoordinates(current, previousCoordinateMap);
-        addVisitedNode(current.coordinate);
         if (current.distanceFromStart === Infinity) {
           clearInterval(interval);
           done();
@@ -39,6 +38,7 @@ export const dijkstra = (
             previousCoordinateMap
           );
         } else {
+          addVisitedNode(current.coordinate);
           addNeighboringCoordinatesToHeap(current, grid, coordinatesHeap);
         }
       }
