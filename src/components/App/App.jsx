@@ -19,26 +19,15 @@ function App() {
   }, [drawingWallsAllowed]);
 
   const clickFunctionRef = useRef({
-    setStartNode: {
-      currentFunction: setStartNode,
-      nextFunction: 'none',
-    },
-    setEndNode: {
-      currentFunction: setEndNode,
-      nextFunction: 'none',
-    },
-    none: {
-      currentFunction: () => {},
-      nextFunction: 'none',
-    },
+    setStartNode,
+    setEndNode,
+    none: () => {},
   });
 
-  const createOnClickFunction = (functionName) => {
-    const clickFunctionSettings =
-      clickFunctionRef.current[currentClickFunction];
+  const createOnClickFunction = () => {
     return (i, j) => {
-      clickFunctionSettings.currentFunction([i, j]);
-      setCurrentClickFunction(clickFunctionSettings.nextFunction);
+      clickFunctionRef.current[currentClickFunction]([i, j]);
+      setCurrentClickFunction('none');
     };
   };
   return (
