@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { dijkstra } from '../../algorithms/dijkstra';
 
 const Dashboard = ({
@@ -11,6 +11,12 @@ const Dashboard = ({
 }) => {
   const [algorithmRunning, setAlgorithmRunning] = useState(false);
   const [currentInterval, setCurrentInterval] = useState(null);
+  const [findPathButton, setFindPathButton] = useState('findPath');
+  useEffect(() => {
+    if (algorithmRunning) {
+      setFindPathButton('cancel');
+    }
+  }, [algorithmRunning]);
   const addVisitedNode = (coordinate) => {
     const newStateOfNodes = [...stateOfNodes];
     newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
@@ -22,11 +28,13 @@ const Dashboard = ({
     setStateOfNodes(newStateOfNodes);
   };
   const handleStartButtonClick = () => {
-    clearStateOfNodes();
+    // clearStateOfNodes();
+    handleFindPathReset();
     setCurrentClickFunction('setStartNode');
   };
   const handleEndButtonClick = () => {
-    clearStateOfNodes();
+    // clearStateOfNodes();
+    handleFindPathReset();
     setCurrentClickFunction('setEndNode');
   };
   const handleFindPathClick = () => {
@@ -38,19 +46,52 @@ const Dashboard = ({
       stateOfNodes,
       addVisitedNode,
       addPathNode,
-      cleanUpDijkstra
+      afterDijkstraSuccess
     );
     setCurrentInterval(interval);
   };
   const handleCancelFindPath = () => {
     clearInterval(currentInterval);
     clearStateOfNodes();
+    setFindPathButton('findPath');
     cleanUpDijkstra();
+  };
+
+  const handleFindPathReset = () => {
+    clearStateOfNodes();
+    setFindPathButton('findPath');
+  };
+
+  const afterDijkstraSuccess = () => {
+    cleanUpDijkstra();
+    setFindPathButton('reset');
   };
 
   const cleanUpDijkstra = () => {
     setAlgorithmRunning(false);
     setCurrentInterval(null);
+  };
+
+  const renderFindPathButton = () => {
+    if (findPathButton === 'findPath') {
+      return (
+        <button type="button" onClick={handleFindPathClick}>
+          Find Path!
+        </button>
+      );
+    } else if (findPathButton === 'reset') {
+      return (
+        <button type="button" onClick={handleFindPathReset}>
+          Reset
+        </button>
+      );
+    } else {
+      return (
+        <button type="button" onClick={handleCancelFindPath}>
+          Cancel
+        </button>
+      );
+    }
   };
 
   return (
@@ -70,17 +111,18 @@ const Dashboard = ({
       >
         Select End
       </button>
-      {algorithmRunning ? (
-        <button type="button" onClick={handleCancelFindPath}>
-          Cancel
-        </button>
-      ) : (
-        <button type="button" onClick={handleFindPathClick}>
-          Find Path!
-        </button>
-      )}
+      {renderFindPathButton()}
     </div>
   );
 };
 
+// algorithmRunning ? (
+//   <button type="button" onClick={handleCancelFindPath}>
+//     Cancel
+//   </button>
+// ) : (
+//   <button type="button" onClick={handleFindPathClick}>
+//     Find Path!
+//   </button>
+// )}
 export default Dashboard;
