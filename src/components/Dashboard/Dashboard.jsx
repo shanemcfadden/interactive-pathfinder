@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { dijkstra } from '../../algorithms/dijkstra';
 
 const Dashboard = ({
@@ -9,6 +9,7 @@ const Dashboard = ({
   setStateOfNodes,
   clearStateOfNodes,
 }) => {
+  const [algorithmRunning, setAlgorithmRunning] = useState(false);
   const addVisitedNode = (coordinate) => {
     const newStateOfNodes = [...stateOfNodes];
     newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
@@ -29,19 +30,43 @@ const Dashboard = ({
   };
   const handleFindPathClick = () => {
     setCurrentClickFunction('none');
-    dijkstra(startNode, endNode, stateOfNodes, addVisitedNode, addPathNode);
+    setAlgorithmRunning(true);
+    dijkstra(
+      startNode,
+      endNode,
+      stateOfNodes,
+      addVisitedNode,
+      addPathNode,
+      enableButtons
+    );
+  };
+
+  const enableButtons = () => {
+    setAlgorithmRunning(false);
   };
 
   return (
     <div>
       <h1>This is the dashboard</h1>
-      <button type="button" onClick={handleStartButtonClick}>
+      <button
+        type="button"
+        onClick={handleStartButtonClick}
+        disabled={algorithmRunning}
+      >
         Select Start
       </button>
-      <button type="button" onClick={handleEndButtonClick}>
+      <button
+        type="button"
+        onClick={handleEndButtonClick}
+        disabled={algorithmRunning}
+      >
         Select End
       </button>
-      <button type="button" onClick={handleFindPathClick}>
+      <button
+        type="button"
+        onClick={handleFindPathClick}
+        disabled={algorithmRunning}
+      >
         Find Path!
       </button>
     </div>

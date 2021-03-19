@@ -5,7 +5,8 @@ export const dijkstra = (
   endingCoordinates,
   gridWithState,
   addVisitedNode,
-  addPathNode
+  addPathNode,
+  done
 ) => {
   // For now, the grid is going to be an array of arrays of 1's and 0's
   // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
@@ -29,6 +30,7 @@ export const dijkstra = (
         addVisitedNode(current.coordinate);
         if (current.distanceFromStart === Infinity) {
           clearInterval(interval);
+          done();
         } else if (coordinatesAreEqual(current.coordinate, endingCoordinates)) {
           pathFound = true;
           finalCoordinateData = current;
@@ -45,6 +47,7 @@ export const dijkstra = (
         addPathNode(path[displayedPathNodes++]);
       } else {
         clearInterval(interval);
+        done();
       }
     }
   }, 10);
