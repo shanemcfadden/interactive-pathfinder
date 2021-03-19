@@ -4,7 +4,7 @@ import Grid from '../Grid/Grid';
 import './App.css';
 
 function App() {
-  const [visitedNodes, setVisitedNodes] = useState(
+  const [stateOfNodes, setStateOfNodes] = useState(
     Array.from({ length: 20 }, () => Array.from({ length: 20 }))
   );
   const [startNode, setStartNode] = useState([4, 4]);
@@ -28,11 +28,11 @@ function App() {
   });
 
   useEffect(() => {
-    clearVisitedNodes();
+    clearStateOfNodes();
   }, [startNode, endNode]);
 
-  const clearVisitedNodes = () => {
-    setVisitedNodes(
+  const clearStateOfNodes = () => {
+    setStateOfNodes(
       Array.from({ length: 20 }, () =>
         Array.from({ length: 20 }, () => undefined)
       )
@@ -55,15 +55,15 @@ function App() {
           setCurrentClickFunction={setCurrentClickFunction}
           startNode={startNode}
           endNode={endNode}
-          visitedNodes={visitedNodes}
-          setVisitedNodes={setVisitedNodes}
-          clearVisitedNodes={clearVisitedNodes}
+          stateOfNodes={stateOfNodes}
+          setStateOfNodes={setStateOfNodes}
+          clearStateOfNodes={clearStateOfNodes}
         />
         <Grid
           startNode={startNode}
           endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
-          visitedNodes={visitedNodes}
+          stateOfNodes={stateOfNodes}
         />
       </div>
     </div>

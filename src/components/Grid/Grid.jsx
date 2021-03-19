@@ -2,10 +2,10 @@ import React from 'react';
 import Node from '../Node/Node';
 import './Grid.css';
 
-const Grid = ({ startNode, endNode, onClickFunction, visitedNodes }) => {
+const Grid = ({ startNode, endNode, onClickFunction, stateOfNodes }) => {
   return (
     <div className="grid">
-      {visitedNodes.map((row, i) => {
+      {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
           let currentState;
           if (i === startNode[0] && j === startNode[1]) {
