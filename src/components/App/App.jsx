@@ -20,12 +20,12 @@ function App() {
     'setStartNode'
   );
   // Make state that toggles whether walls are being made
-  const [userIsAddingWalls, setUserIsAddingWalls] = useState(false);
+  const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
 
   // make its change toggle the current click function state
   useEffect(() => {
     setCurrentClickFunction('none');
-  }, [userIsAddingWalls]);
+  }, [drawingWallsAllowed]);
 
   const clickFunctionRef = useRef({
     setStartNode: {
@@ -91,8 +91,8 @@ function App() {
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
           clearStateOfNodes={clearStateOfNodes}
-          userIsAddingWalls={userIsAddingWalls}
-          setUserIsAddingWalls={setUserIsAddingWalls}
+          drawingWallsAllowed={drawingWallsAllowed}
+          setDrawingWallsAllowed={setDrawingWallsAllowed}
           // removeVisitedAndPathNodes={remo}
         />
         <Grid
@@ -101,7 +101,7 @@ function App() {
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          userIsAddingWalls={userIsAddingWalls}
+          drawingWallsAllowed={drawingWallsAllowed}
         />
       </div>
     </div>

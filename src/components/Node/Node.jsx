@@ -7,14 +7,20 @@ const Node = ({
   handleOnMouseDown,
   handleOnMouseEnter,
   handleOnMouseUp,
+  drawingWallsAllowed,
+  currentlyDrawingWalls,
 }) => {
   return (
     <div
       className={`node${currentState ? ` node--${currentState}` : ''}`}
       onClick={handleClick}
-      onMouseDown={handleOnMouseDown}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseUp={handleOnMouseUp}
+      onMouseDown={drawingWallsAllowed ? handleOnMouseDown : undefined}
+      onMouseEnter={
+        drawingWallsAllowed && currentlyDrawingWalls
+          ? handleOnMouseEnter
+          : undefined
+      }
+      onMouseUp={drawingWallsAllowed ? handleOnMouseUp : undefined}
     ></div>
   );
 };

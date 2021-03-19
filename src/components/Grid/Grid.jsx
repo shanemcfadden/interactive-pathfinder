@@ -8,15 +8,13 @@ const Grid = ({
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  userIsAddingWalls,
+  drawingWallsAllowed,
 }) => {
   // receive state of walls
   // receive setStateOfNodes
   // make an add wall function
   // add it for onMouseDown when state of walls is true
-  const [userIsMakingWallsRIGHTNOW, setUserIsMakingWallsRIGHTNOW] = useState(
-    false
-  );
+  const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
   const addWall = (i, j) => {
     const newStateOfNodes = [...stateOfNodes];
     if (
@@ -28,36 +26,30 @@ const Grid = ({
     setStateOfNodes(newStateOfNodes);
   };
 
-  const createHandleOnMouseDown = (userIsAddingWalls) => {
-    if (userIsAddingWalls) {
-      return (e) => {
-        e.preventDefault();
-        setUserIsMakingWallsRIGHTNOW(true);
-      };
-    }
-    return () => {};
-  };
-  const createHandleOnMouseEnter = (i, j, userIsMakingWallsRIGHTNOW) => {
-    if (userIsAddingWalls && userIsMakingWallsRIGHTNOW) {
-      return (e) => {
-        e.preventDefault();
-        addWall(i, j);
-      };
-    }
-    return () => {};
-  };
-  const createHandleOnMouseUp = () => {
+  const createHandleOnMouseDown = (i, j) => {
     return (e) => {
       e.preventDefault();
-      setUserIsMakingWallsRIGHTNOW(false);
+      setCurrentlyDrawingWalls(true);
+      addWall(i, j);
     };
+  };
+  const createHandleOnMouseEnter = (i, j) => {
+    return (e) => {
+      e.preventDefault();
+      addWall(i, j);
+    };
+  };
+
+  const handleOnMouseUp = (e) => {
+    e.preventDefault();
+    setCurrentlyDrawingWalls(false);
   };
 
   return (
     <div
       className="grid"
       onMouseLeave={() => {
-        setUserIsMakingWallsRIGHTNOW(false);
+        setCurrentlyDrawingWalls(false);
       }}
     >
       {stateOfNodes.map((row, i) => {
@@ -76,18 +68,11 @@ const Grid = ({
               handleClick={() => {
                 onClickFunction(i, j);
               }}
-              handleOnMouseDown={createHandleOnMouseDown(
-                i,
-                j,
-                userIsAddingWalls,
-                userIsMakingWallsRIGHTNOW
-              )}
-              handleOnMouseEnter={createHandleOnMouseEnter(
-                i,
-                j,
-                userIsMakingWallsRIGHTNOW
-              )}
-              handleOnMouseUp={createHandleOnMouseUp()}
+              handleOnMouseDown={createHandleOnMouseDown(i, j)}
+              handleOnMouseEnter={createHandleOnMouseEnter(i, j)}
+              handleOnMouseUp={handleOnMouseUp}
+              drawingWallsAllowed={drawingWallsAllowed}
+              currentlyDrawingWalls={currentlyDrawingWalls}
               key={`${i}-${j}`}
             />
           );

@@ -8,8 +8,8 @@ const Dashboard = ({
   stateOfNodes,
   setStateOfNodes,
   clearStateOfNodes,
-  userIsAddingWalls,
-  setUserIsAddingWalls,
+  drawingWallsAllowed,
+  setDrawingWallsAllowed,
 }) => {
   // receive state of walls
   // make a button to toggle it
@@ -107,11 +107,11 @@ const Dashboard = ({
       <button
         type="button"
         onClick={() => {
-          setUserIsAddingWalls(!userIsAddingWalls);
+          setDrawingWallsAllowed(!drawingWallsAllowed);
         }}
         disabled={findPathButton === 'cancel'}
       >
-        {userIsAddingWalls ? 'Remove' : 'Add'} Walls
+        {drawingWallsAllowed ? 'Remove' : 'Add'} Walls
       </button>
       {renderFindPathButton()}
     </div>
