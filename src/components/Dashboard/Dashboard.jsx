@@ -11,7 +11,7 @@ const Dashboard = ({
 }) => {
   const addVisitedNode = (coordinate) => {
     const newVisitedNodes = [...visitedNodes];
-    newVisitedNodes[coordinate[0]][coordinate[1]] = true;
+    newVisitedNodes[coordinate[0]][coordinate[1]] = 'visited';
     setVisitedNodes(newVisitedNodes);
   };
   const handleStartButtonClick = () => {

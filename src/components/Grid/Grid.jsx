@@ -13,7 +13,7 @@ const Grid = ({ startNode, endNode, onClickFunction, visitedNodes }) => {
           } else if (i === endNode[0] && j === endNode[1]) {
             currentState = 'end';
           } else {
-            currentState = val ? 'visited' : undefined;
+            currentState = val;
           }
           return (
             <Node
