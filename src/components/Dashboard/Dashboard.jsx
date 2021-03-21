@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from '../../algorithms/dijkstra';
+import './Dashboard.css';
 
 const Dashboard = ({
   startNode,
@@ -113,8 +114,7 @@ const Dashboard = ({
   };
 
   return (
-    <div>
-      <h1>This is the dashboard</h1>
+    <div className="dashboard">
       <button
         type="button"
         onClick={handleStartButtonClick}
