@@ -1,3 +1,24 @@
 .dashboard {
   margin: 16px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dashboard__column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard__column > button:first-child {
+  margin: 0 0 16px 0;
+}
+
+.dashboard__column:last-child {
+  justify-content: space-around;
+}
+
+.dashboard__column:last-child > button {
+  margin: 0;
 }
