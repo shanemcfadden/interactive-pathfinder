@@ -11,18 +11,6 @@
   justify-content: space-between;
 }
 
-.dashboard__column > button:first-child {
-  margin: 0 0 16px 0;
-}
-
-.dashboard__column:last-child {
-  justify-content: space-around;
-}
-
-.dashboard__column:last-child > button {
-  margin: 0;
-}
-
 .dashboard__button {
   background-color: #328fdc;
   border: 0;
@@ -36,4 +24,12 @@
 
 .dashboard__button:hover {
   background-color: #02447b;
+}
+
+.dashboard__column > .dashboard__button:first-child {
+  margin: 0 0 16px 0;
+}
+
+.dashboard__column > .dashboard__button:only-child {
+  margin: auto;
 }
