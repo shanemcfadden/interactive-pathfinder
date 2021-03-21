@@ -2,13 +2,18 @@
   margin: 16px 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .dashboard__column {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-right: 16px;
+}
+
+.dashboard__column:last-child {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .dashboard__button {
