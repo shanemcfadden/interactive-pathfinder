@@ -31,6 +31,13 @@
   background-color: #02447b;
 }
 
+.dashboard__button:disabled,
+.dashboard__button:hover:disabled {
+  color: #91ceff;
+  background-color: #328fdc;
+  cursor: auto;
+}
+
 .dashboard__column > .dashboard__button:first-child {
   margin: 0 0 16px 0;
 }
