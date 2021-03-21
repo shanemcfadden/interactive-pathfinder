@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from '../../algorithms/dijkstra';
+import './Dashboard.css';
 
 const Dashboard = ({
   startNode,
@@ -93,19 +94,31 @@ const Dashboard = ({
   const renderFindPathButton = () => {
     if (findPathButton === 'findPath') {
       return (
-        <button type="button" onClick={handleFindPathClick}>
+        <button
+          className="dashboard__button dashboard__button--go"
+          type="button"
+          onClick={handleFindPathClick}
+        >
           Find Path!
         </button>
       );
     } else if (findPathButton === 'reset') {
       return (
-        <button type="button" onClick={handleFindPathReset}>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleFindPathReset}
+        >
           Reset
         </button>
       );
     } else {
       return (
-        <button type="button" onClick={handleCancelFindPath}>
+        <button
+          className="dashboard__button dashboard__button--stop"
+          type="button"
+          onClick={handleCancelFindPath}
+        >
           Cancel
         </button>
       );
@@ -113,39 +126,46 @@ const Dashboard = ({
   };
 
   return (
-    <div>
-      <h1>This is the dashboard</h1>
-      <button
-        type="button"
-        onClick={handleStartButtonClick}
-        disabled={findPathButton !== 'findPath'}
-      >
-        Select Start
-      </button>
-      <button
-        type="button"
-        onClick={handleEndButtonClick}
-        disabled={findPathButton !== 'findPath'}
-      >
-        Select End
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setDrawingWallsAllowed(!drawingWallsAllowed);
-        }}
-        disabled={findPathButton !== 'findPath'}
-      >
-        {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
-      </button>
-      <button
-        type="button"
-        onClick={handleClearWalls}
-        disabled={findPathButton !== 'findPath'}
-      >
-        Clear Walls
-      </button>
-      {renderFindPathButton()}
+    <div className="dashboard">
+      <div className="dashboard__column">
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleStartButtonClick}
+          disabled={findPathButton !== 'findPath'}
+        >
+          Select Start
+        </button>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleEndButtonClick}
+          disabled={findPathButton !== 'findPath'}
+        >
+          Select End
+        </button>
+      </div>
+      <div className="dashboard__column">
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={() => {
+            setDrawingWallsAllowed(!drawingWallsAllowed);
+          }}
+          disabled={findPathButton !== 'findPath'}
+        >
+          {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
+        </button>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleClearWalls}
+          disabled={findPathButton !== 'findPath'}
+        >
+          Clear Walls
+        </button>
+      </div>
+      <div className="dashboard__column">{renderFindPathButton()}</div>
     </div>
   );
 };
