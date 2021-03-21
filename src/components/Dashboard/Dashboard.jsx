@@ -95,7 +95,7 @@ const Dashboard = ({
     if (findPathButton === 'findPath') {
       return (
         <button
-          className="dashboard__button"
+          className="dashboard__button dashboard__button--go"
           type="button"
           onClick={handleFindPathClick}
         >
@@ -115,7 +115,7 @@ const Dashboard = ({
     } else {
       return (
         <button
-          className="dashboard__button"
+          className="dashboard__button dashboard__button--stop"
           type="button"
           onClick={handleCancelFindPath}
         >

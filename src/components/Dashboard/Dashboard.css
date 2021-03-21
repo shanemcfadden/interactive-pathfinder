@@ -33,3 +33,19 @@
 .dashboard__column > .dashboard__button:only-child {
   margin: auto;
 }
+
+.dashboard__button.dashboard__button--go {
+  background-color: #25c111;
+}
+
+.dashboard__button.dashboard__button--go:hover {
+  background-color: #136d07;
+}
+
+.dashboard__button.dashboard__button--stop {
+  background-color: #f00;
+}
+
+.dashboard__button.dashboard__button--stop:hover {
+  background-color: #962106;
+}
