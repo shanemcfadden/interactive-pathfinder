@@ -33,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <div className="content-container">
-        <h1>Interactive pathfinder</h1>
+        <h1 className="centered-text">Interactive pathfinder</h1>
         <Dashboard
           setCurrentClickFunction={setCurrentClickFunction}
           startNode={startNode}
