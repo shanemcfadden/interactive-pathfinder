@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 code {
@@ -14,6 +15,7 @@ code {
 
 h1 {
   font-size: 36px;
+  margin: 16px 0;
 }
 
 .centered-text {
