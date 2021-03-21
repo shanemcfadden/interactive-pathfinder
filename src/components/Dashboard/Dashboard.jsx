@@ -94,19 +94,31 @@ const Dashboard = ({
   const renderFindPathButton = () => {
     if (findPathButton === 'findPath') {
       return (
-        <button type="button" onClick={handleFindPathClick}>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleFindPathClick}
+        >
           Find Path!
         </button>
       );
     } else if (findPathButton === 'reset') {
       return (
-        <button type="button" onClick={handleFindPathReset}>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleFindPathReset}
+        >
           Reset
         </button>
       );
     } else {
       return (
-        <button type="button" onClick={handleCancelFindPath}>
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleCancelFindPath}
+        >
           Cancel
         </button>
       );
@@ -117,6 +129,7 @@ const Dashboard = ({
     <div className="dashboard">
       <div className="dashboard__column">
         <button
+          className="dashboard__button"
           type="button"
           onClick={handleStartButtonClick}
           disabled={findPathButton !== 'findPath'}
@@ -124,6 +137,7 @@ const Dashboard = ({
           Select Start
         </button>
         <button
+          className="dashboard__button"
           type="button"
           onClick={handleEndButtonClick}
           disabled={findPathButton !== 'findPath'}
@@ -133,6 +147,7 @@ const Dashboard = ({
       </div>
       <div className="dashboard__column">
         <button
+          className="dashboard__button"
           type="button"
           onClick={() => {
             setDrawingWallsAllowed(!drawingWallsAllowed);
@@ -142,6 +157,7 @@ const Dashboard = ({
           {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
         </button>
         <button
+          className="dashboard__button"
           type="button"
           onClick={handleClearWalls}
           disabled={findPathButton !== 'findPath'}
