@@ -140,22 +140,22 @@ const Dashboard = ({
         <button
           className="dashboard__button"
           type="button"
-          onClick={handleEndButtonClick}
-          disabled={findPathButton !== 'findPath'}
-        >
-          Select End
-        </button>
-      </div>
-      <div className="dashboard__column">
-        <button
-          className="dashboard__button"
-          type="button"
           onClick={() => {
             setDrawingWallsAllowed(!drawingWallsAllowed);
           }}
           disabled={findPathButton !== 'findPath'}
         >
           {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
+        </button>
+      </div>
+      <div className="dashboard__column">
+        <button
+          className="dashboard__button"
+          type="button"
+          onClick={handleEndButtonClick}
+          disabled={findPathButton !== 'findPath'}
+        >
+          Select End
         </button>
         <button
           className="dashboard__button"
