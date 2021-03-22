@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import Dashboard from 'components/Dashboard/Dashboard';
-import Grid from 'components/Grid/Grid';
+import Dashboard from 'components/Dashboard';
+import Grid from 'components/Grid';
 import 'styles/App.css';
 
 function App() {

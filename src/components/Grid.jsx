@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Node from 'components/Node/Node';
+import Node from 'components/Node';
 import 'styles/Grid.css';
 
 const Grid = ({
