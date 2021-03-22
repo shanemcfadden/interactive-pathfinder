@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Interactive Pathfinder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a single page application that allows users to select start and end points from a grid and calculate the shortest path between them.
+They may also draw walls as obstacles for pathfinder to dodge. This pathfinder implements Dijkstra's algorithm to find one possible shortest path.
 
-## Available Scripts
+## Tools used
 
-In the project directory, you can run:
+- Create React App
+- CSS
 
-### `yarn start`
+## Things learned
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- How to display programming logic meaningfully with a UI
+- How to use component-by-component style sheets
+- How to juggle UI functionality depending on what the software is currently doing (e.g. preventing the user from pressing buttons while pathfinder is running)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Possible next steps
 
-### `yarn test`
+- Make the whole app visible within a laptop viewport without scrolling down
+- Design and implement a more elegant UI layout/color scheme
+- Allow user to draw textures that make the path easier/harder to travel through instead of a strict wall/no wall environment. This would more effectively emulate
+  real world situations where the shortest accessible path is not necessarily the quickest/easiest to travel.
+- Implement other algorithms besides Dijkstra's
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running The Project
 
-### `yarn build`
+This project requires npm to run. Download the code and navigate to the root directory. To run the development server, run `yarn start` or `npm start`. View the app in a web browser at localhost:3000.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+To run in a production environment, first run `yarn build` or `npm run build` to compile a bundle in the /build directory.
+Serve this directory locally using software such as [serve](https://github.com/vercel/serve).
