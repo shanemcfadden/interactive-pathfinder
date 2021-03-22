@@ -1,0 +1,23 @@
+.node {
+  border: 1px solid black;
+}
+
+.node--end {
+  background-color: red;
+}
+
+.node--path {
+  background-color: yellow;
+}
+
+.node--start {
+  background-color: greenyellow;
+}
+
+.node--visited {
+  background-color: aqua;
+}
+
+.node--wall {
+  background-color: black;
+}
