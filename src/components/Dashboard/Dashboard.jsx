@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
-import './Dashboard.css';
+import 'styles/Dashboard.css';
 
 const Dashboard = ({
   startNode,

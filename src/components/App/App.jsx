@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Dashboard from 'components/Dashboard/Dashboard';
 import Grid from 'components/Grid/Grid';
-import './App.css';
+import 'styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(

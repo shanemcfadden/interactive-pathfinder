@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Node from 'components/Node/Node';
-import 'components/Grid/Grid.css';
+import 'styles/Grid.css';
 
 const Grid = ({
   startNode,

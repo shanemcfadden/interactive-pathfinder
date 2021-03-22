@@ -1,5 +1,5 @@
 import React from 'react';
-import 'components/Node/Node';
+import 'styles/Node.css';
 
 const Node = ({
   currentState,
