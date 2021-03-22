@@ -36,8 +36,9 @@ function App() {
         <h1 className="centered-text">Interactive pathfinder</h1>
         <p>
           Find the shortest path! Select a starting block and an ending block.
-          Add walls to make things tricker. Once you press find path, the
-          computer will the shortest path using Dijkstra's algorithm.
+          To make things trickier, draw some walls for the pathfinder to dodge.
+          Once you press find path, the computer will search for the shortest
+          path using Dijkstra's algorithm.
         </p>
         <p>
           Make a guess, and see if you can beat the computer at its own game!
