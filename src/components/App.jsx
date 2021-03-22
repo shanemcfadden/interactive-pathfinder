@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import Dashboard from '../Dashboard/Dashboard';
-import Grid from '../Grid/Grid';
-import './App.css';
+import Dashboard from 'components/Dashboard';
+import Grid from 'components/Grid';
+import 'styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -36,8 +36,9 @@ function App() {
         <h1 className="centered-text">Interactive pathfinder</h1>
         <p>
           Find the shortest path! Select a starting block and an ending block.
-          Add walls to make things tricker. Once you press find path, the
-          computer will the shortest path using Dijkstra's algorithm.
+          To make things trickier, draw some walls for the pathfinder to dodge.
+          Once you press find path, the computer will search for the shortest
+          path using Dijkstra's algorithm.
         </p>
         <p>
           Make a guess, and see if you can beat the computer at its own game!
