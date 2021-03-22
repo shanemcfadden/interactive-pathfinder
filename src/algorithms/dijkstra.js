@@ -1,4 +1,4 @@
-import MinHeap from '../models/MinHeap';
+import MinHeap from 'models/MinHeap';
 
 export const dijkstra = (
   startingCoordinates,

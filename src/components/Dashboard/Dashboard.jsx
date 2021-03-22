@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { dijkstra } from '../../algorithms/dijkstra';
+import { dijkstra } from 'algorithms/dijkstra';
 import './Dashboard.css';
 
 const Dashboard = ({
