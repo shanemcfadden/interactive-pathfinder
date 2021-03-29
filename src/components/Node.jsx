@@ -17,7 +17,9 @@ const Node = ({
   };
   return (
     <div
-      className={`node${currentState ? ` node--${currentState}` : ''}`}
+      className={`node${currentState ? ` node--${currentState}` : ''}${
+        drawingWallsAllowed ? '' : ' node--animated'
+      }`}
       onClick={handleClick}
       onMouseDown={
         wallsAllowed(currentState, drawingWallsAllowed)
