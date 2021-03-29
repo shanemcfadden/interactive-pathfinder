@@ -9,6 +9,7 @@ const Node = ({
   handleOnMouseUp,
   drawingWallsAllowed,
   currentlyDrawingWalls,
+  findingPath,
 }) => {
   const wallsAllowed = (currentState, drawingWallsAllowed) => {
     return (
@@ -18,7 +19,7 @@ const Node = ({
   return (
     <div
       className={`node${currentState ? ` node--${currentState}` : ''}${
-        drawingWallsAllowed ? '' : ' node--animated'
+        findingPath ? ' node--animated' : ''
       }`}
       onClick={handleClick}
       onMouseDown={

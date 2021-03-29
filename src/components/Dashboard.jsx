@@ -10,6 +10,8 @@ const Dashboard = ({
   setStateOfNodes,
   drawingWallsAllowed,
   setDrawingWallsAllowed,
+  findingPath,
+  setFindingPath,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
@@ -37,6 +39,7 @@ const Dashboard = ({
     setFindPathButton('cancel');
     setCurrentClickFunction('none');
     setDrawingWallsAllowed(false);
+    setFindingPath(true);
     const interval = dijkstra(
       startNode,
       endNode,
@@ -78,6 +81,7 @@ const Dashboard = ({
 
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
+    setFindingPath(false);
     setFindPathButton('reset');
   };
 

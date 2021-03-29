@@ -11,6 +11,7 @@ function App() {
   const [endNode, setEndNode] = useState([7, 16]);
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
   const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
+  const [findingPath, setFindingPath] = useState(false);
 
   useEffect(() => {
     if (drawingWallsAllowed) {
@@ -51,6 +52,8 @@ function App() {
           setStateOfNodes={setStateOfNodes}
           drawingWallsAllowed={drawingWallsAllowed}
           setDrawingWallsAllowed={setDrawingWallsAllowed}
+          findingPath={findingPath}
+          setFindingPath={setFindingPath}
         />
         <Grid
           startNode={startNode}
@@ -59,6 +62,7 @@ function App() {
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
           drawingWallsAllowed={drawingWallsAllowed}
+          findingPath={findingPath}
         />
       </div>
     </div>

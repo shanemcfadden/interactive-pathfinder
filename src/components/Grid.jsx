@@ -9,6 +9,7 @@ const Grid = ({
   stateOfNodes,
   setStateOfNodes,
   drawingWallsAllowed,
+  findingPath,
 }) => {
   const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
   const addWall = (i, j) => {
@@ -65,6 +66,7 @@ const Grid = ({
               drawingWallsAllowed={drawingWallsAllowed}
               currentlyDrawingWalls={currentlyDrawingWalls}
               key={`${i}-${j}`}
+              findingPath={findingPath}
             />
           );
         });
