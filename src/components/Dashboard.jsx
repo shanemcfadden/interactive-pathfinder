@@ -24,12 +24,12 @@ const Dashboard = ({
   const handleStartButtonClick = () => {
     handleFindPathReset();
     // setDrawingWallsAllowed(false);
-    setCurrentClickFunction('setStartNode');
+    setCurrentClickFunction('updateStartNode');
   };
   const handleEndButtonClick = () => {
     handleFindPathReset();
     // setDrawingWallsAllowed(false);
-    setCurrentClickFunction('setEndNode');
+    setCurrentClickFunction('updateEndNode');
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');

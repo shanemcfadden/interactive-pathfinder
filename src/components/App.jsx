@@ -89,8 +89,8 @@ function App() {
   // }, [drawingWallsAllowed]);
 
   const clickFunctionRef = useRef({
-    setStartNode,
-    setEndNode,
+    updateStartNode,
+    updateEndNode,
     none: () => {},
   });
 
@@ -139,6 +139,7 @@ function App() {
           // drawingWallsAllowed={drawingWallsAllowed}
           findingPath={findingPath}
           stateOfPath={stateOfPath}
+          currentTexture={currentTexture}
         />
       </div>
     </div>
