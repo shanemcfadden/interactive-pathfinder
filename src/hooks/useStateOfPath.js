@@ -13,21 +13,22 @@ const useStateOfPath = (startingCoor, endingCoor) => {
       })
     )
   );
+  const updateNode = (nodeCoordinate, nodeValue) => {
+    const updatedPath = [...stateOfPath];
+    updatedPath[nodeCoordinate[0]][nodeCoordinate[1]] = nodeValue;
+    setStateOfPath(updatedPath);
+  };
   const updateStartNode = (coor) => {
     if (coordinatesAreEqual(coor, endNode)) return;
-    const updatedPath = [...stateOfPath];
-    updatedPath[startNode[0]][startNode[1]] = 0;
-    updatedPath[coor[0]][coor[1]] = 3;
+    updateNode(startNode, 0);
+    updateNode(coor, 3);
     setStartNode(coor);
-    setStateOfPath(updatedPath);
   };
   const updateEndNode = (coor) => {
     if (coordinatesAreEqual(coor, startNode)) return;
-    const updatedPath = [...stateOfPath];
-    updatedPath[endNode[0]][endNode[1]] = 0;
-    updatedPath[coor[0]][coor[1]] = 4;
+    updateNode(endNode, 0);
+    updateNode(coor, 4);
     setEndNode(coor);
-    setStateOfPath(updatedPath);
   };
   const addPathNode = (coor) => {
     if (
@@ -35,9 +36,7 @@ const useStateOfPath = (startingCoor, endingCoor) => {
       coordinatesAreEqual(coor, endNode)
     )
       return;
-    const updatedPath = [...stateOfPath];
-    updatedPath[coor[0]][coor[1]] = 2;
-    setStateOfPath(updatedPath);
+    updateNode(coor, 2);
   };
   const addVisitedNode = (coor) => {
     if (
@@ -45,9 +44,7 @@ const useStateOfPath = (startingCoor, endingCoor) => {
       coordinatesAreEqual(coor, endNode)
     )
       return;
-    const updatedPath = [...stateOfPath];
-    updatedPath[coor[0]][coor[1]] = 1;
-    setStateOfPath(updatedPath);
+    updateNode(coor, 1);
   };
   const resetStateOfPath = () => {
     setStateOfPath(
