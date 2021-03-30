@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Node from 'components/Node';
 import 'styles/Grid.css';
 
@@ -17,6 +17,14 @@ const Grid = ({
     newStateOfNodes[i][j] = 'wall';
     setStateOfNodes(newStateOfNodes);
   };
+  const textures = useRef({
+    1: 'asphalt',
+    2: 'dirt',
+    3: 'grass',
+    4: 'sand',
+    5: 'swamp',
+    Infinity: 'water',
+  });
 
   const createHandleOnMouseDown = (i, j) => {
     return (e) => {
@@ -52,7 +60,7 @@ const Grid = ({
           } else if (i === endNode[0] && j === endNode[1]) {
             currentState = 'end';
           } else {
-            currentState = val;
+            currentState = textures.current[val];
           }
           return (
             <Node

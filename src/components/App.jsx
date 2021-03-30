@@ -4,8 +4,10 @@ import Grid from 'components/Grid';
 import 'styles/App.css';
 
 function App() {
+  // TODO: Make a grid that reflects a neutral state
+  // Make a key for the textures
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
+    Array.from({ length: 20 }, () => Array.from({ length: 20 }, () => 3))
   );
   const [startNode, setStartNode] = useState([4, 4]);
   const [endNode, setEndNode] = useState([7, 16]);
