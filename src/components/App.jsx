@@ -122,6 +122,9 @@ function App() {
           setDrawingWallsAllowed={setDrawingWallsAllowed}
           findingPath={findingPath}
           setFindingPath={setFindingPath}
+          addPathNode={addPathNode}
+          addVisitedNode={addVisitedNode}
+          resetStateOfPath={resetStateOfPath}
         />
         <Grid
           startNode={startNode}

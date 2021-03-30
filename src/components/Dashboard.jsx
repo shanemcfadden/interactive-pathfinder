@@ -12,19 +12,12 @@ const Dashboard = ({
   setDrawingWallsAllowed,
   findingPath,
   setFindingPath,
+  addPathNode,
+  addVisitedNode,
+  resetStateOfPath,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
-  const addVisitedNode = (coordinate) => {
-    const newStateOfNodes = [...stateOfNodes];
-    newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
-    setStateOfNodes(newStateOfNodes);
-  };
-  const addPathNode = (coordinate) => {
-    const newStateOfNodes = [...stateOfNodes];
-    newStateOfNodes[coordinate[0]][coordinate[1]] = 'path';
-    setStateOfNodes(newStateOfNodes);
-  };
   const handleStartButtonClick = () => {
     handleFindPathReset();
     setDrawingWallsAllowed(false);
@@ -49,20 +42,6 @@ const Dashboard = ({
       afterDijkstraSuccess
     );
     setCurrentInterval(interval);
-  };
-
-  const removeVisitedAndPathNodes = () => {
-    const newNodes = [...stateOfNodes];
-    setStateOfNodes(
-      newNodes.map((row, i) => {
-        return row.map((val, j) => {
-          if (val === 'wall') {
-            return val;
-          }
-          return undefined;
-        });
-      })
-    );
   };
 
   const handleClearWalls = () => {
@@ -92,7 +71,7 @@ const Dashboard = ({
   };
 
   const handleFindPathReset = () => {
-    removeVisitedAndPathNodes();
+    resetStateOfPath();
     setFindPathButton('findPath');
   };
 
