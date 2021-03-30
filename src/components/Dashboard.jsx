@@ -7,10 +7,6 @@ const Dashboard = ({
   endNode,
   setCurrentClickFunction,
   stateOfNodes,
-  setStateOfNodes,
-  // drawingWallsAllowed,
-  // setDrawingWallsAllowed,
-  findingPath,
   setFindingPath,
   addPathNode,
   addVisitedNode,
@@ -23,18 +19,17 @@ const Dashboard = ({
   const [findPathButton, setFindPathButton] = useState('findPath');
   const handleStartButtonClick = () => {
     handleFindPathReset();
-    // setDrawingWallsAllowed(false);
+    setCurrentTexture(null);
     setCurrentClickFunction('updateStartNode');
   };
   const handleEndButtonClick = () => {
     handleFindPathReset();
-    // setDrawingWallsAllowed(false);
+    setCurrentTexture(null);
     setCurrentClickFunction('updateEndNode');
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');
     setCurrentClickFunction(null);
-    // setDrawingWallsAllowed(false);
     setFindingPath(true);
     const interval = dijkstra(
       startNode,
@@ -46,20 +41,6 @@ const Dashboard = ({
     );
     setCurrentInterval(interval);
   };
-
-  // const handleClearWalls = () => {
-  //   const newNodes = [...stateOfNodes];
-  //   setStateOfNodes(
-  //     newNodes.map((row) => {
-  //       return row.map((state) => {
-  //         if (state !== 'wall') {
-  //           return state;
-  //         }
-  //         return undefined;
-  //       });
-  //     })
-  //   );
-  // };
 
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
@@ -114,7 +95,7 @@ const Dashboard = ({
   };
 
   const handleTextureChange = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const newValue = e.target.value === 'none' ? null : +e.target.value;
     setCurrentTexture(newValue);
   };
@@ -144,6 +125,7 @@ const Dashboard = ({
         <select
           value={currentTexture == null ? 'none' : currentTexture.toString()}
           onChange={handleTextureChange}
+          disabled={findPathButton !== 'findPath'}
         >
           <option value="none">-</option>
           {[

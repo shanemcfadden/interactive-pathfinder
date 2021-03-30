@@ -3,8 +3,6 @@ import Node from 'components/Node';
 import 'styles/Grid.css';
 
 const Grid = ({
-  // startNode,
-  // endNode,
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
