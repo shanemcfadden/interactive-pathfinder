@@ -125,6 +125,7 @@ function App() {
           addPathNode={addPathNode}
           addVisitedNode={addVisitedNode}
           resetStateOfPath={resetStateOfPath}
+          clearVisitedNodes={clearVisitedNodes}
         />
         <Grid
           startNode={startNode}

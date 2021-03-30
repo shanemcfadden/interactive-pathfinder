@@ -15,6 +15,7 @@ const Dashboard = ({
   addPathNode,
   addVisitedNode,
   resetStateOfPath,
+  clearVisitedNodes,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
@@ -61,6 +62,7 @@ const Dashboard = ({
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
     setFindingPath(false);
+    clearVisitedNodes();
     setFindPathButton('reset');
   };
 
