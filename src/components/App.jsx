@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import { coordinatesAreEqual } from 'util/arr';
 
 function App() {
-  // TODO: Make a grid that reflects a neutral state
-  // Make a key for the textures
   const [stateOfNodes, setStateOfNodes] = useState(
     Array.from({ length: 20 }, () => Array.from({ length: 20 }, () => 3))
   );
@@ -22,7 +20,6 @@ function App() {
     )
   );
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
-  // const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
   const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
 
@@ -82,22 +79,17 @@ function App() {
     setStateOfPath(updatedStateOfPath);
   };
 
-  // useEffect(() => {
-  //   if (drawingWallsAllowed) {
-  //     setCurrentClickFunction('none');
-  //   }
-  // }, [drawingWallsAllowed]);
-
-  const clickFunctionRef = useRef({
-    updateStartNode,
-    updateEndNode,
-    none: () => {},
-  });
-
   const createOnClickFunction = () => {
+    const availableFunctions = {
+      updateStartNode,
+      updateEndNode,
+    };
+    if (!currentClickFunction || !availableFunctions[currentClickFunction])
+      return () => {};
+
     return (i, j) => {
-      clickFunctionRef.current[currentClickFunction]([i, j]);
-      setCurrentClickFunction('none');
+      availableFunctions[currentClickFunction]([i, j]);
+      setCurrentClickFunction(null);
     };
   };
   return (
@@ -119,8 +111,6 @@ function App() {
           endNode={endNode}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          // drawingWallsAllowed={drawingWallsAllowed}
-          // setDrawingWallsAllowed={setDrawingWallsAllowed}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
           findingPath={findingPath}
@@ -131,12 +121,9 @@ function App() {
           clearVisitedNodes={clearVisitedNodes}
         />
         <Grid
-          startNode={startNode}
-          endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          // drawingWallsAllowed={drawingWallsAllowed}
           findingPath={findingPath}
           stateOfPath={stateOfPath}
           currentTexture={currentTexture}

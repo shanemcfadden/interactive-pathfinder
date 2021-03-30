@@ -33,7 +33,7 @@ const Dashboard = ({
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');
-    setCurrentClickFunction('none');
+    setCurrentClickFunction(null);
     // setDrawingWallsAllowed(false);
     setFindingPath(true);
     const interval = dijkstra(
