@@ -106,14 +106,12 @@ function App() {
           Make a guess, and see if you can beat the computer at its own game!
         </p>
         <Dashboard
-          setCurrentClickFunction={setCurrentClickFunction}
           startNode={startNode}
           endNode={endNode}
+          setCurrentClickFunction={setCurrentClickFunction}
           stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
-          findingPath={findingPath}
           setFindingPath={setFindingPath}
           addPathNode={addPathNode}
           addVisitedNode={addVisitedNode}
