@@ -1,4 +1,5 @@
 import MinHeap from 'models/MinHeap';
+import { coordinatesAreEqual } from 'util/arr';
 
 export const dijkstra = (
   startingCoordinates,
@@ -84,10 +85,6 @@ function convertGridWithStateToOnesAndZeros(gridWithState) {
       return val === 'wall' ? 0 : 1;
     });
   });
-}
-
-function coordinatesAreEqual(coor1, coor2) {
-  return JSON.stringify(coor1) === JSON.stringify(coor2);
 }
 
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
