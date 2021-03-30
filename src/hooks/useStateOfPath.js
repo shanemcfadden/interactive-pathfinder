@@ -4,31 +4,48 @@ import { coordinatesAreEqual } from 'util/arr';
 const useStateOfPath = (startingCoor, endingCoor) => {
   const [startNode, setStartNode] = useState(startingCoor);
   const [endNode, setEndNode] = useState(endingCoor);
-  const [stateOfPath, setStateOfPath] = useState(
-    Array.from({ length: 20 }, (row, i) =>
+
+  const getInitalPathState = (start, end) => {
+    return Array.from({ length: 20 }, (row, i) =>
       Array.from({ length: 20 }, (val, j) => {
-        if (coordinatesAreEqual(startNode, [i, j])) return 3;
-        if (coordinatesAreEqual(endNode, [i, j])) return 4;
+        if (coordinatesAreEqual(start, [i, j])) return 3;
+        if (coordinatesAreEqual(end, [i, j])) return 4;
         return 0;
       })
-    )
+    );
+  };
+  const [stateOfPath, setStateOfPath] = useState(
+    getInitalPathState(startingCoor, endingCoor)
   );
+  const resetStateOfPath = () => {
+    setStateOfPath(getInitalPathState(startNode, endNode));
+  };
+
+  const clearVisitedNodes = () => {
+    const updatedStateOfPath = stateOfPath.map((row) => {
+      return row.map((val) => {
+        return val === 1 ? 0 : val;
+      });
+    });
+    setStateOfPath(updatedStateOfPath);
+  };
+
   const updateNode = (nodeCoordinate, nodeValue) => {
     const updatedPath = [...stateOfPath];
     updatedPath[nodeCoordinate[0]][nodeCoordinate[1]] = nodeValue;
     setStateOfPath(updatedPath);
   };
-  const updateStartNode = (coor) => {
-    if (coordinatesAreEqual(coor, endNode)) return;
+  const updateStartNode = (newStart) => {
+    if (coordinatesAreEqual(newStart, endNode)) return;
     updateNode(startNode, 0);
-    updateNode(coor, 3);
-    setStartNode(coor);
+    updateNode(newStart, 3);
+    setStartNode(newStart);
   };
-  const updateEndNode = (coor) => {
-    if (coordinatesAreEqual(coor, startNode)) return;
+  const updateEndNode = (newEnd) => {
+    if (coordinatesAreEqual(newEnd, startNode)) return;
     updateNode(endNode, 0);
-    updateNode(coor, 4);
-    setEndNode(coor);
+    updateNode(newEnd, 4);
+    setEndNode(newEnd);
   };
   const addPathNode = (coor) => {
     if (
@@ -46,25 +63,7 @@ const useStateOfPath = (startingCoor, endingCoor) => {
       return;
     updateNode(coor, 1);
   };
-  const resetStateOfPath = () => {
-    setStateOfPath(
-      Array.from({ length: 20 }, (row, i) =>
-        Array.from({ length: 20 }, (val, j) => {
-          if (coordinatesAreEqual(startNode, [i, j])) return 3;
-          if (coordinatesAreEqual(endNode, [i, j])) return 4;
-          return 0;
-        })
-      )
-    );
-  };
-  const clearVisitedNodes = () => {
-    const updatedStateOfPath = stateOfPath.map((row) => {
-      return row.map((val) => {
-        return val === 1 ? 0 : val;
-      });
-    });
-    setStateOfPath(updatedStateOfPath);
-  };
+
   return [
     startNode,
     updateStartNode,
@@ -72,8 +71,8 @@ const useStateOfPath = (startingCoor, endingCoor) => {
     updateEndNode,
     stateOfPath,
     addPathNode,
-    addVisitedNode,
     resetStateOfPath,
+    addVisitedNode,
     clearVisitedNodes,
   ];
 };

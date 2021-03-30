@@ -15,8 +15,8 @@ function App() {
     setEndNode,
     stateOfPath,
     addPathNode,
-    addVisitedNode,
     resetStateOfPath,
+    addVisitedNode,
     clearVisitedNodes,
   ] = useStateOfPath([4, 4], [7, 16]);
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
