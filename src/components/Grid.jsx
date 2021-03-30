@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Node from 'components/Node';
 import 'styles/Grid.css';
-import { TEXTURES_VALUE_NAME_MAP } from 'util/settings';
+import { PATHS_VALUE_NAME_MAP, TEXTURES_VALUE_NAME_MAP } from 'util/settings';
 
 const Grid = ({
   onClickFunction,
@@ -19,13 +19,6 @@ const Grid = ({
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
-  const paths = useRef({
-    1: 'visited',
-    2: 'path',
-    3: 'start',
-    4: 'end',
-  });
-
   const createHandleOnMouseDown = (i, j) => {
     return (e) => {
       e.preventDefault();
@@ -57,7 +50,8 @@ const Grid = ({
       {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
           const currentState =
-            paths.current[stateOfPath[i][j]] || TEXTURES_VALUE_NAME_MAP[val];
+            PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] ||
+            TEXTURES_VALUE_NAME_MAP[val];
           return (
             <Node
               currentState={currentState}
