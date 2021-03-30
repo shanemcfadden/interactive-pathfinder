@@ -22,7 +22,8 @@ function App() {
     )
   );
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
-  const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
+  // const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
+  const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
 
   const updateStartNode = (coor) => {
@@ -81,11 +82,11 @@ function App() {
     setStateOfPath(updatedStateOfPath);
   };
 
-  useEffect(() => {
-    if (drawingWallsAllowed) {
-      setCurrentClickFunction('none');
-    }
-  }, [drawingWallsAllowed]);
+  // useEffect(() => {
+  //   if (drawingWallsAllowed) {
+  //     setCurrentClickFunction('none');
+  //   }
+  // }, [drawingWallsAllowed]);
 
   const clickFunctionRef = useRef({
     setStartNode,
@@ -118,8 +119,10 @@ function App() {
           endNode={endNode}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
-          setDrawingWallsAllowed={setDrawingWallsAllowed}
+          // drawingWallsAllowed={drawingWallsAllowed}
+          // setDrawingWallsAllowed={setDrawingWallsAllowed}
+          currentTexture={currentTexture}
+          setCurrentTexture={setCurrentTexture}
           findingPath={findingPath}
           setFindingPath={setFindingPath}
           addPathNode={addPathNode}
@@ -133,7 +136,7 @@ function App() {
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
+          // drawingWallsAllowed={drawingWallsAllowed}
           findingPath={findingPath}
           stateOfPath={stateOfPath}
         />

@@ -8,8 +8,8 @@ const Dashboard = ({
   setCurrentClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  drawingWallsAllowed,
-  setDrawingWallsAllowed,
+  // drawingWallsAllowed,
+  // setDrawingWallsAllowed,
   findingPath,
   setFindingPath,
   addPathNode,
@@ -21,18 +21,18 @@ const Dashboard = ({
   const [findPathButton, setFindPathButton] = useState('findPath');
   const handleStartButtonClick = () => {
     handleFindPathReset();
-    setDrawingWallsAllowed(false);
+    // setDrawingWallsAllowed(false);
     setCurrentClickFunction('setStartNode');
   };
   const handleEndButtonClick = () => {
     handleFindPathReset();
-    setDrawingWallsAllowed(false);
+    // setDrawingWallsAllowed(false);
     setCurrentClickFunction('setEndNode');
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');
     setCurrentClickFunction('none');
-    setDrawingWallsAllowed(false);
+    // setDrawingWallsAllowed(false);
     setFindingPath(true);
     const interval = dijkstra(
       startNode,
@@ -45,19 +45,19 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
-  const handleClearWalls = () => {
-    const newNodes = [...stateOfNodes];
-    setStateOfNodes(
-      newNodes.map((row) => {
-        return row.map((state) => {
-          if (state !== 'wall') {
-            return state;
-          }
-          return undefined;
-        });
-      })
-    );
-  };
+  // const handleClearWalls = () => {
+  //   const newNodes = [...stateOfNodes];
+  //   setStateOfNodes(
+  //     newNodes.map((row) => {
+  //       return row.map((state) => {
+  //         if (state !== 'wall') {
+  //           return state;
+  //         }
+  //         return undefined;
+  //       });
+  //     })
+  //   );
+  // };
 
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
@@ -122,18 +122,7 @@ const Dashboard = ({
         >
           Select Start
         </button>
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={() => {
-            setDrawingWallsAllowed(!drawingWallsAllowed);
-          }}
-          disabled={findPathButton !== 'findPath'}
-        >
-          {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
-        </button>
-      </div>
-      <div className="dashboard__column">
+
         <button
           className="dashboard__button"
           type="button"
@@ -142,14 +131,27 @@ const Dashboard = ({
         >
           Select End
         </button>
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={handleClearWalls}
-          disabled={findPathButton !== 'findPath'}
-        >
-          Clear Walls
-        </button>
+      </div>
+      <div className="dashboard__column">
+        {
+          // <button
+          //   className="dashboard__button"
+          //   type="button"
+          //   onClick={handleClearWalls}
+          //   disabled={findPathButton !== 'findPath'}
+          // >
+          //   Clear Walls
+          // <<button
+          //   className="dashboard__button"
+          //   type="button"
+          //   onClick={() => {
+          //     setDrawingWallsAllowed(!drawingWallsAllowed);
+          //   }}
+          //   disabled={findPathButton !== 'findPath'}
+          // >
+          //   {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
+          // </button>/button>
+        }
       </div>
       <div className="dashboard__column">{renderFindPathButton()}</div>
     </div>
