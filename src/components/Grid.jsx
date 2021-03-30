@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Node from 'components/Node';
 import 'styles/Grid.css';
+import { TEXTURES_VALUE_NAME_MAP } from 'util/settings';
 
 const Grid = ({
   onClickFunction,
@@ -18,14 +19,6 @@ const Grid = ({
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
-  const textures = useRef({
-    1: 'asphalt',
-    2: 'dirt',
-    3: 'grass',
-    4: 'sand',
-    5: 'swamp',
-    Infinity: 'water',
-  });
   const paths = useRef({
     1: 'visited',
     2: 'path',
@@ -64,7 +57,7 @@ const Grid = ({
       {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
           const currentState =
-            paths.current[stateOfPath[i][j]] || textures.current[val];
+            paths.current[stateOfPath[i][j]] || TEXTURES_VALUE_NAME_MAP[val];
           return (
             <Node
               currentState={currentState}

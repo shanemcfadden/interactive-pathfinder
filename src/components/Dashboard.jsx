@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
+import { TEXTURES_ARRAY } from 'util/settings';
 import 'styles/Dashboard.css';
 
 const Dashboard = ({
@@ -128,24 +129,12 @@ const Dashboard = ({
           disabled={findPathButton !== 'findPath'}
         >
           <option value="none">-</option>
-          {[
-            {
-              weight: 1,
-              name: 'Asphalt',
-            },
-            {
-              weight: 2,
-              name: 'Dirt',
-            },
-            {
-              weight: 3,
-              name: 'Grass',
-            },
-            { weight: 4, name: 'Sand' },
-            { weight: 5, name: 'Swamp' },
-            { weight: Infinity, name: 'Water' },
-          ].map(({ weight, name }, i) => {
-            return <option value={weight}>{name}</option>;
+          {TEXTURES_ARRAY.map(({ weight, name }) => {
+            return (
+              <option key={name} value={weight}>
+                {name}
+              </option>
+            );
           })}
         </select>
       </div>
