@@ -4,7 +4,8 @@ import { coordinatesAreEqual } from 'util/arr';
 export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
-  gridWithState,
+  // gridWithState,
+  grid,
   addVisitedNode,
   addPathNode,
   done
@@ -12,7 +13,7 @@ export const dijkstra = (
   // For now, the grid is going to be an array of arrays of 1's and 0's
   // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
   // The 0's are not accessible to any node
-  const grid = convertGridWithStateToOnesAndZeros(gridWithState);
+  // const grid = convertGridWithStateToOnesAndZeros(gridWithState);
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
   const previousCoordinateMap = {};
@@ -56,19 +57,20 @@ export const dijkstra = (
 };
 
 function addNeighboringCoordinatesToHeap(
-  coordinateData,
+  currentCoordinateData,
   grid,
   coordinatesHeap
 ) {
   const neigboringCoordinates = getNeighboringCoordinates(
-    coordinateData.coordinate,
+    currentCoordinateData.coordinate,
     grid
   );
-  neigboringCoordinates.forEach((coor) => {
+  neigboringCoordinates.forEach((neighbor) => {
     let newCoordinateData = {
-      coordinate: coor,
-      distanceFromStart: coordinateData.distanceFromStart + 1,
-      previousCoordinate: coordinateData.coordinate,
+      coordinate: neighbor.coordinate,
+      distanceFromStart:
+        currentCoordinateData.distanceFromStart + neighbor.distanceFromCurrent,
+      previousCoordinate: currentCoordinateData.coordinate,
     };
     coordinatesHeap.push(newCoordinateData);
   });
@@ -79,13 +81,13 @@ function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
     coordinateData.previousCoordinate;
 }
 
-function convertGridWithStateToOnesAndZeros(gridWithState) {
-  return gridWithState.map((row) => {
-    return row.map((val) => {
-      return val === 'wall' ? 0 : 1;
-    });
-  });
-}
+// function convertGridWithStateToOnesAndZeros(gridWithState) {
+//   return gridWithState.map((row) => {
+//     return row.map((val) => {
+//       return val === 'wall' ? 0 : 1;
+//     });
+//   });
+// }
 
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
   return !!previousCoordinateMap[JSON.stringify(coordinate)];
@@ -110,7 +112,12 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
   if (j > 0 && grid[i][j - 1]) {
     neighbors.push([i, j - 1]);
   }
-  return neighbors;
+  return neighbors.map((coordinate) => {
+    return {
+      coordinate,
+      distanceFromCurrent: grid[coordinate[0]][coordinate[1]],
+    };
+  });
 }
 
 function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
@@ -145,10 +152,10 @@ function initializeCoordinatesHeap(grid, startingCoordinates) {
 }
 
 // const fakeGrid = [
-//   [1, 1, 1, 1, 1, 1],
-//   [0, 0, 0, 1, 0, 1],
-//   [1, 1, 1, 1, 0, 1],
-//   [1, 0, 0, 0, 0, 1],
+//   [1, 5, 1, 1, 1, 1],
+//   [0, 2, 0, 1, 0, 1],
+//   [1, Infinity, 1, 1, 0, 1],
+//   [1, Infinity, 0, 0, 0, 1],
 //   [1, 1, 1, 1, 1, 1],
 // ];
 
