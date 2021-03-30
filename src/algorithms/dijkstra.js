@@ -4,16 +4,16 @@ import { coordinatesAreEqual } from 'util/arr';
 export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
-  // gridWithState,
-  grid,
+  initialGrid,
   addVisitedNode,
   addPathNode,
   done
 ) => {
-  // For now, the grid is going to be an array of arrays of 1's and 0's
-  // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
-  // The 0's are not accessible to any node
-  // const grid = convertGridWithStateToOnesAndZeros(gridWithState);
+  const grid = initialGrid.map((row) => row.slice());
+  // Make the end node accessible even if the weight is Infinity
+  grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
+  console.log('initialGrid', initialGrid);
+  console.log('grid', grid);
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
   const previousCoordinateMap = {};
@@ -80,14 +80,6 @@ function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
   previousCoordinateMap[JSON.stringify(coordinateData.coordinate)] =
     coordinateData.previousCoordinate;
 }
-
-// function convertGridWithStateToOnesAndZeros(gridWithState) {
-//   return gridWithState.map((row) => {
-//     return row.map((val) => {
-//       return val === 'wall' ? 0 : 1;
-//     });
-//   });
-// }
 
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
   return !!previousCoordinateMap[JSON.stringify(coordinate)];
