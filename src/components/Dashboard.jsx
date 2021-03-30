@@ -16,6 +16,8 @@ const Dashboard = ({
   addVisitedNode,
   resetStateOfPath,
   clearVisitedNodes,
+  currentTexture,
+  setCurrentTexture,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
@@ -111,6 +113,12 @@ const Dashboard = ({
     }
   };
 
+  const handleTextureChange = (e) => {
+    // e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : +e.target.value;
+    setCurrentTexture(newValue);
+  };
+
   return (
     <div className="dashboard">
       <div className="dashboard__column">
@@ -133,25 +141,31 @@ const Dashboard = ({
         </button>
       </div>
       <div className="dashboard__column">
-        {
-          // <button
-          //   className="dashboard__button"
-          //   type="button"
-          //   onClick={handleClearWalls}
-          //   disabled={findPathButton !== 'findPath'}
-          // >
-          //   Clear Walls
-          // <<button
-          //   className="dashboard__button"
-          //   type="button"
-          //   onClick={() => {
-          //     setDrawingWallsAllowed(!drawingWallsAllowed);
-          //   }}
-          //   disabled={findPathButton !== 'findPath'}
-          // >
-          //   {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
-          // </button>/button>
-        }
+        <select
+          value={currentTexture == null ? 'none' : currentTexture.toString()}
+          onChange={handleTextureChange}
+        >
+          <option value="none">-</option>
+          {[
+            {
+              weight: 1,
+              name: 'Asphalt',
+            },
+            {
+              weight: 2,
+              name: 'Dirt',
+            },
+            {
+              weight: 3,
+              name: 'Grass',
+            },
+            { weight: 4, name: 'Sand' },
+            { weight: 5, name: 'Swamp' },
+            { weight: Infinity, name: 'Water' },
+          ].map(({ weight, name }, i) => {
+            return <option value={weight}>{name}</option>;
+          })}
+        </select>
       </div>
       <div className="dashboard__column">{renderFindPathButton()}</div>
     </div>
