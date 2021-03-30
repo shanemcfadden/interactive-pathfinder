@@ -18,7 +18,7 @@ const Node = ({
   };
   return (
     <div
-      className={`node${currentState ? ` node--${currentState}` : ''}${
+      className={`node node--${currentState}${
         findingPath ? ' node--animated' : ''
       }`}
       onClick={handleClick}

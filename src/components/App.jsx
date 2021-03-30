@@ -131,6 +131,7 @@ function App() {
           setStateOfNodes={setStateOfNodes}
           drawingWallsAllowed={drawingWallsAllowed}
           findingPath={findingPath}
+          stateOfPath={stateOfPath}
         />
       </div>
     </div>

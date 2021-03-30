@@ -10,6 +10,7 @@ const Grid = ({
   setStateOfNodes,
   drawingWallsAllowed,
   findingPath,
+  stateOfPath,
 }) => {
   const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
   const addWall = (i, j) => {
@@ -24,6 +25,12 @@ const Grid = ({
     4: 'sand',
     5: 'swamp',
     Infinity: 'water',
+  });
+  const paths = useRef({
+    1: 'visited',
+    2: 'path',
+    3: 'start',
+    4: 'end',
   });
 
   const createHandleOnMouseDown = (i, j) => {
@@ -54,14 +61,8 @@ const Grid = ({
     >
       {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
-          let currentState;
-          if (i === startNode[0] && j === startNode[1]) {
-            currentState = 'start';
-          } else if (i === endNode[0] && j === endNode[1]) {
-            currentState = 'end';
-          } else {
-            currentState = textures.current[val];
-          }
+          const currentState =
+            paths.current[stateOfPath[i][j]] || textures.current[val];
           return (
             <Node
               currentState={currentState}
