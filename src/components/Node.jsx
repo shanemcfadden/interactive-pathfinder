@@ -7,36 +7,17 @@ const Node = ({
   handleOnMouseDown,
   handleOnMouseEnter,
   handleOnMouseUp,
-  drawingWallsAllowed,
-  currentlyDrawingWalls,
   findingPath,
 }) => {
-  const wallsAllowed = (currentState, drawingWallsAllowed) => {
-    return (
-      currentState !== 'start' && currentState !== 'end' && drawingWallsAllowed
-    );
-  };
   return (
     <div
       className={`node node--${currentState}${
         findingPath ? ' node--animated' : ''
       }`}
       onClick={handleClick}
-      onMouseDown={
-        wallsAllowed(currentState, drawingWallsAllowed)
-          ? handleOnMouseDown
-          : undefined
-      }
-      onMouseEnter={
-        wallsAllowed(currentState, drawingWallsAllowed) && currentlyDrawingWalls
-          ? handleOnMouseEnter
-          : undefined
-      }
-      onMouseUp={
-        wallsAllowed(currentState, drawingWallsAllowed)
-          ? handleOnMouseUp
-          : undefined
-      }
+      onMouseDown={handleOnMouseDown}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseUp={handleOnMouseUp}
     ></div>
   );
 };

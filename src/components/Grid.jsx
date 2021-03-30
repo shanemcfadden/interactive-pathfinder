@@ -3,19 +3,21 @@ import Node from 'components/Node';
 import 'styles/Grid.css';
 
 const Grid = ({
-  startNode,
-  endNode,
+  // startNode,
+  // endNode,
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  drawingWallsAllowed,
   findingPath,
   stateOfPath,
+  currentTexture,
 }) => {
-  const [currentlyDrawingWalls, setCurrentlyDrawingWalls] = useState(false);
-  const addWall = (i, j) => {
+  const [currentlyDrawingTextures, setCurrentlyDrawingTextures] = useState(
+    false
+  );
+  const addTexture = (i, j, textureNumber) => {
     const newStateOfNodes = [...stateOfNodes];
-    newStateOfNodes[i][j] = 'wall';
+    newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
   const textures = useRef({
@@ -36,27 +38,29 @@ const Grid = ({
   const createHandleOnMouseDown = (i, j) => {
     return (e) => {
       e.preventDefault();
-      setCurrentlyDrawingWalls(true);
-      addWall(i, j);
+      setCurrentlyDrawingTextures(true);
+      addTexture(i, j, currentTexture);
     };
   };
   const createHandleOnMouseEnter = (i, j) => {
-    return (e) => {
-      e.preventDefault();
-      addWall(i, j);
-    };
+    if (currentlyDrawingTextures) {
+      return (e) => {
+        e.preventDefault();
+        addTexture(i, j, currentTexture);
+      };
+    }
   };
 
   const handleOnMouseUp = (e) => {
     e.preventDefault();
-    setCurrentlyDrawingWalls(false);
+    setCurrentlyDrawingTextures(false);
   };
 
   return (
     <div
       className="grid"
       onMouseLeave={() => {
-        setCurrentlyDrawingWalls(false);
+        setCurrentlyDrawingTextures(false);
       }}
     >
       {stateOfNodes.map((row, i) => {
@@ -69,11 +73,13 @@ const Grid = ({
               handleClick={() => {
                 onClickFunction(i, j);
               }}
-              handleOnMouseDown={createHandleOnMouseDown(i, j)}
-              handleOnMouseEnter={createHandleOnMouseEnter(i, j)}
-              handleOnMouseUp={handleOnMouseUp}
-              drawingWallsAllowed={drawingWallsAllowed}
-              currentlyDrawingWalls={currentlyDrawingWalls}
+              handleOnMouseDown={
+                currentTexture ? createHandleOnMouseDown(i, j) : undefined
+              }
+              handleOnMouseEnter={
+                currentTexture ? createHandleOnMouseEnter(i, j) : undefined
+              }
+              handleOnMouseUp={currentTexture ? handleOnMouseUp : undefined}
               key={`${i}-${j}`}
               findingPath={findingPath}
             />
