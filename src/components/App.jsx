@@ -3,10 +3,19 @@ import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import useStateOfPath from 'hooks/useStateOfPath';
+import {
+  DEFAULT_END_NODE,
+  DEFAULT_START_NODE,
+  GRID_HEIGHT,
+  GRID_WIDTH,
+  TEXTURES_NAME_VALUE_MAP,
+} from 'util/settings';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, () => Array.from({ length: 20 }, () => 3))
+    Array.from({ length: GRID_HEIGHT }, () =>
+      Array.from({ length: GRID_WIDTH }, () => TEXTURES_NAME_VALUE_MAP.grass)
+    )
   );
   const [
     startNode,
@@ -18,7 +27,7 @@ function App() {
     resetStateOfPath,
     addVisitedNode,
     clearVisitedNodes,
-  ] = useStateOfPath([4, 4], [7, 16]);
+  ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
   const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
