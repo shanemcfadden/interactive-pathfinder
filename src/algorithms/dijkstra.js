@@ -12,8 +12,6 @@ export const dijkstra = (
   const grid = initialGrid.map((row) => row.slice());
   // Make the end node accessible even if the weight is Infinity
   grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
-  console.log('initialGrid', initialGrid);
-  console.log('grid', grid);
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
   const previousCoordinateMap = {};
@@ -135,21 +133,3 @@ function initializeCoordinatesHeap(grid, startingCoordinates) {
   });
   return coordinatesHeap;
 }
-
-// const fakeGrid = [
-//   [1, 5, 1, 1, 1, 1],
-//   [0, 2, 0, 1, 0, 1],
-//   [1, Infinity, 1, 1, 0, 1],
-//   [1, Infinity, 0, 0, 0, 1],
-//   [1, 1, 1, 1, 1, 1],
-// ];
-
-// console.log(dijkstra([0, 0], [4, 0], fakeGrid));
-
-// const fakeStateGrid = [
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-// ];
-// console.log(changeToOnesAndZeros(fakeStateGrid));
