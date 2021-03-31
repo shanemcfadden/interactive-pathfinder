@@ -1,3 +1,5 @@
+import { flipKeyValuePairs } from './obj';
+
 export const DEFAULT_START_NODE = [4, 4];
 export const DEFAULT_END_NODE = [7, 16];
 
@@ -30,13 +32,9 @@ export const TEXTURES_VALUE_NAME_MAP = TEXTURES_ARRAY.reduce(
   {}
 );
 
-export const TEXTURES_NAME_VALUE_MAP = Object.keys(
+export const TEXTURES_NAME_VALUE_MAP = flipKeyValuePairs(
   TEXTURES_VALUE_NAME_MAP
-).reduce((map, value) => {
-  const name = TEXTURES_VALUE_NAME_MAP[value];
-  map[name] = value;
-  return map;
-}, {});
+);
 
 export const PATHS_VALUE_NAME_MAP = {
   1: 'visited',
@@ -45,11 +43,4 @@ export const PATHS_VALUE_NAME_MAP = {
   4: 'end',
 };
 
-export const PATHS_NAME_VALUE_MAP = Object.keys(PATHS_VALUE_NAME_MAP).reduce(
-  (map, value) => {
-    const name = PATHS_VALUE_NAME_MAP[value];
-    map[name] = value;
-    return map;
-  },
-  {}
-);
+export const PATHS_NAME_VALUE_MAP = flipKeyValuePairs(PATHS_VALUE_NAME_MAP);
