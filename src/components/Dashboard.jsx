@@ -113,6 +113,9 @@ const Dashboard = ({
           Select Start
         </button>
 
+        <label for="select-texture">Draw Texture:</label>
+      </div>
+      <div className="dashboard__column">
         <button
           className="dashboard__button"
           type="button"
@@ -121,9 +124,8 @@ const Dashboard = ({
         >
           Select End
         </button>
-      </div>
-      <div className="dashboard__column">
         <select
+          id="select-texture"
           value={currentTexture == null ? 'none' : currentTexture.toString()}
           onChange={handleTextureChange}
           disabled={findPathButton !== 'findPath'}
