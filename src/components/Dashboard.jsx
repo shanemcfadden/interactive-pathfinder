@@ -113,7 +113,7 @@ const Dashboard = ({
           Select Start
         </button>
 
-        <label for="select-texture">Draw Texture:</label>
+        <label htmlFor="select-texture">Draw Texture:</label>
       </div>
       <div className="dashboard__column">
         <button
