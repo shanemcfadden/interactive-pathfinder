@@ -16,6 +16,10 @@
   margin-right: 0;
 }
 
+.dashboard__column > :only-child {
+  margin: auto 0 0;
+}
+
 .dashboard__button {
   background-color: #328fdc;
   border: 0;

@@ -1,34 +1,47 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
+import useStateOfPath from 'hooks/useStateOfPath';
+import {
+  DEFAULT_END_NODE,
+  DEFAULT_START_NODE,
+  GRID_HEIGHT,
+  GRID_WIDTH,
+  TEXTURES_NAME_VALUE_MAP,
+} from 'util/settings';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
+    Array.from({ length: GRID_HEIGHT }, () =>
+      Array.from({ length: GRID_WIDTH }, () => TEXTURES_NAME_VALUE_MAP.grass)
+    )
   );
-  const [startNode, setStartNode] = useState([4, 4]);
-  const [endNode, setEndNode] = useState([7, 16]);
-  const [currentClickFunction, setCurrentClickFunction] = useState('none');
-  const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
-  const [findingPath, setFindingPath] = useState(false);
-
-  useEffect(() => {
-    if (drawingWallsAllowed) {
-      setCurrentClickFunction('none');
-    }
-  }, [drawingWallsAllowed]);
-
-  const clickFunctionRef = useRef({
+  const [
+    startNode,
     setStartNode,
+    endNode,
     setEndNode,
-    none: () => {},
-  });
-
+    stateOfPath,
+    addPathNode,
+    resetStateOfPath,
+    addVisitedNode,
+    clearVisitedNodes,
+  ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
+  const [currentClickFunction, setCurrentClickFunction] = useState('none');
+  const [currentTexture, setCurrentTexture] = useState(null);
+  const [findingPath, setFindingPath] = useState(false);
   const createOnClickFunction = () => {
+    const availableFunctions = {
+      updateStartNode: setStartNode,
+      updateEndNode: setEndNode,
+    };
+    if (!currentClickFunction || !availableFunctions[currentClickFunction])
+      return () => {};
+
     return (i, j) => {
-      clickFunctionRef.current[currentClickFunction]([i, j]);
-      setCurrentClickFunction('none');
+      availableFunctions[currentClickFunction]([i, j]);
+      setCurrentClickFunction(null);
     };
   };
   return (
@@ -45,24 +58,25 @@ function App() {
           Make a guess, and see if you can beat the computer at its own game!
         </p>
         <Dashboard
-          setCurrentClickFunction={setCurrentClickFunction}
           startNode={startNode}
           endNode={endNode}
+          setCurrentClickFunction={setCurrentClickFunction}
           stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
-          setDrawingWallsAllowed={setDrawingWallsAllowed}
-          findingPath={findingPath}
+          currentTexture={currentTexture}
+          setCurrentTexture={setCurrentTexture}
           setFindingPath={setFindingPath}
+          addPathNode={addPathNode}
+          addVisitedNode={addVisitedNode}
+          resetStateOfPath={resetStateOfPath}
+          clearVisitedNodes={clearVisitedNodes}
         />
         <Grid
-          startNode={startNode}
-          endNode={endNode}
           onClickFunction={createOnClickFunction(currentClickFunction)}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
           findingPath={findingPath}
+          stateOfPath={stateOfPath}
+          currentTexture={currentTexture}
         />
       </div>
     </div>

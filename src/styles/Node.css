@@ -25,3 +25,27 @@
 .node--wall {
   background-color: black;
 }
+
+.node--grass {
+  background-color: green;
+}
+
+.node--sand {
+  background-color: rgb(231, 204, 170);
+}
+
+.node--asphalt {
+  background-color: gray;
+}
+
+.node--dirt {
+  background-color: rgb(105, 81, 15);
+}
+
+.node--swamp {
+  background-color: rgb(94, 105, 75);
+}
+
+.node--water {
+  background-color: blue;
+}

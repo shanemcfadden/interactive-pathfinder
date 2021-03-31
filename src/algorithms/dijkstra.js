@@ -1,17 +1,17 @@
 import MinHeap from 'models/MinHeap';
+import { coordinatesAreEqual } from 'util/arr';
 
 export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
-  gridWithState,
+  initialGrid,
   addVisitedNode,
   addPathNode,
   done
 ) => {
-  // For now, the grid is going to be an array of arrays of 1's and 0's
-  // The 1's are accessible to the neighboring accessible nodes (only vertically and horizontally)
-  // The 0's are not accessible to any node
-  const grid = convertGridWithStateToOnesAndZeros(gridWithState);
+  const grid = initialGrid.map((row) => row.slice());
+  // Make the end node accessible even if the weight is Infinity
+  grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
   const previousCoordinateMap = {};
@@ -55,19 +55,20 @@ export const dijkstra = (
 };
 
 function addNeighboringCoordinatesToHeap(
-  coordinateData,
+  currentCoordinateData,
   grid,
   coordinatesHeap
 ) {
   const neigboringCoordinates = getNeighboringCoordinates(
-    coordinateData.coordinate,
+    currentCoordinateData.coordinate,
     grid
   );
-  neigboringCoordinates.forEach((coor) => {
+  neigboringCoordinates.forEach((neighbor) => {
     let newCoordinateData = {
-      coordinate: coor,
-      distanceFromStart: coordinateData.distanceFromStart + 1,
-      previousCoordinate: coordinateData.coordinate,
+      coordinate: neighbor.coordinate,
+      distanceFromStart:
+        currentCoordinateData.distanceFromStart + neighbor.distanceFromCurrent,
+      previousCoordinate: currentCoordinateData.coordinate,
     };
     coordinatesHeap.push(newCoordinateData);
   });
@@ -78,18 +79,6 @@ function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
     coordinateData.previousCoordinate;
 }
 
-function convertGridWithStateToOnesAndZeros(gridWithState) {
-  return gridWithState.map((row) => {
-    return row.map((val) => {
-      return val === 'wall' ? 0 : 1;
-    });
-  });
-}
-
-function coordinatesAreEqual(coor1, coor2) {
-  return JSON.stringify(coor1) === JSON.stringify(coor2);
-}
-
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
   return !!previousCoordinateMap[JSON.stringify(coordinate)];
 }
@@ -97,22 +86,20 @@ function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
 function getNeighboringCoordinates(currentCoordinate, grid) {
   const neighbors = [];
   const [i, j] = currentCoordinate;
-  // top
-  if (i > 0 && grid[i - 1][j]) {
-    neighbors.push([i - 1, j]);
-  }
-  // right
-  if (j < grid[0].length - 1 && grid[i][j + 1]) {
-    neighbors.push([i, j + 1]);
-  }
-  // bottom
-  if (i < grid.length - 1 && grid[i + 1][j]) {
-    neighbors.push([i + 1, j]);
-  }
-  // left
-  if (j > 0 && grid[i][j - 1]) {
-    neighbors.push([i, j - 1]);
-  }
+  const possibleNeighbors = [
+    [i - 1, j],
+    [i, j - 1],
+    [i + 1, j],
+    [i, j + 1],
+  ];
+  possibleNeighbors.forEach(([a, b]) => {
+    if (a >= 0 && a < grid.length && b >= 0 && b < grid[0].length) {
+      neighbors.push({
+        coordinate: [a, b],
+        distanceFromCurrent: grid[a][b],
+      });
+    }
+  });
   return neighbors;
 }
 
@@ -146,21 +133,3 @@ function initializeCoordinatesHeap(grid, startingCoordinates) {
   });
   return coordinatesHeap;
 }
-
-// const fakeGrid = [
-//   [1, 1, 1, 1, 1, 1],
-//   [0, 0, 0, 1, 0, 1],
-//   [1, 1, 1, 1, 0, 1],
-//   [1, 0, 0, 0, 0, 1],
-//   [1, 1, 1, 1, 1, 1],
-// ];
-
-// console.log(dijkstra([0, 0], [4, 0], fakeGrid));
-
-// const fakeStateGrid = [
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-//   [null, null, true, 'bunk'],
-// ];
-// console.log(changeToOnesAndZeros(fakeStateGrid));

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
+import { TEXTURES_ARRAY } from 'util/settings';
 import 'styles/Dashboard.css';
 
 const Dashboard = ({
@@ -7,38 +8,29 @@ const Dashboard = ({
   endNode,
   setCurrentClickFunction,
   stateOfNodes,
-  setStateOfNodes,
-  drawingWallsAllowed,
-  setDrawingWallsAllowed,
-  findingPath,
   setFindingPath,
+  addPathNode,
+  addVisitedNode,
+  resetStateOfPath,
+  clearVisitedNodes,
+  currentTexture,
+  setCurrentTexture,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
-  const addVisitedNode = (coordinate) => {
-    const newStateOfNodes = [...stateOfNodes];
-    newStateOfNodes[coordinate[0]][coordinate[1]] = 'visited';
-    setStateOfNodes(newStateOfNodes);
-  };
-  const addPathNode = (coordinate) => {
-    const newStateOfNodes = [...stateOfNodes];
-    newStateOfNodes[coordinate[0]][coordinate[1]] = 'path';
-    setStateOfNodes(newStateOfNodes);
-  };
   const handleStartButtonClick = () => {
     handleFindPathReset();
-    setDrawingWallsAllowed(false);
-    setCurrentClickFunction('setStartNode');
+    setCurrentTexture(null);
+    setCurrentClickFunction('updateStartNode');
   };
   const handleEndButtonClick = () => {
     handleFindPathReset();
-    setDrawingWallsAllowed(false);
-    setCurrentClickFunction('setEndNode');
+    setCurrentTexture(null);
+    setCurrentClickFunction('updateEndNode');
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');
-    setCurrentClickFunction('none');
-    setDrawingWallsAllowed(false);
+    setCurrentClickFunction(null);
     setFindingPath(true);
     const interval = dijkstra(
       startNode,
@@ -51,37 +43,10 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
-  const removeVisitedAndPathNodes = () => {
-    const newNodes = [...stateOfNodes];
-    setStateOfNodes(
-      newNodes.map((row, i) => {
-        return row.map((val, j) => {
-          if (val === 'wall') {
-            return val;
-          }
-          return undefined;
-        });
-      })
-    );
-  };
-
-  const handleClearWalls = () => {
-    const newNodes = [...stateOfNodes];
-    setStateOfNodes(
-      newNodes.map((row) => {
-        return row.map((state) => {
-          if (state !== 'wall') {
-            return state;
-          }
-          return undefined;
-        });
-      })
-    );
-  };
-
   const afterDijkstraSuccess = () => {
     setCurrentInterval(null);
     setFindingPath(false);
+    clearVisitedNodes();
     setFindPathButton('reset');
   };
 
@@ -92,7 +57,7 @@ const Dashboard = ({
   };
 
   const handleFindPathReset = () => {
-    removeVisitedAndPathNodes();
+    resetStateOfPath();
     setFindPathButton('findPath');
   };
 
@@ -130,6 +95,12 @@ const Dashboard = ({
     }
   };
 
+  const handleTextureChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : +e.target.value;
+    setCurrentTexture(newValue);
+  };
+
   return (
     <div className="dashboard">
       <div className="dashboard__column">
@@ -141,16 +112,8 @@ const Dashboard = ({
         >
           Select Start
         </button>
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={() => {
-            setDrawingWallsAllowed(!drawingWallsAllowed);
-          }}
-          disabled={findPathButton !== 'findPath'}
-        >
-          {drawingWallsAllowed ? 'Stop' : 'Start'} Adding Walls
-        </button>
+
+        <label for="select-texture">Draw Texture:</label>
       </div>
       <div className="dashboard__column">
         <button
@@ -161,14 +124,21 @@ const Dashboard = ({
         >
           Select End
         </button>
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={handleClearWalls}
+        <select
+          id="select-texture"
+          value={currentTexture == null ? 'none' : currentTexture.toString()}
+          onChange={handleTextureChange}
           disabled={findPathButton !== 'findPath'}
         >
-          Clear Walls
-        </button>
+          <option value="none">-</option>
+          {TEXTURES_ARRAY.map(({ weight, name }) => {
+            return (
+              <option key={name} value={weight}>
+                {name}
+              </option>
+            );
+          })}
+        </select>
       </div>
       <div className="dashboard__column">{renderFindPathButton()}</div>
     </div>
