@@ -8,6 +8,7 @@ import {
   DEFAULT_START_NODE,
   GRID_HEIGHT,
   GRID_WIDTH,
+  MODAL_HEADER,
   PAGE_DESCRIPTION,
   PAGE_HEADER,
   TEXTURES_NAME_VALUE_MAP,
@@ -81,7 +82,7 @@ function App() {
       {modalIsOpen && (
         <Modal
           closeModalFunction={() => setModalIsOpen(false)}
-          title={'Modal title'}
+          title={MODAL_HEADER}
           confirmLabel={'Reset'}
         />
       )}
