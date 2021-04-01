@@ -30,18 +30,21 @@ export const TEXTURES_ARRAY = [
   {
     weight: 1,
     name: 'Asphalt',
+    difficulty: 'super easy',
   },
   {
     weight: 2,
     name: 'Dirt',
+    difficulty: 'easy',
   },
   {
     weight: 5,
     name: 'Grass',
+    difficulty: 'moderate',
   },
-  { weight: 10, name: 'Sand' },
-  { weight: 20, name: 'Swamp' },
-  { weight: Infinity, name: 'Water' },
+  { weight: 10, name: 'Sand', difficulty: 'difficult' },
+  { weight: 20, name: 'Swamp', difficulty: 'super difficult' },
+  { weight: Infinity, name: 'Water', difficulty: 'impossible' },
 ];
 
 export const TEXTURES_VALUE_NAME_MAP = TEXTURES_ARRAY.reduce(
