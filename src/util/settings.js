@@ -40,7 +40,7 @@ export const TEXTURES_ARRAY = [
   {
     weight: 5,
     name: 'Grass',
-    description: 'average',
+    description: 'moderate',
   },
   { weight: 10, name: 'Sand', description: 'difficult' },
   { weight: 20, name: 'Swamp', description: 'super difficult' },
