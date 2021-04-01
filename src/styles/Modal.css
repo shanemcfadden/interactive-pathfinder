@@ -17,18 +17,21 @@
 
 .modal__content-box {
   background-color: #fff;
-  /* border-radius: $s-size; */
   bottom: 0;
   box-shadow: 0 0 5px 0 #000;
   height: fit-content;
   left: 0;
   margin: auto;
   max-height: 90%;
-  max-width: 90%;
-  /* padding: $l-size; */
+  max-width: 50%;
+  padding: 16px;
   position: fixed;
   right: 0;
   top: 0;
   width: 50rem;
   z-index: 110;
+}
+
+.modal__content-box > button {
+  float: right;
 }
