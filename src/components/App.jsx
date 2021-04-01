@@ -8,6 +8,8 @@ import {
   DEFAULT_START_NODE,
   GRID_HEIGHT,
   GRID_WIDTH,
+  PAGE_DESCRIPTION,
+  PAGE_HEADER,
   TEXTURES_NAME_VALUE_MAP,
 } from 'util/settings';
 
@@ -47,16 +49,10 @@ function App() {
   return (
     <div className="App">
       <div className="content-container">
-        <h1 className="centered-text">Interactive pathfinder</h1>
-        <p>
-          Find the shortest path! Select a starting block and an ending block.
-          To make things trickier, draw some walls for the pathfinder to dodge.
-          Once you press find path, the computer will search for the shortest
-          path using Dijkstra's algorithm.
-        </p>
-        <p>
-          Make a guess, and see if you can beat the computer at its own game!
-        </p>
+        <h1 className="centered-text">{PAGE_HEADER}</h1>
+        {PAGE_DESCRIPTION.map((paragraphText, i) => (
+          <p key={`p-${i}`}>{paragraphText}</p>
+        ))}
         <Dashboard
           startNode={startNode}
           endNode={endNode}
