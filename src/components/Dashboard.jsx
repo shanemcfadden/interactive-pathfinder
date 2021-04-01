@@ -131,10 +131,10 @@ const Dashboard = ({
           disabled={findPathButton !== 'findPath'}
         >
           <option value="none">-</option>
-          {TEXTURES_ARRAY.map(({ weight, name, description }) => {
+          {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => {
             return (
               <option key={name} value={weight}>
-                {name} ({description})
+                {name} ({difficulty})
               </option>
             );
           })}
