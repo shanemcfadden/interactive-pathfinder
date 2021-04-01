@@ -8,10 +8,12 @@ import {
   DEFAULT_START_NODE,
   GRID_HEIGHT,
   GRID_WIDTH,
+  MODAL_HEADER,
   PAGE_DESCRIPTION,
   PAGE_HEADER,
   TEXTURES_NAME_VALUE_MAP,
 } from 'util/settings';
+import Modal from './Modal';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -33,6 +35,7 @@ function App() {
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
   const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const createOnClickFunction = () => {
     const availableFunctions = {
       updateStartNode: setStartNode,
@@ -65,6 +68,7 @@ function App() {
           addVisitedNode={addVisitedNode}
           resetStateOfPath={resetStateOfPath}
           clearVisitedNodes={clearVisitedNodes}
+          setModalIsOpen={setModalIsOpen}
         />
         <Grid
           onClickFunction={createOnClickFunction(currentClickFunction)}
@@ -75,6 +79,13 @@ function App() {
           currentTexture={currentTexture}
         />
       </div>
+      {modalIsOpen && (
+        <Modal
+          closeModalFunction={() => setModalIsOpen(false)}
+          title={MODAL_HEADER}
+          confirmLabel={'Reset'}
+        />
+      )}
     </div>
   );
 }

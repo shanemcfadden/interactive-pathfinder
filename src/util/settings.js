@@ -13,6 +13,8 @@ export const PAGE_DESCRIPTION = [
   `,
 ];
 
+export const MODAL_HEADER = 'There are no possible paths!';
+
 export const DEFAULT_START_NODE = [4, 4];
 export const DEFAULT_END_NODE = [7, 16];
 

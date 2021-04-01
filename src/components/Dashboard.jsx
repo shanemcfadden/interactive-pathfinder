@@ -15,6 +15,7 @@ const Dashboard = ({
   clearVisitedNodes,
   currentTexture,
   setCurrentTexture,
+  setModalIsOpen,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
@@ -43,10 +44,15 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
-  const afterDijkstraSuccess = () => {
+  const afterDijkstraSuccess = (failedMessage) => {
     setCurrentInterval(null);
     setFindingPath(false);
     clearVisitedNodes();
+    if (failedMessage) {
+      setModalIsOpen(true);
+      setFindPathButton('findPath');
+      return;
+    }
     setFindPathButton('reset');
   };
 

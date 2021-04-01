@@ -29,7 +29,7 @@ export const dijkstra = (
         addToVisitedCoordinates(current, previousCoordinateMap);
         if (current.distanceFromStart === Infinity) {
           clearInterval(interval);
-          done();
+          done('No path found');
         } else if (coordinatesAreEqual(current.coordinate, endingCoordinates)) {
           pathFound = true;
           finalCoordinateData = current;
