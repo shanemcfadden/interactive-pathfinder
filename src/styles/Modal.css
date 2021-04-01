@@ -1,0 +1,34 @@
+.modal__overlay {
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 100;
+}
+
+.modal__overlay--accent-color {
+  background-color: #000;
+}
+
+.modal__overlay--translucent {
+  opacity: 0.3;
+}
+
+.modal__content-box {
+  background-color: #fff;
+  /* border-radius: $s-size; */
+  bottom: 0;
+  box-shadow: 0 0 5px 0 #000;
+  height: fit-content;
+  left: 0;
+  margin: auto;
+  max-height: 90%;
+  max-width: 90%;
+  /* padding: $l-size; */
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 50rem;
+  z-index: 110;
+}
