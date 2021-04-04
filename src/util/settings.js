@@ -18,8 +18,8 @@ export const MODAL_HEADER = 'There are no possible paths!';
 export const DEFAULT_START_NODE = [4, 4];
 export const DEFAULT_END_NODE = [7, 16];
 
-export const GRID_WIDTH = 20;
-export const GRID_HEIGHT = 20;
+export const GRID_WIDTH_NODES = 20;
+export const GRID_HEIGHT_NODES = 20;
 
 export const PATHS_VALUE_NAME_MAP = {
   1: 'visited',
