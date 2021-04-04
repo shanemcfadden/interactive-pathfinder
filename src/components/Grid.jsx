@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import Node from 'components/Node';
 import 'styles/Grid.css';
-import { PATHS_VALUE_NAME_MAP, TEXTURES_VALUE_NAME_MAP } from 'util/settings';
+import {
+  PATHS_VALUE_NAME_MAP,
+  TEXTURES_VALUE_NAME_MAP,
+  GRID_HEIGHT_NODES,
+  GRID_WIDTH_NODES,
+  GRID_WIDTH_PX,
+  GRID_GAP_PX,
+  NODE_WIDTH_PX,
+  GRID_HEIGHT_PX,
+} from 'util/settings';
 
 const Grid = ({
   onClickFunction,
@@ -43,6 +52,13 @@ const Grid = ({
   return (
     <div
       className="grid"
+      style={{
+        gap: `${GRID_GAP_PX}px`,
+        gridTemplateColumns: `repeat(${GRID_WIDTH_NODES}, ${NODE_WIDTH_PX}px)`,
+        gridTemplateRows: `repeat(${GRID_HEIGHT_NODES}, ${NODE_WIDTH_PX}px)`,
+        height: `${GRID_HEIGHT_PX}px`,
+        width: `${GRID_WIDTH_PX}px`,
+      }}
       onMouseLeave={() => {
         setCurrentlyDrawingTextures(false);
       }}

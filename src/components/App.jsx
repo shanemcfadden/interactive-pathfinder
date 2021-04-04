@@ -6,8 +6,8 @@ import useStateOfPath from 'hooks/useStateOfPath';
 import {
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
-  GRID_HEIGHT,
-  GRID_WIDTH,
+  GRID_HEIGHT_NODES,
+  GRID_WIDTH_NODES,
   MODAL_HEADER,
   PAGE_DESCRIPTION,
   PAGE_HEADER,
@@ -17,8 +17,11 @@ import Modal from './Modal';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: GRID_HEIGHT }, () =>
-      Array.from({ length: GRID_WIDTH }, () => TEXTURES_NAME_VALUE_MAP.grass)
+    Array.from({ length: GRID_HEIGHT_NODES }, () =>
+      Array.from(
+        { length: GRID_WIDTH_NODES },
+        () => TEXTURES_NAME_VALUE_MAP.grass
+      )
     )
   );
   const [
@@ -70,15 +73,15 @@ function App() {
           clearVisitedNodes={clearVisitedNodes}
           setModalIsOpen={setModalIsOpen}
         />
-        <Grid
-          onClickFunction={createOnClickFunction(currentClickFunction)}
-          stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
-          findingPath={findingPath}
-          stateOfPath={stateOfPath}
-          currentTexture={currentTexture}
-        />
       </div>
+      <Grid
+        onClickFunction={createOnClickFunction(currentClickFunction)}
+        stateOfNodes={stateOfNodes}
+        setStateOfNodes={setStateOfNodes}
+        findingPath={findingPath}
+        stateOfPath={stateOfPath}
+        currentTexture={currentTexture}
+      />
       {modalIsOpen && (
         <Modal
           closeModalFunction={() => setModalIsOpen(false)}

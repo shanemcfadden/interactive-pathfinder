@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { coordinatesAreEqual } from 'util/arr';
-import { GRID_HEIGHT, GRID_WIDTH, PATHS_NAME_VALUE_MAP } from 'util/settings';
+import {
+  GRID_HEIGHT_NODES,
+  GRID_WIDTH_NODES,
+  PATHS_NAME_VALUE_MAP,
+} from 'util/settings';
 
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
@@ -12,8 +16,8 @@ const useStateOfPath = (startingCoor, endingCoor) => {
   const [endNode, setEndNode] = useState(endingCoor);
 
   const getInitalPathState = (start, end) => {
-    return Array.from({ length: GRID_HEIGHT }, (row, i) =>
-      Array.from({ length: GRID_WIDTH }, (val, j) => {
+    return Array.from({ length: GRID_HEIGHT_NODES }, (row, i) =>
+      Array.from({ length: GRID_WIDTH_NODES }, (val, j) => {
         if (coordinatesAreEqual(start, [i, j])) return startNodeValue;
         if (coordinatesAreEqual(end, [i, j])) return endNodeValue;
         return 0;
