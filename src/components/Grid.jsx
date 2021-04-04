@@ -8,6 +8,8 @@ import {
   GRID_MAX_HEIGHT_PX,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
+  GRID_GAP_PX,
+  NODE_WIDTH_PX,
 } from 'util/settings';
 
 const Grid = ({
@@ -51,8 +53,8 @@ const Grid = ({
     <div
       className="grid"
       style={{
-        gap: '2px',
-        gridTemplateColumns: `repeat(${GRID_WIDTH_NODES}, calc(5% - 1.9px))`,
+        gap: `${GRID_GAP_PX}px`,
+        gridTemplateColumns: `repeat(${GRID_WIDTH_NODES}, ${NODE_WIDTH_PX}px`,
         gridTemplateRows: `repeat(${GRID_HEIGHT_NODES}, 33.09px)`,
         height: `${GRID_MAX_HEIGHT_PX}px`,
         width: `${GRID_WIDTH_PX}px`,

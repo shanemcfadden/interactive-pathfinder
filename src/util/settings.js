@@ -18,10 +18,13 @@ export const MODAL_HEADER = 'There are no possible paths!';
 export const DEFAULT_START_NODE = [4, 4];
 export const DEFAULT_END_NODE = [7, 16];
 
+export const GRID_GAP_PX = 2;
 export const GRID_WIDTH_PX = 1100;
 export const GRID_MAX_HEIGHT_PX = 600;
 export const GRID_WIDTH_NODES = 20;
 export const GRID_HEIGHT_NODES = 20;
+export const NODE_WIDTH_PX =
+  (GRID_WIDTH_PX - GRID_GAP_PX * (GRID_WIDTH_NODES - 1)) / GRID_WIDTH_NODES;
 
 export const PATHS_VALUE_NAME_MAP = {
   1: 'visited',
