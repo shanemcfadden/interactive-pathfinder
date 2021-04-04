@@ -43,6 +43,11 @@ const Grid = ({
   return (
     <div
       className="grid"
+      style={{
+        gap: '2px',
+        gridTemplateColumns: 'repeat(20, calc(5% - 1.9px))',
+        gridTemplateRows: 'repeat(20, 33.09px)',
+      }}
       onMouseLeave={() => {
         setCurrentlyDrawingTextures(false);
       }}
