@@ -73,15 +73,15 @@ function App() {
           clearVisitedNodes={clearVisitedNodes}
           setModalIsOpen={setModalIsOpen}
         />
-        <Grid
-          onClickFunction={createOnClickFunction(currentClickFunction)}
-          stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
-          findingPath={findingPath}
-          stateOfPath={stateOfPath}
-          currentTexture={currentTexture}
-        />
       </div>
+      <Grid
+        onClickFunction={createOnClickFunction(currentClickFunction)}
+        stateOfNodes={stateOfNodes}
+        setStateOfNodes={setStateOfNodes}
+        findingPath={findingPath}
+        stateOfPath={stateOfPath}
+        currentTexture={currentTexture}
+      />
       {modalIsOpen && (
         <Modal
           closeModalFunction={() => setModalIsOpen(false)}
