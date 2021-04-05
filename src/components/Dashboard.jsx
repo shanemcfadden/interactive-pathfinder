@@ -31,6 +31,7 @@ const Dashboard = ({
   };
   const handleFindPathClick = () => {
     setFindPathButton('cancel');
+    setCurrentTexture(null);
     setCurrentClickFunction(null);
     setFindingPath(true);
     const interval = dijkstra(
