@@ -66,10 +66,13 @@ const Grid = ({
       {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
           const currentState =
-            PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] ||
-            TEXTURES_VALUE_NAME_MAP[val];
+            PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] === 'visited'
+              ? TEXTURES_VALUE_NAME_MAP[val]
+              : PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] ||
+                TEXTURES_VALUE_NAME_MAP[val];
           return (
             <Node
+              visited={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] === 'visited'}
               currentState={currentState}
               handleClick={() => {
                 onClickFunction(i, j);

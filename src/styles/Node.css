@@ -18,10 +18,6 @@
   background-color: greenyellow;
 }
 
-/* .node--visited {
-  background-color: aqua;
-} */
-
 .node--wall {
   background-color: black;
 }
@@ -68,8 +64,4 @@
 
 .node--water {
   background-color: #2600ee;
-}
-
-.node--water.node--visited {
-  background-color: #150976;
 }

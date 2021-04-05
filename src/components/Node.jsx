@@ -8,12 +8,13 @@ const Node = ({
   handleOnMouseEnter,
   handleOnMouseUp,
   findingPath,
+  visited,
 }) => {
   return (
     <div
       className={`node node--${currentState}${
         findingPath ? ' node--animated' : ''
-      }`}
+      }${visited ? ' node--visited' : ''}`}
       onClick={handleClick}
       onMouseDown={handleOnMouseDown}
       onMouseEnter={handleOnMouseEnter}
