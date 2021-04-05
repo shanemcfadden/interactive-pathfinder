@@ -12,7 +12,7 @@ const Node = ({
 }) => {
   return (
     <div
-      className={`node node--${currentTexture}${
+      className={`node--${currentTexture}${
         currentPathState ? ` node--${currentPathState}` : ''
       }${findingPath ? ' node--animated' : ''}`}
       onClick={handleClick}
