@@ -1,51 +1,62 @@
-.node {
-  border: 1px solid black;
-}
-
 .node--animated {
   transition: background-color 500ms ease-in-out;
 }
 
-.node--end {
-  background-color: red;
-}
-
-.node--path {
-  background-color: yellow;
-}
-
-.node--start {
-  background-color: greenyellow;
-}
-
-.node--visited {
-  background-color: aqua;
-}
-
-.node--wall {
-  background-color: black;
-}
-
 .node--grass {
-  background-color: green;
+  background-color: #00bf00;
+}
+
+.node--grass.node--visited {
+  background-color: #006602;
 }
 
 .node--sand {
-  background-color: rgb(231, 204, 170);
+  background-color: #ffd9a9;
+}
+
+.node--sand.node--visited {
+  background-color: #88755f;
 }
 
 .node--asphalt {
-  background-color: gray;
+  background-color: #6a6d64;
+}
+
+.node--asphalt.node--visited {
+  background-color: #262623;
 }
 
 .node--dirt {
-  background-color: rgb(105, 81, 15);
+  background-color: #653c00;
+}
+
+.node--dirt.node--visited {
+  background-color: #321f06;
 }
 
 .node--swamp {
-  background-color: rgb(94, 105, 75);
+  background-color: #007437;
+}
+
+.node--swamp.node--visited {
+  background-color: #002b17;
 }
 
 .node--water {
-  background-color: blue;
+  background-color: #2600ee;
+}
+
+.node--path {
+  outline: 2px solid black;
+}
+
+/* start and end MUST BE AT END to override texture backgrounds */
+.node--start {
+  background-color: greenyellow;
+  outline: 2px solid black;
+}
+
+.node--end {
+  background-color: red;
+  outline: 2px solid black;
 }

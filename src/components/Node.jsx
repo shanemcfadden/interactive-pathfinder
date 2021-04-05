@@ -2,7 +2,8 @@ import React from 'react';
 import 'styles/Node.css';
 
 const Node = ({
-  currentState,
+  currentTexture,
+  currentPathState,
   handleClick,
   handleOnMouseDown,
   handleOnMouseEnter,
@@ -11,9 +12,9 @@ const Node = ({
 }) => {
   return (
     <div
-      className={`node node--${currentState}${
-        findingPath ? ' node--animated' : ''
-      }`}
+      className={`node--${currentTexture}${
+        currentPathState ? ` node--${currentPathState}` : ''
+      }${findingPath ? ' node--animated' : ''}`}
       onClick={handleClick}
       onMouseDown={handleOnMouseDown}
       onMouseEnter={handleOnMouseEnter}

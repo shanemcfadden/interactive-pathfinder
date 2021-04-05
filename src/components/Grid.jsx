@@ -65,12 +65,10 @@ const Grid = ({
     >
       {stateOfNodes.map((row, i) => {
         return row.map((val, j) => {
-          const currentState =
-            PATHS_VALUE_NAME_MAP[stateOfPath[i][j]] ||
-            TEXTURES_VALUE_NAME_MAP[val];
           return (
             <Node
-              currentState={currentState}
+              currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
+              currentPathState={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]]}
               handleClick={() => {
                 onClickFunction(i, j);
               }}
