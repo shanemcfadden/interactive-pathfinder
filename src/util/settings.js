@@ -855,6 +855,8 @@ export const CUSTOM_TERRAINS = {
     ],
   },
   swampMaze: {
+    startNode: [0, 0],
+    endNode: [20, 34],
     stateOfNodes: [
       [
         20,

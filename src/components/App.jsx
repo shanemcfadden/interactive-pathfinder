@@ -48,7 +48,9 @@ function App() {
     if (currentSampleTerrain == null) return;
     const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
     setStateOfNodes(shallowCopyOfGrid(sampleData.stateOfNodes));
-  }, [currentSampleTerrain, setStateOfNodes]);
+    if (sampleData.startNode) setStartNode([...sampleData.startNode]);
+    if (sampleData.endNode) setEndNode([...sampleData.endNode]);
+  }, [currentSampleTerrain]);
 
   const createOnClickFunction = () => {
     const availableFunctions = {
