@@ -19,6 +19,7 @@ const Grid = ({
   findingPath,
   stateOfPath,
   currentTexture,
+  setSampleTerrainToNull,
 }) => {
   const [currentlyDrawingTextures, setCurrentlyDrawingTextures] = useState(
     false
@@ -33,6 +34,7 @@ const Grid = ({
       e.preventDefault();
       setCurrentlyDrawingTextures(true);
       addTexture(i, j, currentTexture);
+      setSampleTerrainToNull();
     };
   };
   const createHandleOnMouseEnter = (i, j) => {

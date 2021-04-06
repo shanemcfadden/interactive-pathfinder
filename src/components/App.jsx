@@ -63,6 +63,9 @@ function App() {
       setCurrentClickFunction(null);
     };
   };
+  const setSampleTerrainToNull = () => {
+    setSampleTerrain(null);
+  };
   return (
     <div className="App dark-theme">
       <div
@@ -101,6 +104,7 @@ function App() {
         findingPath={findingPath}
         stateOfPath={stateOfPath}
         currentTexture={currentTexture}
+        setSampleTerrainToNull={setSampleTerrainToNull}
       />
       {modalIsOpen && (
         <Modal
