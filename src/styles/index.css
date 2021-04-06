@@ -44,3 +44,9 @@ select {
   color: black;
   background-color: white;
 }
+
+.content-box {
+  padding: 0.1px 32px;
+  margin: 16px 0;
+  border-radius: 16px;
+}

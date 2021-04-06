@@ -61,7 +61,7 @@ function App() {
           width: GRID_WIDTH_PX + 'px',
         }}
       >
-        <div className="light-theme">
+        <div className="content-box light-theme">
           <h1 className="centered-text">{PAGE_HEADER}</h1>
           {PAGE_DESCRIPTION.map((paragraphText, i) => (
             <p key={`p-${i}`}>{paragraphText}</p>
