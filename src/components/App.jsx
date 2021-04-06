@@ -54,31 +54,33 @@ function App() {
     };
   };
   return (
-    <div className="App">
+    <div className="App dark-theme">
       <div
         className="content-container"
         style={{
           width: GRID_WIDTH_PX + 'px',
         }}
       >
-        <h1 className="centered-text">{PAGE_HEADER}</h1>
-        {PAGE_DESCRIPTION.map((paragraphText, i) => (
-          <p key={`p-${i}`}>{paragraphText}</p>
-        ))}
-        <Dashboard
-          startNode={startNode}
-          endNode={endNode}
-          setCurrentClickFunction={setCurrentClickFunction}
-          stateOfNodes={stateOfNodes}
-          currentTexture={currentTexture}
-          setCurrentTexture={setCurrentTexture}
-          setFindingPath={setFindingPath}
-          addPathNode={addPathNode}
-          addVisitedNode={addVisitedNode}
-          resetStateOfPath={resetStateOfPath}
-          clearVisitedNodes={clearVisitedNodes}
-          setModalIsOpen={setModalIsOpen}
-        />
+        <div className="light-theme">
+          <h1 className="centered-text">{PAGE_HEADER}</h1>
+          {PAGE_DESCRIPTION.map((paragraphText, i) => (
+            <p key={`p-${i}`}>{paragraphText}</p>
+          ))}
+          <Dashboard
+            startNode={startNode}
+            endNode={endNode}
+            setCurrentClickFunction={setCurrentClickFunction}
+            stateOfNodes={stateOfNodes}
+            currentTexture={currentTexture}
+            setCurrentTexture={setCurrentTexture}
+            setFindingPath={setFindingPath}
+            addPathNode={addPathNode}
+            addVisitedNode={addVisitedNode}
+            resetStateOfPath={resetStateOfPath}
+            clearVisitedNodes={clearVisitedNodes}
+            setModalIsOpen={setModalIsOpen}
+          />
+        </div>
       </div>
       <Grid
         onClickFunction={createOnClickFunction(currentClickFunction)}

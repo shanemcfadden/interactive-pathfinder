@@ -8,7 +8,7 @@ const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
         className="modal__overlay modal__overlay--accent-color modal__overlay--translucent"
         onClick={() => closeModalFunction()}
       ></div>
-      <div className="modal__content-box">
+      <div className="modal__content-box light-theme">
         <h3 className="centered-text">{title}</h3>
         {content && <p>{content}</p>}
         <button
