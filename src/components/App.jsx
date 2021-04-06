@@ -80,6 +80,7 @@ function App() {
           resetStateOfPath={resetStateOfPath}
           clearVisitedNodes={clearVisitedNodes}
           setModalIsOpen={setModalIsOpen}
+          setStateOfNodes={setStateOfNodes}
         />
       </div>
       <Grid

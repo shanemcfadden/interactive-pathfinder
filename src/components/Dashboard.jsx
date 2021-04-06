@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
-import { TEXTURES_ARRAY } from 'util/settings';
+import { CUSTOM_TERRAINS, TEXTURES_ARRAY } from 'util/settings';
 import 'styles/Dashboard.css';
+import { shallowCopyOfGrid } from 'util/arr';
 
 const Dashboard = ({
   startNode,
@@ -16,10 +17,18 @@ const Dashboard = ({
   currentTexture,
   setCurrentTexture,
   setModalIsOpen,
+  setStateOfNodes,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
   const [currentSampleTerrain, setSampleTerrain] = useState(null);
+
+  useEffect(() => {
+    if (currentSampleTerrain == null) return;
+    const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
+    setStateOfNodes(shallowCopyOfGrid(sampleData.stateOfNodes));
+  }, [currentSampleTerrain, setStateOfNodes]);
+
   const handleStartButtonClick = () => {
     handleFindPathReset();
     setCurrentTexture(null);
