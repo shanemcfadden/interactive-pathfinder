@@ -32,6 +32,12 @@ select {
   border-radius: 20px;
 }
 
+button:focus,
+select:focus {
+  outline: 0;
+  box-shadow: 0 0 6px 4px #aaa;
+}
+
 .centered-text {
   text-align: center;
 }
