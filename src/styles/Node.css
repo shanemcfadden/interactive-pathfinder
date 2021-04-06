@@ -51,16 +51,16 @@
 }
 
 .node--path {
-  outline: 2px solid white;
+  box-shadow: 0 0 0 2px white;
 }
 
 /* start and end MUST BE AT END to override texture backgrounds */
 .node--start {
   background-color: greenyellow;
-  outline: 2px solid white;
+  box-shadow: 0 0 0 2px white;
 }
 
 .node--end {
   background-color: red;
-  outline: 2px solid white;
+  box-shadow: 0 0 0 2px white;
 }
