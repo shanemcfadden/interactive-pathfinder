@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import useStateOfPath from 'hooks/useStateOfPath';
 import {
+  CUSTOM_TERRAINS,
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
@@ -15,6 +16,7 @@ import {
   TEXTURES_NAME_VALUE_MAP,
 } from 'util/settings';
 import Modal from './Modal';
+import { shallowCopyOfGrid } from 'util/arr';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -40,6 +42,14 @@ function App() {
   const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentSampleTerrain, setSampleTerrain] = useState(null);
+
+  useEffect(() => {
+    if (currentSampleTerrain == null) return;
+    const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
+    setStateOfNodes(shallowCopyOfGrid(sampleData.stateOfNodes));
+  }, [currentSampleTerrain, setStateOfNodes]);
+
   const createOnClickFunction = () => {
     const availableFunctions = {
       updateStartNode: setStartNode,
@@ -80,7 +90,8 @@ function App() {
           resetStateOfPath={resetStateOfPath}
           clearVisitedNodes={clearVisitedNodes}
           setModalIsOpen={setModalIsOpen}
-          setStateOfNodes={setStateOfNodes}
+          currentSampleTerrain={currentSampleTerrain}
+          setSampleTerrain={setSampleTerrain}
         />
       </div>
       <Grid
