@@ -66,21 +66,21 @@ function App() {
           {PAGE_DESCRIPTION.map((paragraphText, i) => (
             <p key={`p-${i}`}>{paragraphText}</p>
           ))}
-          <Dashboard
-            startNode={startNode}
-            endNode={endNode}
-            setCurrentClickFunction={setCurrentClickFunction}
-            stateOfNodes={stateOfNodes}
-            currentTexture={currentTexture}
-            setCurrentTexture={setCurrentTexture}
-            setFindingPath={setFindingPath}
-            addPathNode={addPathNode}
-            addVisitedNode={addVisitedNode}
-            resetStateOfPath={resetStateOfPath}
-            clearVisitedNodes={clearVisitedNodes}
-            setModalIsOpen={setModalIsOpen}
-          />
         </div>
+        <Dashboard
+          startNode={startNode}
+          endNode={endNode}
+          setCurrentClickFunction={setCurrentClickFunction}
+          stateOfNodes={stateOfNodes}
+          currentTexture={currentTexture}
+          setCurrentTexture={setCurrentTexture}
+          setFindingPath={setFindingPath}
+          addPathNode={addPathNode}
+          addVisitedNode={addVisitedNode}
+          resetStateOfPath={resetStateOfPath}
+          clearVisitedNodes={clearVisitedNodes}
+          setModalIsOpen={setModalIsOpen}
+        />
       </div>
       <Grid
         onClickFunction={createOnClickFunction(currentClickFunction)}
