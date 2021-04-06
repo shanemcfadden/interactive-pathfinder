@@ -152,7 +152,7 @@ const Dashboard = ({
       <label htmlFor="select-sample">Sample terrains:</label>
       <select
         id="select-sample"
-        value={currentSampleTerrain}
+        value={currentSampleTerrain == null ? 'none' : currentSampleTerrain}
         onChange={handleSampleTerrainChange}
         disabled={findPathButton !== 'findPath'}
       >
