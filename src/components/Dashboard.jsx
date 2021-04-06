@@ -160,6 +160,7 @@ const Dashboard = ({
       >
         <option value="none">-</option>
         <option value="allGrass">All Grass</option>
+        <option value="swampMaze">Swamp Maze</option>
       </select>
       {renderFindPathButton()}
     </div>
