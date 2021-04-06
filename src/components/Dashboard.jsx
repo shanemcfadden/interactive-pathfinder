@@ -19,6 +19,7 @@ const Dashboard = ({
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
+  const [currentSampleTerrain, setSampleTerrain] = useState(null);
   const handleStartButtonClick = () => {
     handleFindPathReset();
     setCurrentTexture(null);
@@ -108,6 +109,12 @@ const Dashboard = ({
     setCurrentTexture(newValue);
   };
 
+  const handleSampleTerrainChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : e.target.value;
+    setSampleTerrain(newValue);
+  };
+
   return (
     <div className="dashboard">
       <button
@@ -141,6 +148,16 @@ const Dashboard = ({
             </option>
           );
         })}
+      </select>
+      <label htmlFor="select-sample">Sample terrains:</label>
+      <select
+        id="select-sample"
+        value={currentSampleTerrain}
+        onChange={handleSampleTerrainChange}
+        disabled={findPathButton !== 'findPath'}
+      >
+        <option value="none">-</option>
+        <option value="allGrass">All Grass</option>
       </select>
       {renderFindPathButton()}
     </div>
