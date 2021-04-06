@@ -8,6 +8,7 @@ import {
   DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
+  GRID_WIDTH_PX,
   MODAL_HEADER,
   PAGE_DESCRIPTION,
   PAGE_HEADER,
@@ -53,12 +54,19 @@ function App() {
     };
   };
   return (
-    <div className="App">
-      <div className="content-container">
-        <h1 className="centered-text">{PAGE_HEADER}</h1>
-        {PAGE_DESCRIPTION.map((paragraphText, i) => (
-          <p key={`p-${i}`}>{paragraphText}</p>
-        ))}
+    <div className="App dark-theme">
+      <div
+        className="content-container"
+        style={{
+          width: GRID_WIDTH_PX + 'px',
+        }}
+      >
+        <div className="content-box light-theme">
+          <h1 className="centered-text">{PAGE_HEADER}</h1>
+          {PAGE_DESCRIPTION.map((paragraphText, i) => (
+            <p key={`p-${i}`}>{paragraphText}</p>
+          ))}
+        </div>
         <Dashboard
           startNode={startNode}
           endNode={endNode}

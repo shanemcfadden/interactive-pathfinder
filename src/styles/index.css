@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  color: white;
+  background-color: black;
 }
 
 code {
@@ -20,14 +22,32 @@ h1 {
 
 label {
   font-weight: 700;
+  margin: auto 0;
   text-align: right;
 }
 
 select {
-  padding: 4px;
+  padding: 4px 12px;
   font-size: 16px;
+  border-radius: 20px;
 }
 
 .centered-text {
   text-align: center;
+}
+
+.dark-theme {
+  color: white;
+  background-color: black;
+}
+
+.light-theme {
+  color: black;
+  background-color: white;
+}
+
+.content-box {
+  padding: 0.1px 32px;
+  margin: 16px 0;
+  border-radius: 16px;
 }

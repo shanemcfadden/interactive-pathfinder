@@ -110,44 +110,39 @@ const Dashboard = ({
 
   return (
     <div className="dashboard">
-      <div className="dashboard__column">
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={handleStartButtonClick}
-          disabled={findPathButton !== 'findPath'}
-        >
-          Select Start
-        </button>
-
-        <label htmlFor="select-texture">Draw Texture:</label>
-      </div>
-      <div className="dashboard__column">
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={handleEndButtonClick}
-          disabled={findPathButton !== 'findPath'}
-        >
-          Select End
-        </button>
-        <select
-          id="select-texture"
-          value={currentTexture == null ? 'none' : currentTexture.toString()}
-          onChange={handleTextureChange}
-          disabled={findPathButton !== 'findPath'}
-        >
-          <option value="none">-</option>
-          {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => {
-            return (
-              <option key={name} value={weight}>
-                {name} ({difficulty})
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div className="dashboard__column">{renderFindPathButton()}</div>
+      <button
+        className="dashboard__button"
+        type="button"
+        onClick={handleStartButtonClick}
+        disabled={findPathButton !== 'findPath'}
+      >
+        Select Start
+      </button>
+      <button
+        className="dashboard__button"
+        type="button"
+        onClick={handleEndButtonClick}
+        disabled={findPathButton !== 'findPath'}
+      >
+        Select End
+      </button>
+      <label htmlFor="select-texture">Draw Texture:</label>
+      <select
+        id="select-texture"
+        value={currentTexture == null ? 'none' : currentTexture.toString()}
+        onChange={handleTextureChange}
+        disabled={findPathButton !== 'findPath'}
+      >
+        <option value="none">-</option>
+        {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => {
+          return (
+            <option key={name} value={weight}>
+              {name} ({difficulty})
+            </option>
+          );
+        })}
+      </select>
+      {renderFindPathButton()}
     </div>
   );
 };
