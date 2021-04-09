@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import useStateOfPath from 'hooks/useStateOfPath';
 import {
+  CUSTOM_TERRAINS,
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
@@ -15,6 +16,7 @@ import {
   TEXTURES_NAME_VALUE_MAP,
 } from 'util/settings';
 import Modal from './Modal';
+import { shallowCopyOfGrid } from 'util/arr';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -40,6 +42,20 @@ function App() {
   const [currentTexture, setCurrentTexture] = useState(null);
   const [findingPath, setFindingPath] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentSampleTerrain, setSampleTerrain] = useState(null);
+
+  useEffect(() => {
+    if (currentSampleTerrain == null) return;
+    const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
+    setStateOfNodes(
+      shallowCopyOfGrid(sampleData.stateOfNodes).map((row) =>
+        row.map((val) => TEXTURES_NAME_VALUE_MAP[val])
+      )
+    );
+    if (sampleData.startNode) setStartNode([...sampleData.startNode]);
+    if (sampleData.endNode) setEndNode([...sampleData.endNode]);
+  }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const createOnClickFunction = () => {
     const availableFunctions = {
       updateStartNode: setStartNode,
@@ -52,6 +68,9 @@ function App() {
       availableFunctions[currentClickFunction]([i, j]);
       setCurrentClickFunction(null);
     };
+  };
+  const setSampleTerrainToNull = () => {
+    setSampleTerrain(null);
   };
   return (
     <div className="App dark-theme">
@@ -80,6 +99,8 @@ function App() {
           resetStateOfPath={resetStateOfPath}
           clearVisitedNodes={clearVisitedNodes}
           setModalIsOpen={setModalIsOpen}
+          currentSampleTerrain={currentSampleTerrain}
+          setSampleTerrain={setSampleTerrain}
         />
       </div>
       <Grid
@@ -89,6 +110,7 @@ function App() {
         findingPath={findingPath}
         stateOfPath={stateOfPath}
         currentTexture={currentTexture}
+        setSampleTerrainToNull={setSampleTerrainToNull}
       />
       {modalIsOpen && (
         <Modal

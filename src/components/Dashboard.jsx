@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
-import { TEXTURES_ARRAY } from 'util/settings';
+import { CUSTOM_TERRAINS, TEXTURES_ARRAY } from 'util/settings';
 import 'styles/Dashboard.css';
 
 const Dashboard = ({
@@ -16,9 +16,24 @@ const Dashboard = ({
   currentTexture,
   setCurrentTexture,
   setModalIsOpen,
+  currentSampleTerrain,
+  setSampleTerrain,
 }) => {
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
+
+  const afterDijkstraSuccess = (failedMessage) => {
+    setCurrentInterval(null);
+    setFindingPath(false);
+    clearVisitedNodes();
+    if (failedMessage) {
+      setModalIsOpen(true);
+      setFindPathButton('findPath');
+      return;
+    }
+    setFindPathButton('reset');
+  };
+
   const handleStartButtonClick = () => {
     handleFindPathReset();
     setCurrentTexture(null);
@@ -45,18 +60,6 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
-  const afterDijkstraSuccess = (failedMessage) => {
-    setCurrentInterval(null);
-    setFindingPath(false);
-    clearVisitedNodes();
-    if (failedMessage) {
-      setModalIsOpen(true);
-      setFindPathButton('findPath');
-      return;
-    }
-    setFindPathButton('reset');
-  };
-
   const handleCancelFindPath = () => {
     clearInterval(currentInterval);
     setCurrentInterval(null);
@@ -66,6 +69,18 @@ const Dashboard = ({
   const handleFindPathReset = () => {
     resetStateOfPath();
     setFindPathButton('findPath');
+  };
+
+  const handleTextureChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : +e.target.value;
+    setCurrentTexture(newValue);
+  };
+
+  const handleSampleTerrainChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : e.target.value;
+    setSampleTerrain(newValue);
   };
 
   const renderFindPathButton = () => {
@@ -102,12 +117,6 @@ const Dashboard = ({
     }
   };
 
-  const handleTextureChange = (e) => {
-    e.preventDefault();
-    const newValue = e.target.value === 'none' ? null : +e.target.value;
-    setCurrentTexture(newValue);
-  };
-
   return (
     <div className="dashboard">
       <button
@@ -138,6 +147,22 @@ const Dashboard = ({
           return (
             <option key={name} value={weight}>
               {name} ({difficulty})
+            </option>
+          );
+        })}
+      </select>
+      <label htmlFor="select-sample">Sample terrains:</label>
+      <select
+        id="select-sample"
+        value={currentSampleTerrain == null ? 'none' : currentSampleTerrain}
+        onChange={handleSampleTerrainChange}
+        disabled={findPathButton !== 'findPath'}
+      >
+        <option value="none">-</option>
+        {CUSTOM_TERRAINS.map(({ displayText }, i) => {
+          return (
+            <option value={i} key={`terrain-${i}`}>
+              {displayText}
             </option>
           );
         })}
