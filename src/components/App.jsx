@@ -3,16 +3,15 @@ import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import useStateOfPath from 'hooks/useStateOfPath';
+import { CUSTOM_TERRAINS, TEXTURES_NAME_VALUE_MAP } from 'util/settings';
+import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
-  CUSTOM_TERRAINS,
-  DEFAULT_END_NODE,
-  DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
-  TEXTURES_NAME_VALUE_MAP,
-} from 'util/settings';
-import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
+  DEFAULT_END_NODE,
+  DEFAULT_START_NODE,
+} from 'settings/grid';
 import Modal from './Modal';
 import { shallowCopyOfGrid } from 'util/arr';
 

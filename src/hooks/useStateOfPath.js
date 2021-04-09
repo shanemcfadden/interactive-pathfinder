@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { coordinatesAreEqual } from 'util/arr';
-import {
-  GRID_HEIGHT_NODES,
-  GRID_WIDTH_NODES,
-  PATHS_NAME_VALUE_MAP,
-} from 'util/settings';
+import { PATHS_NAME_VALUE_MAP } from 'util/settings';
+import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from 'settings/grid';
 
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
