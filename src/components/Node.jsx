@@ -19,7 +19,10 @@ const Node = ({
       onMouseDown={handleOnMouseDown}
       onMouseEnter={handleOnMouseEnter}
       onMouseUp={handleOnMouseUp}
-    ></div>
+    >
+      {currentPathState === 'start' && 'S'}
+      {currentPathState === 'end' && 'E'}
+    </div>
   );
 };
 

@@ -21,8 +21,9 @@
   content: '';
   display: block;
   height: 100%;
-  opacity: 0.3;
+  opacity: 0;
   width: 100%;
+  transition: all var(--transition-settings);
 }
 
 .node--asphalt {
@@ -46,7 +47,7 @@
 
 .node--visited::after {
   background-color: black;
-  transition: all var(--transition-settings);
+  opacity: 0.3;
 }
 
 .node--path,
@@ -58,26 +59,28 @@
 
 .node--path::after {
   background-color: white;
-  transition: all var(--transition-settings);
+  opacity: 0.3;
+}
+
+.node--start,
+.node--end {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: center;
 }
 
 .node--start::after,
 .node--end::after {
-  font-weight: 700;
-  font-size: 20px;
-  color: white;
-  opacity: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: none;
 }
 
-.node--start::after {
-  content: 'S';
+.node--start {
   background-color: var(--start-color);
 }
 
-.node--end::after {
-  content: 'E';
+.node--end {
   background-color: var(--end-color);
 }
