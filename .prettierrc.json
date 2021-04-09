@@ -1,3 +1,11 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": "src/util/settings.js",
+      "options": {
+        "printWidth": 500
+      }
+    }
+  ]
 }
