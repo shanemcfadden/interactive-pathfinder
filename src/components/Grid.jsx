@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import Node from 'components/Node';
 import 'styles/Grid.css';
 import {
-  PATHS_VALUE_NAME_MAP,
-  TEXTURES_VALUE_NAME_MAP,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
   GRID_GAP_PX,
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
-} from 'util/settings';
+} from 'settings/grid';
+import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
+import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
 
 const Grid = ({
   onClickFunction,

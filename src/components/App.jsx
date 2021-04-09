@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
-import 'styles/App.css';
+import Modal from './Modal';
 import useStateOfPath from 'hooks/useStateOfPath';
+import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
-  CUSTOM_TERRAINS,
-  DEFAULT_END_NODE,
-  DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
-  MODAL_HEADER,
-  PAGE_DESCRIPTION,
-  PAGE_HEADER,
-  TEXTURES_NAME_VALUE_MAP,
-} from 'util/settings';
-import Modal from './Modal';
+  DEFAULT_END_NODE,
+  DEFAULT_START_NODE,
+} from 'settings/grid';
+import { SAMPLE_TERRAINS } from 'settings/terrains';
+import { TEXTURES_NAME_VALUE_MAP } from 'settings/textures';
 import { shallowCopyOfGrid } from 'util/arr';
+import 'styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -46,7 +44,7 @@ function App() {
 
   useEffect(() => {
     if (currentSampleTerrain == null) return;
-    const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
+    const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
     setStateOfNodes(
       shallowCopyOfGrid(sampleData.stateOfNodes).map((row) =>
         row.map((val) => TEXTURES_NAME_VALUE_MAP[val])
