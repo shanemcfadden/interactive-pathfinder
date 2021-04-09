@@ -3,7 +3,7 @@ import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import 'styles/App.css';
 import useStateOfPath from 'hooks/useStateOfPath';
-import { CUSTOM_TERRAINS } from 'util/settings';
+import { SAMPLE_TERRAINS } from 'settings/terrains';
 import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
   GRID_HEIGHT_NODES,
@@ -44,7 +44,7 @@ function App() {
 
   useEffect(() => {
     if (currentSampleTerrain == null) return;
-    const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
+    const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
     setStateOfNodes(
       shallowCopyOfGrid(sampleData.stateOfNodes).map((row) =>
         row.map((val) => TEXTURES_NAME_VALUE_MAP[val])

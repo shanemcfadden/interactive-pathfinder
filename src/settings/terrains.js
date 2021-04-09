@@ -1,4 +1,4 @@
-export const CUSTOM_TERRAINS = [
+export const SAMPLE_TERRAINS = [
   {
     displayText: 'All Grass',
     stateOfNodes: [

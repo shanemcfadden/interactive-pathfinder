@@ -2,7 +2,7 @@
   "singleQuote": true,
   "overrides": [
     {
-      "files": "src/util/settings.js",
+      "files": "src/settings/terrains.js",
       "options": {
         "printWidth": 500
       }
