@@ -73,12 +73,14 @@ const Dashboard = ({
 
   const handleTextureChange = (e) => {
     e.preventDefault();
+    setCurrentClickFunction(null);
     const newValue = e.target.value === 'none' ? null : +e.target.value;
     setCurrentTexture(newValue);
   };
 
   const handleSampleTerrainChange = (e) => {
     e.preventDefault();
+    setCurrentClickFunction(null);
     const newValue = e.target.value === 'none' ? null : e.target.value;
     setSampleTerrain(newValue);
   };
