@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
-import { TEXTURES_ARRAY } from 'util/settings';
+import { CUSTOM_TERRAINS, TEXTURES_ARRAY } from 'util/settings';
 import 'styles/Dashboard.css';
 
 const Dashboard = ({
@@ -159,11 +159,13 @@ const Dashboard = ({
         disabled={findPathButton !== 'findPath'}
       >
         <option value="none">-</option>
-        <option value="allGrass">All Grass</option>
-        <option value="allWater">All Water</option>
-        <option value="beachsideDrive">Beachside Drive</option>
-        <option value="jacksonPollock">Jackson Pollock</option>
-        <option value="swampMaze">Swamp Maze</option>
+        {CUSTOM_TERRAINS.map(({ displayText }, i) => {
+          return (
+            <option value={i} key={`terrain-${i}`}>
+              {displayText}
+            </option>
+          );
+        })}
       </select>
       {renderFindPathButton()}
     </div>

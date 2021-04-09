@@ -63,8 +63,9 @@ export const TEXTURES_NAME_VALUE_MAP = flipKeyValuePairs(TEXTURES_VALUE_NAME_MAP
 
 export const PATHS_NAME_VALUE_MAP = flipKeyValuePairs(PATHS_VALUE_NAME_MAP);
 
-export const CUSTOM_TERRAINS = {
-  allGrass: {
+export const CUSTOM_TERRAINS = [
+  {
+    displayText: 'All Grass',
     stateOfNodes: [
       ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
       ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
@@ -89,7 +90,8 @@ export const CUSTOM_TERRAINS = {
       ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
     ],
   },
-  allWater: {
+  {
+    displayText: 'All Water',
     stateOfNodes: [
       ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
       ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
@@ -114,7 +116,8 @@ export const CUSTOM_TERRAINS = {
       ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water'],
     ],
   },
-  beachsideDrive: {
+  {
+    displayText: 'Beachside Drive',
     startNode: [0, 0],
     endNode: [17, 34],
     stateOfNodes: [
@@ -141,7 +144,8 @@ export const CUSTOM_TERRAINS = {
       ['water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'water', 'sand', 'sand', 'sand', 'sand', 'sand', 'water', 'water', 'water', 'sand', 'sand', 'sand', 'sand', 'sand'],
     ],
   },
-  jacksonPollock: {
+  {
+    displayText: 'Jackson Pollock',
     startNode: [15, 4],
     endNode: [5, 28],
     stateOfNodes: [
@@ -168,7 +172,8 @@ export const CUSTOM_TERRAINS = {
       ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'water', 'grass', 'grass', 'water', 'grass', 'grass', 'grass', 'sand', 'grass', 'grass', 'water', 'grass', 'sand', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'water', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
     ],
   },
-  swampMaze: {
+  {
+    displayText: 'Swamp Maze',
     startNode: [0, 0],
     endNode: [20, 34],
     stateOfNodes: [
@@ -195,4 +200,4 @@ export const CUSTOM_TERRAINS = {
       ['swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'water', 'swamp', 'swamp', 'swamp', 'swamp', 'water', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'swamp', 'water', 'water', 'water', 'swamp', 'swamp', 'water', 'water', 'water', 'swamp', 'swamp', 'swamp', 'water', 'swamp'],
     ],
   },
-};
+];
