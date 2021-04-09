@@ -1,12 +1,5 @@
 import { flipKeyValuePairs } from './obj';
 
-export const PATHS_VALUE_NAME_MAP = {
-  1: 'visited',
-  2: 'path',
-  3: 'start',
-  4: 'end',
-};
-
 export const TEXTURES_ARRAY = [
   {
     weight: 1,
@@ -34,8 +27,6 @@ export const TEXTURES_VALUE_NAME_MAP = TEXTURES_ARRAY.reduce((map, { weight, nam
 }, {});
 
 export const TEXTURES_NAME_VALUE_MAP = flipKeyValuePairs(TEXTURES_VALUE_NAME_MAP);
-
-export const PATHS_NAME_VALUE_MAP = flipKeyValuePairs(PATHS_VALUE_NAME_MAP);
 
 export const CUSTOM_TERRAINS = [
   {
