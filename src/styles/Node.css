@@ -1,3 +1,17 @@
+:root {
+  --start-color: green;
+  --end-color: red;
+
+  --asphalt-color: #6a6d64;
+  --dirt-color: #653c00;
+  --grass-color: #00bf00;
+  --sand-color: #ffd9a9;
+  --swamp-color: #007437;
+  --water-color: #2600ee;
+
+  --transition-settings: 500ms ease-in-out;
+}
+
 .node {
   border-radius: 2px;
 }
@@ -11,33 +25,28 @@
   width: 100%;
 }
 
-.node--grass {
-  background-color: #00bf00;
-}
-
-.node--sand {
-  background-color: #ffd9a9;
-}
-
 .node--asphalt {
-  background-color: #6a6d64;
+  background-color: var(--asphalt-color);
 }
-
 .node--dirt {
-  background-color: #653c00;
+  background-color: var(--dirt-color);
 }
-
+.node--grass {
+  background-color: var(--grass-color);
+}
+.node--sand {
+  background-color: var(--sand-color);
+}
 .node--swamp {
-  background-color: #007437;
+  background-color: var(--swamp-color);
 }
-
 .node--water {
-  background-color: #2600ee;
+  background-color: var(--water-color);
 }
 
 .node--visited::after {
   background-color: black;
-  transition: all 500ms ease-in-out;
+  transition: all var(--transition-settings);
 }
 
 .node--path,
@@ -49,7 +58,7 @@
 
 .node--path::after {
   background-color: white;
-  transition: all 500ms ease-in-out;
+  transition: all var(--transition-settings);
 }
 
 .node--start::after,
@@ -61,15 +70,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: none;
 }
 
 .node--start::after {
   content: 'S';
-  background-color: green;
+  background-color: var(--start-color);
 }
 
 .node--end::after {
   content: 'E';
-  background-color: red;
+  background-color: var(--end-color);
 }
