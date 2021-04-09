@@ -1,12 +1,12 @@
 :root {
-  --start-color: green;
+  --start-color: #0bdb0b;
   --end-color: red;
 
-  --asphalt-color: #6a6d64;
+  --asphalt-color: #868684;
   --dirt-color: #653c00;
-  --grass-color: #00bf00;
-  --sand-color: #ffd9a9;
-  --swamp-color: #007437;
+  --grass-color: #00a500;
+  --sand-color: #dfba8d;
+  --swamp-color: #0e4933;
   --water-color: #2600ee;
 
   --transition-settings: 500ms ease-in-out;
