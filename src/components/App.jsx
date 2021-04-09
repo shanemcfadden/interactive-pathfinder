@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
-import 'styles/App.css';
+import Modal from './Modal';
 import useStateOfPath from 'hooks/useStateOfPath';
-import { SAMPLE_TERRAINS } from 'settings/terrains';
 import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
   GRID_HEIGHT_NODES,
@@ -12,9 +11,10 @@ import {
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
 } from 'settings/grid';
+import { SAMPLE_TERRAINS } from 'settings/terrains';
 import { TEXTURES_NAME_VALUE_MAP } from 'settings/textures';
-import Modal from './Modal';
 import { shallowCopyOfGrid } from 'util/arr';
+import 'styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
