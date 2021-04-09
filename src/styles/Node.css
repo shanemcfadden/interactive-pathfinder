@@ -1,69 +1,87 @@
+:root {
+  --start-color: #0bdb0b;
+  --end-color: #ff0000;
+
+  --asphalt-color: #868684;
+  --dirt-color: #653c00;
+  --grass-color: #00a500;
+  --sand-color: #dfba8d;
+  --swamp-color: #0e4933;
+  --water-color: #2600ee;
+
+  --transition-settings: 500ms ease-in-out;
+}
+
 .node {
   border-radius: 2px;
 }
 
-.node--animated {
-  transition: background-color 500ms ease-in-out;
-}
-
-.node--grass {
-  background-color: #00bf00;
-}
-
-.node--grass.node--visited {
-  background-color: #006602;
-}
-
-.node--sand {
-  background-color: #ffd9a9;
-}
-
-.node--sand.node--visited {
-  background-color: #88755f;
+.node::after {
+  background-color: transparent;
+  content: '';
+  display: block;
+  height: 100%;
+  opacity: 0;
+  width: 100%;
+  transition: all var(--transition-settings);
 }
 
 .node--asphalt {
-  background-color: #6a6d64;
+  background-color: var(--asphalt-color);
 }
-
-.node--asphalt.node--visited {
-  background-color: #262623;
-}
-
 .node--dirt {
-  background-color: #653c00;
+  background-color: var(--dirt-color);
 }
-
-.node--dirt.node--visited {
-  background-color: #321f06;
+.node--grass {
+  background-color: var(--grass-color);
 }
-
+.node--sand {
+  background-color: var(--sand-color);
+}
 .node--swamp {
-  background-color: #007437;
+  background-color: var(--swamp-color);
 }
-
-.node--swamp.node--visited {
-  background-color: #002b17;
-}
-
 .node--water {
-  background-color: #2600ee;
+  background-color: var(--water-color);
 }
 
-.node--path {
+.node--visited::after {
+  background-color: black;
+  opacity: 0.3;
+}
+
+.node--path,
+.node--start,
+.node--end {
   box-shadow: 0 0 0 2px white;
   outline: 2px solid white;
 }
 
-/* start and end MUST BE AT END to override texture backgrounds */
+.node--path::after {
+  background-color: white;
+  opacity: 0.3;
+}
+
+.node--start,
+.node--end {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.node--start::after,
+.node--end::after {
+  display: none;
+}
+
+/* Start and end node backgrounds must be at end of sheet to override their textures */
 .node--start {
-  background-color: greenyellow;
-  box-shadow: 0 0 0 2px white;
-  outline: 2px solid white;
+  background-color: var(--start-color);
 }
 
 .node--end {
-  background-color: red;
-  box-shadow: 0 0 0 2px white;
-  outline: 2px solid white;
+  background-color: var(--end-color);
 }

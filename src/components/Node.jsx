@@ -14,12 +14,15 @@ const Node = ({
     <div
       className={`node node--${currentTexture}${
         currentPathState ? ` node--${currentPathState}` : ''
-      }${findingPath ? ' node--animated' : ''}`}
+      }`}
       onClick={handleClick}
       onMouseDown={handleOnMouseDown}
       onMouseEnter={handleOnMouseEnter}
       onMouseUp={handleOnMouseUp}
-    ></div>
+    >
+      {currentPathState === 'start' && 'S'}
+      {currentPathState === 'end' && 'E'}
+    </div>
   );
 };
 
