@@ -8,7 +8,6 @@
   display: block;
   height: 100%;
   opacity: 0.3;
-  transition: all 500ms ease-in-out;
   width: 100%;
 }
 
@@ -38,28 +37,19 @@
 
 .node--visited::after {
   background-color: black;
+  transition: all 500ms ease-in-out;
 }
 
-.node--path {
+.node--path,
+.node--start,
+.node--end {
   box-shadow: 0 0 0 2px white;
   outline: 2px solid white;
 }
 
 .node--path::after {
   background-color: white;
-}
-
-/* start and end MUST BE AT END to override texture backgrounds */
-.node--start {
-  background-color: green;
-  box-shadow: 0 0 0 2px white;
-  outline: 2px solid white;
-}
-
-.node--end {
-  background-color: red;
-  box-shadow: 0 0 0 2px white;
-  outline: 2px solid white;
+  transition: all 500ms ease-in-out;
 }
 
 .node--start::after,
@@ -76,8 +66,10 @@
 
 .node--start::after {
   content: 'S';
+  background-color: green;
 }
 
 .node--end::after {
   content: 'E';
+  background-color: red;
 }
