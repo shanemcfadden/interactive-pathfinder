@@ -162,6 +162,7 @@ const Dashboard = ({
         <option value="allGrass">All Grass</option>
         <option value="allWater">All Water</option>
         <option value="beachsideDrive">Beachside Drive</option>
+        <option value="jacksonPollock">Jackson Pollock</option>
         <option value="swampMaze">Swamp Maze</option>
       </select>
       {renderFindPathButton()}
