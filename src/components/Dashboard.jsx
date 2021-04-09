@@ -22,6 +22,18 @@ const Dashboard = ({
   const [currentInterval, setCurrentInterval] = useState(null);
   const [findPathButton, setFindPathButton] = useState('findPath');
 
+  const afterDijkstraSuccess = (failedMessage) => {
+    setCurrentInterval(null);
+    setFindingPath(false);
+    clearVisitedNodes();
+    if (failedMessage) {
+      setModalIsOpen(true);
+      setFindPathButton('findPath');
+      return;
+    }
+    setFindPathButton('reset');
+  };
+
   const handleStartButtonClick = () => {
     handleFindPathReset();
     setCurrentTexture(null);
@@ -48,18 +60,6 @@ const Dashboard = ({
     setCurrentInterval(interval);
   };
 
-  const afterDijkstraSuccess = (failedMessage) => {
-    setCurrentInterval(null);
-    setFindingPath(false);
-    clearVisitedNodes();
-    if (failedMessage) {
-      setModalIsOpen(true);
-      setFindPathButton('findPath');
-      return;
-    }
-    setFindPathButton('reset');
-  };
-
   const handleCancelFindPath = () => {
     clearInterval(currentInterval);
     setCurrentInterval(null);
@@ -69,6 +69,18 @@ const Dashboard = ({
   const handleFindPathReset = () => {
     resetStateOfPath();
     setFindPathButton('findPath');
+  };
+
+  const handleTextureChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : +e.target.value;
+    setCurrentTexture(newValue);
+  };
+
+  const handleSampleTerrainChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value === 'none' ? null : e.target.value;
+    setSampleTerrain(newValue);
   };
 
   const renderFindPathButton = () => {
@@ -103,18 +115,6 @@ const Dashboard = ({
         </button>
       );
     }
-  };
-
-  const handleTextureChange = (e) => {
-    e.preventDefault();
-    const newValue = e.target.value === 'none' ? null : +e.target.value;
-    setCurrentTexture(newValue);
-  };
-
-  const handleSampleTerrainChange = (e) => {
-    e.preventDefault();
-    const newValue = e.target.value === 'none' ? null : e.target.value;
-    setSampleTerrain(newValue);
   };
 
   return (
