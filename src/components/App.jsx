@@ -10,11 +10,9 @@ import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
-  MODAL_HEADER,
-  PAGE_DESCRIPTION,
-  PAGE_HEADER,
   TEXTURES_NAME_VALUE_MAP,
 } from 'util/settings';
+import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import Modal from './Modal';
 import { shallowCopyOfGrid } from 'util/arr';
 
