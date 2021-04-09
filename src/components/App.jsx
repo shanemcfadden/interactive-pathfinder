@@ -54,7 +54,7 @@ function App() {
     );
     if (sampleData.startNode) setStartNode([...sampleData.startNode]);
     if (sampleData.endNode) setEndNode([...sampleData.endNode]);
-  }, [currentSampleTerrain]);
+  }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const createOnClickFunction = () => {
     const availableFunctions = {
