@@ -47,7 +47,11 @@ function App() {
   useEffect(() => {
     if (currentSampleTerrain == null) return;
     const sampleData = CUSTOM_TERRAINS[currentSampleTerrain];
-    setStateOfNodes(shallowCopyOfGrid(sampleData.stateOfNodes));
+    setStateOfNodes(
+      shallowCopyOfGrid(sampleData.stateOfNodes).map((row) =>
+        row.map((val) => TEXTURES_NAME_VALUE_MAP[val])
+      )
+    );
     if (sampleData.startNode) setStartNode([...sampleData.startNode]);
     if (sampleData.endNode) setEndNode([...sampleData.endNode]);
   }, [currentSampleTerrain]);
