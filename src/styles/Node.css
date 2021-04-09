@@ -12,49 +12,25 @@
   transition: all 500ms ease-in-out;
 }
 
-.node--animated {
-  /* transition: background-color 500ms ease-in-out; */
-}
-
 .node--grass {
   background-color: #00bf00;
 }
 
-/* .node--grass.node--visited {
-  background-color: #006602;
-} */
-
 .node--sand {
   background-color: #ffd9a9;
 }
-/* 
-.node--sand.node--visited {
-  background-color: #88755f;
-} */
 
 .node--asphalt {
   background-color: #6a6d64;
 }
 
-/* .node--asphalt.node--visited {
-  background-color: #262623;
-} */
-
 .node--dirt {
   background-color: #653c00;
 }
-/* 
-.node--dirt.node--visited {
-  background-color: #321f06;
-} */
 
 .node--swamp {
   background-color: #007437;
 }
-
-/* .node--swamp.node--visited {
-  background-color: #002b17;
-} */
 
 .node--water {
   background-color: #2600ee;
@@ -62,12 +38,6 @@
 
 .node--visited::after {
   background-color: black;
-  /* content: '';
-  display: block;
-  height: 100%;
-  opacity: 0.2;
-  width: 100%; */
-  /* transition: all 500ms ease-in-out; */
 }
 
 .node--path {
@@ -77,11 +47,6 @@
 
 .node--path::after {
   background-color: white;
-  content: '';
-  display: block;
-  height: 100%;
-  opacity: 0.2;
-  width: 100%;
 }
 
 /* start and end MUST BE AT END to override texture backgrounds */
