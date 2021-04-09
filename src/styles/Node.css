@@ -51,7 +51,7 @@
 
 /* start and end MUST BE AT END to override texture backgrounds */
 .node--start {
-  background-color: greenyellow;
+  background-color: green;
   box-shadow: 0 0 0 2px white;
   outline: 2px solid white;
 }
@@ -60,4 +60,24 @@
   background-color: red;
   box-shadow: 0 0 0 2px white;
   outline: 2px solid white;
+}
+
+.node--start::after,
+.node--end::after {
+  font-weight: 700;
+  font-size: 20px;
+  color: white;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: none;
+}
+
+.node--start::after {
+  content: 'S';
+}
+
+.node--end::after {
+  content: 'E';
 }
