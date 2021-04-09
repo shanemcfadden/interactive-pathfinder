@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { dijkstra } from 'algorithms/dijkstra';
-import { CUSTOM_TERRAINS, TEXTURES_ARRAY } from 'util/settings';
+import { CUSTOM_TERRAINS } from 'util/settings';
+import { TEXTURES_ARRAY } from 'settings/textures';
 import 'styles/Dashboard.css';
 
 const Dashboard = ({

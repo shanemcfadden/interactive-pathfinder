@@ -10,7 +10,7 @@ import {
   GRID_HEIGHT_PX,
 } from 'settings/grid';
 import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
-import { TEXTURES_VALUE_NAME_MAP } from 'util/settings';
+import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
 
 const Grid = ({
   onClickFunction,
