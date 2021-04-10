@@ -36,12 +36,10 @@ const Dashboard = ({
   };
 
   const handleStartButtonClick = () => {
-    handleFindPathReset();
     setCurrentTexture(null);
     setCurrentClickFunction('updateStartNode');
   };
   const handleEndButtonClick = () => {
-    handleFindPathReset();
     setCurrentTexture(null);
     setCurrentClickFunction('updateEndNode');
   };
