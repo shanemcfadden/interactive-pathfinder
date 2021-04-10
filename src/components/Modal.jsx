@@ -1,4 +1,5 @@
 import React from 'react';
+import DashboardButton from 'components/DashboardButton';
 import 'styles/Modal.css';
 
 const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
@@ -11,13 +12,9 @@ const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
       <div className="content-box modal__content-box light-theme">
         <h3 className="centered-text">{title}</h3>
         {content && <p>{content}</p>}
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={closeModalFunction}
-        >
+        <DashboardButton onClickFn={closeModalFunction}>
           {confirmLabel}
-        </button>
+        </DashboardButton>
       </div>
     </>
   );
