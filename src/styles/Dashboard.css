@@ -4,16 +4,16 @@
   --button-color: #fff;
   --button-bg-color--disabled: #328fdc;
   --button-color--disabled: #91ceff;
-  --button-bg-color--stop: #f00;
-  --button-bg-color--stop--hover: #962106;
   --button-bg-color--go: #25c111;
   --button-bg-color--go--hover: #136d07;
+  --button-bg-color--stop: #f00;
+  --button-bg-color--stop--hover: #962106;
 }
 
 .dashboard {
-  margin: 16px 0;
   display: flex;
   flex-direction: row;
+  margin: 16px 0;
 }
 
 .dashboard > * {
@@ -42,8 +42,8 @@
 
 .dashboard__button:disabled,
 .dashboard__button:hover:disabled {
-  color: var(--button-color--disabled);
   background-color: var(--button-bg-color--disabled);
+  color: var(--button-color--disabled);
   cursor: auto;
 }
 
