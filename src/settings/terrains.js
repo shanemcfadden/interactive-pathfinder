@@ -56,7 +56,7 @@ export const SAMPLE_TERRAINS = [
     startNode: [0, 0],
     endNode: [17, 34],
     stateOfNodes: [
-      ['water', 'asphalt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'dirt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
+      ['asphalt', 'asphalt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'dirt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
       ['grass', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'dirt', 'grass', 'grass'],
       ['grass', 'grass', 'grass', 'grass', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass'],
       ['grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'asphalt', 'asphalt', 'grass', 'grass', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'asphalt', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'grass', 'dirt', 'grass', 'grass', 'grass', 'grass', 'grass'],
