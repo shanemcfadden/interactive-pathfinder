@@ -39,7 +39,6 @@ function App() {
   ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
   const [currentTexture, setCurrentTexture] = useState(null);
-  const [findingPath, setFindingPath] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentSampleTerrain, setSampleTerrain] = useState(null);
 
@@ -96,7 +95,6 @@ function App() {
           stateOfNodes={stateOfNodes}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
-          setFindingPath={setFindingPath}
           addPathNode={addPathNode}
           addVisitedNode={addVisitedNode}
           resetStateOfPath={resetStateOfPath}
@@ -110,7 +108,6 @@ function App() {
         onClickFunction={createOnClickFunction(currentClickFunction)}
         stateOfNodes={stateOfNodes}
         setStateOfNodes={setStateOfNodes}
-        findingPath={findingPath}
         stateOfPath={stateOfPath}
         currentTexture={currentTexture}
         setSampleTerrainToNull={setSampleTerrainToNull}

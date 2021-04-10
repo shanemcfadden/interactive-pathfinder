@@ -10,7 +10,6 @@ const Dashboard = ({
   endNode,
   setCurrentClickFunction,
   stateOfNodes,
-  setFindingPath,
   addPathNode,
   addVisitedNode,
   resetStateOfPath,
@@ -26,7 +25,6 @@ const Dashboard = ({
 
   const afterDijkstraSuccess = (failedMessage) => {
     setCurrentInterval(null);
-    setFindingPath(false);
     clearVisitedNodes();
     if (failedMessage) {
       setModalIsOpen(true);
@@ -48,7 +46,6 @@ const Dashboard = ({
     setFindPathButton('cancel');
     setCurrentTexture(null);
     setCurrentClickFunction(null);
-    setFindingPath(true);
     const interval = dijkstra(
       startNode,
       endNode,

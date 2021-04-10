@@ -17,7 +17,6 @@ const Grid = ({
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  findingPath,
   stateOfPath,
   currentTexture,
   setSampleTerrainToNull,
@@ -83,7 +82,6 @@ const Grid = ({
               }
               handleOnMouseUp={currentTexture ? handleOnMouseUp : undefined}
               key={`${i}-${j}`}
-              findingPath={findingPath}
             />
           );
         });
