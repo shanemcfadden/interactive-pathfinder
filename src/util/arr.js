@@ -5,7 +5,3 @@ export const coordinatesAreEqual = (coor1, coor2) => {
 export const getShallowCopyIfDefined = (arr) => {
   return arr ? [...arr] : undefined;
 };
-
-export const shallowCopyOfGrid = (grid) => {
-  return grid.map((row) => [...row]);
-};

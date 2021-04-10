@@ -11,7 +11,7 @@ import {
 } from 'settings/grid';
 import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
-import { shallowCopyOfGrid } from 'util/arr';
+import { shallowCopyOfGrid } from 'util/grid';
 
 const Grid = ({
   onClickFunction,
