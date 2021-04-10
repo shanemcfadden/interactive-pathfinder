@@ -11,6 +11,7 @@ import {
 } from 'settings/grid';
 import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
+import { shallowCopyOfGrid } from 'util/arr';
 
 const Grid = ({
   onClickFunction,
@@ -25,7 +26,7 @@ const Grid = ({
     false
   );
   const addTexture = (i, j, textureNumber) => {
-    const newStateOfNodes = [...stateOfNodes];
+    const newStateOfNodes = shallowCopyOfGrid(stateOfNodes);
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
