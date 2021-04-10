@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
-import Modal from './Modal';
+import Modal from 'components/Modal';
 import useStateOfPath from 'hooks/useStateOfPath';
 import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
@@ -13,7 +13,8 @@ import {
 } from 'settings/grid';
 import { SAMPLE_TERRAINS } from 'settings/terrains';
 import { TEXTURES_NAME_VALUE_MAP } from 'settings/textures';
-import { shallowCopyOfGrid } from 'util/arr';
+import { getShallowCopyIfDefined } from 'util/arr';
+import { mapGrid } from 'util/grid';
 import 'styles/App.css';
 
 function App() {
@@ -45,13 +46,17 @@ function App() {
   useEffect(() => {
     if (currentSampleTerrain == null) return;
     const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
-    setStateOfNodes(
-      shallowCopyOfGrid(sampleData.stateOfNodes).map((row) =>
-        row.map((val) => TEXTURES_NAME_VALUE_MAP[val])
-      )
+
+    const newStateOfNodes = mapGrid(
+      sampleData.stateOfNodes,
+      (val) => TEXTURES_NAME_VALUE_MAP[val]
     );
-    if (sampleData.startNode) setStartNode([...sampleData.startNode]);
-    if (sampleData.endNode) setEndNode([...sampleData.endNode]);
+    const newStartNode = getShallowCopyIfDefined(sampleData.startNode);
+    const newEndNode = getShallowCopyIfDefined(sampleData.endNode);
+
+    setStateOfNodes(newStateOfNodes);
+    if (newStartNode) setStartNode(newStartNode);
+    if (newEndNode) setEndNode(newEndNode);
   }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const createOnClickFunction = () => {
