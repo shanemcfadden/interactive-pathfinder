@@ -11,12 +11,12 @@ import {
 } from 'settings/grid';
 import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
+import { shallowCopyOfGrid } from 'util/grid';
 
 const Grid = ({
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
-  findingPath,
   stateOfPath,
   currentTexture,
   setSampleTerrainToNull,
@@ -25,7 +25,7 @@ const Grid = ({
     false
   );
   const addTexture = (i, j, textureNumber) => {
-    const newStateOfNodes = [...stateOfNodes];
+    const newStateOfNodes = shallowCopyOfGrid(stateOfNodes);
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
@@ -82,7 +82,6 @@ const Grid = ({
               }
               handleOnMouseUp={currentTexture ? handleOnMouseUp : undefined}
               key={`${i}-${j}`}
-              findingPath={findingPath}
             />
           );
         });

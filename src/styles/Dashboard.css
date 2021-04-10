@@ -1,7 +1,19 @@
+:root {
+  --button-bg-color: #328fdc;
+  --button-bg-color--hover: #02447b;
+  --button-color: #fff;
+  --button-bg-color--disabled: #328fdc;
+  --button-color--disabled: #91ceff;
+  --button-bg-color--go: #25c111;
+  --button-bg-color--go--hover: #136d07;
+  --button-bg-color--stop: #f00;
+  --button-bg-color--stop--hover: #962106;
+}
+
 .dashboard {
-  margin: 16px 0;
   display: flex;
   flex-direction: row;
+  margin: 16px 0;
 }
 
 .dashboard > * {
@@ -14,10 +26,10 @@
 }
 
 .dashboard__button {
-  background-color: #328fdc;
+  background-color: var(--button-bg-color);
   border: 0;
   border-radius: 16px;
-  color: white;
+  color: var(--button-color);
   cursor: pointer;
   font-size: 16px;
   font-weight: 400;
@@ -25,28 +37,28 @@
 }
 
 .dashboard__button:hover {
-  background-color: #02447b;
+  background-color: var(--button-bg-color--hover);
 }
 
 .dashboard__button:disabled,
 .dashboard__button:hover:disabled {
-  color: #91ceff;
-  background-color: #328fdc;
+  background-color: var(--button-bg-color--disabled);
+  color: var(--button-color--disabled);
   cursor: auto;
 }
 
 .dashboard__button.dashboard__button--go {
-  background-color: #25c111;
+  background-color: var(--button-bg-color--go);
 }
 
 .dashboard__button.dashboard__button--go:hover {
-  background-color: #136d07;
+  background-color: var(--button-bg-color--go--hover);
 }
 
 .dashboard__button.dashboard__button--stop {
-  background-color: #f00;
+  background-color: var(--button-bg-color--stop);
 }
 
 .dashboard__button.dashboard__button--stop:hover {
-  background-color: #962106;
+  background-color: var(--button-bg-color--stop--hover);
 }

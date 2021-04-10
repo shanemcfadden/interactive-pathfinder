@@ -58,17 +58,15 @@ class MinHeap {
       let smallestChildValue;
       let smallestChildIndex;
 
-      if (rightChildValue == null) {
+      if (
+        rightChildValue == null ||
+        this.isLessThan(leftChildValue, rightChildValue)
+      ) {
         smallestChildIndex = leftChildIndex;
         smallestChildValue = leftChildValue;
       } else {
-        if (this.isLessThan(leftChildValue, rightChildValue)) {
-          smallestChildIndex = leftChildIndex;
-          smallestChildValue = leftChildValue;
-        } else {
-          smallestChildIndex = rightChildIndex;
-          smallestChildValue = rightChildValue;
-        }
+        smallestChildIndex = rightChildIndex;
+        smallestChildValue = rightChildValue;
       }
 
       if (!this.isLessThan(smallestChildValue, this.heap[currentIndex])) break;

@@ -3,13 +3,13 @@ import { dijkstra } from 'algorithms/dijkstra';
 import { SAMPLE_TERRAINS } from 'settings/terrains';
 import { TEXTURES_ARRAY } from 'settings/textures';
 import 'styles/Dashboard.css';
+import DashboardButton from './DashboardButton';
 
 const Dashboard = ({
   startNode,
   endNode,
   setCurrentClickFunction,
   stateOfNodes,
-  setFindingPath,
   addPathNode,
   addVisitedNode,
   resetStateOfPath,
@@ -25,7 +25,6 @@ const Dashboard = ({
 
   const afterDijkstraSuccess = (failedMessage) => {
     setCurrentInterval(null);
-    setFindingPath(false);
     clearVisitedNodes();
     if (failedMessage) {
       setModalIsOpen(true);
@@ -36,12 +35,10 @@ const Dashboard = ({
   };
 
   const handleStartButtonClick = () => {
-    handleFindPathReset();
     setCurrentTexture(null);
     setCurrentClickFunction('updateStartNode');
   };
   const handleEndButtonClick = () => {
-    handleFindPathReset();
     setCurrentTexture(null);
     setCurrentClickFunction('updateEndNode');
   };
@@ -49,7 +46,6 @@ const Dashboard = ({
     setFindPathButton('cancel');
     setCurrentTexture(null);
     setCurrentClickFunction(null);
-    setFindingPath(true);
     const interval = dijkstra(
       startNode,
       endNode,
@@ -87,57 +83,46 @@ const Dashboard = ({
   };
 
   const renderFindPathButton = () => {
-    if (findPathButton === 'findPath') {
-      return (
-        <button
-          className="dashboard__button dashboard__button--go"
-          type="button"
-          onClick={handleFindPathClick}
-        >
-          Find Path!
-        </button>
-      );
-    } else if (findPathButton === 'reset') {
-      return (
-        <button
-          className="dashboard__button"
-          type="button"
-          onClick={handleFindPathReset}
-        >
-          Reset
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="dashboard__button dashboard__button--stop"
-          type="button"
-          onClick={handleCancelFindPath}
-        >
-          Cancel
-        </button>
-      );
-    }
+    const findPathButtons = {
+      cancel: {
+        innerHTML: 'Cancel',
+        onClickFn: handleCancelFindPath,
+        extraClassName: 'dashboard__button--stop',
+      },
+      reset: {
+        innerHTML: 'Reset',
+        onClickFn: handleFindPathReset,
+      },
+      findPath: {
+        innerHTML: 'Find Path!',
+        onClickFn: handleFindPathClick,
+        extraClassName: 'dashboard__button--go',
+      },
+    };
+    const { innerHTML, onClickFn, extraClassName } = findPathButtons[
+      findPathButton
+    ];
+    return (
+      <DashboardButton onClickFn={onClickFn} extraClassName={extraClassName}>
+        {innerHTML}
+      </DashboardButton>
+    );
   };
 
   return (
     <div className="dashboard">
-      <button
-        className="dashboard__button"
-        type="button"
-        onClick={handleStartButtonClick}
+      <DashboardButton
+        onClickFn={handleStartButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select Start
-      </button>
-      <button
-        className="dashboard__button"
-        type="button"
-        onClick={handleEndButtonClick}
+      </DashboardButton>
+      <DashboardButton
+        onClickFn={handleEndButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select End
-      </button>
+      </DashboardButton>
       <label htmlFor="select-texture">Draw Texture:</label>
       <select
         id="select-texture"

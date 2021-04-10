@@ -8,7 +8,6 @@ const Node = ({
   handleOnMouseDown,
   handleOnMouseEnter,
   handleOnMouseUp,
-  findingPath,
 }) => {
   return (
     <div

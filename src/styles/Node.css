@@ -22,8 +22,8 @@
   display: block;
   height: 100%;
   opacity: 0;
-  width: 100%;
   transition: all var(--transition-settings);
+  width: 100%;
 }
 
 .node--asphalt {

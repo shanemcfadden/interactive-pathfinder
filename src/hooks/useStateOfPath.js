@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { coordinatesAreEqual } from 'util/arr';
 import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from 'settings/grid';
 import { PATHS_NAME_VALUE_MAP } from 'settings/paths';
+import { mapGrid } from 'util/grid';
 
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
-const pathNodeValue = PATHS_NAME_VALUE_MAP.path;
-const visitedNodeValue = PATHS_NAME_VALUE_MAP.visited;
 
 const useStateOfPath = (startingCoor, endingCoor) => {
   const [startNode, setStartNode] = useState(startingCoor);
@@ -27,51 +26,49 @@ const useStateOfPath = (startingCoor, endingCoor) => {
   const resetStateOfPath = () => {
     setStateOfPath(getInitalPathState(startNode, endNode));
   };
-
   const clearVisitedNodes = () => {
-    const updatedStateOfPath = stateOfPath.map((row) => {
-      return row.map((val) => {
-        return val === PATHS_NAME_VALUE_MAP['visited'] ? 0 : val;
-      });
-    });
+    const updatedStateOfPath = mapGrid(stateOfPath, (val) =>
+      val === PATHS_NAME_VALUE_MAP['visited'] ? 0 : val
+    );
     setStateOfPath(updatedStateOfPath);
   };
 
-  const updateNode = (nodeCoordinate, nodeValue) => {
-    const updatedPath = [...stateOfPath];
-    updatedPath[nodeCoordinate[0]][nodeCoordinate[1]] = nodeValue;
-    setStateOfPath(updatedPath);
+  const setNodeValue = (nodeCoordinate, nodeValue) => {
+    const newStateOfPath = [...stateOfPath];
+    newStateOfPath[nodeCoordinate[0]][nodeCoordinate[1]] = nodeValue;
+    setStateOfPath(newStateOfPath);
   };
   const clearNode = (nodeCoordinate) => {
-    updateNode(nodeCoordinate, 0);
+    setNodeValue(nodeCoordinate, 0);
+  };
+  const updateNodeValue = (coor, pathName, cleanUpFunction) => {
+    if (
+      coordinatesAreEqual(coor, startNode) ||
+      coordinatesAreEqual(coor, endNode)
+    )
+      return;
+    setNodeValue(coor, PATHS_NAME_VALUE_MAP[pathName]);
+    if (cleanUpFunction) cleanUpFunction(coor);
+  };
+  const getCleanUpFunction = (currentState, setState) => (coor) => {
+    clearNode(currentState);
+    setState(coor);
   };
   const updateStartNode = (newStart) => {
-    if (coordinatesAreEqual(newStart, endNode)) return;
-    clearNode(startNode);
-    updateNode(newStart, startNodeValue);
-    setStartNode(newStart);
+    updateNodeValue(
+      newStart,
+      'start',
+      getCleanUpFunction(startNode, setStartNode)
+    );
   };
   const updateEndNode = (newEnd) => {
-    if (coordinatesAreEqual(newEnd, startNode)) return;
-    clearNode(endNode);
-    updateNode(newEnd, endNodeValue);
-    setEndNode(newEnd);
+    updateNodeValue(newEnd, 'end', getCleanUpFunction(endNode, setEndNode));
   };
   const addPathNode = (coor) => {
-    if (
-      coordinatesAreEqual(coor, startNode) ||
-      coordinatesAreEqual(coor, endNode)
-    )
-      return;
-    updateNode(coor, pathNodeValue);
+    updateNodeValue(coor, 'path');
   };
   const addVisitedNode = (coor) => {
-    if (
-      coordinatesAreEqual(coor, startNode) ||
-      coordinatesAreEqual(coor, endNode)
-    )
-      return;
-    updateNode(coor, visitedNodeValue);
+    updateNodeValue(coor, 'visited');
   };
 
   return [
