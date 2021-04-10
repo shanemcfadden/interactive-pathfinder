@@ -41,26 +41,28 @@ const useStateOfPath = (startingCoor, endingCoor) => {
   const clearNode = (nodeCoordinate) => {
     setNodeValue(nodeCoordinate, 0);
   };
-  const updateNodeValue = (coor, pathName, cleanUp) => {
+  const updateNodeValue = (coor, pathName, cleanUpFunction) => {
     if (
       coordinatesAreEqual(coor, startNode) ||
       coordinatesAreEqual(coor, endNode)
     )
       return;
     setNodeValue(coor, PATHS_NAME_VALUE_MAP[pathName]);
-    if (cleanUp) cleanUp(coor);
+    if (cleanUpFunction) cleanUpFunction(coor);
   };
-  const getCleanUp = (currentState, setState) => {
-    return (coor) => {
-      clearNode(currentState);
-      setState(coor);
-    };
+  const getCleanUpFunction = (currentState, setState) => (coor) => {
+    clearNode(currentState);
+    setState(coor);
   };
   const updateStartNode = (newStart) => {
-    updateNodeValue(newStart, 'start', getCleanUp(startNode, setStartNode));
+    updateNodeValue(
+      newStart,
+      'start',
+      getCleanUpFunction(startNode, setStartNode)
+    );
   };
   const updateEndNode = (newEnd) => {
-    updateNodeValue(newEnd, 'end', getCleanUp(endNode, setEndNode));
+    updateNodeValue(newEnd, 'end', getCleanUpFunction(endNode, setEndNode));
   };
   const addPathNode = (coor) => {
     updateNodeValue(coor, 'path');
