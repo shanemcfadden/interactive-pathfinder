@@ -2,9 +2,10 @@ export const PAGE_HEADER = 'Interactive pathfinder';
 
 export const PAGE_DESCRIPTION = [
   `
-    Find the shortest path! Select a starting block and an ending block.
-    To make things trickier, draw some walls for the pathfinder to dodge.
-    Once you press find path, the computer will search for the shortest
+    Find the easiest path! Select a starting block and an ending block.
+    To make things more interesting, add some challenges like water and swamp for the pathfinder to avoid.
+    You can also make things easier by drawing roads made of dirt and asphalt.
+    Once you press find path, the computer will search for the easiest
     path using Dijkstra's algorithm.
   `,
   `
