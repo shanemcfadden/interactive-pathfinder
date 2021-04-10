@@ -2,39 +2,26 @@ import React from 'react';
 import 'styles/Node.css';
 
 const Node = ({
-  currentState,
+  currentTexture,
+  currentPathState,
   handleClick,
   handleOnMouseDown,
   handleOnMouseEnter,
   handleOnMouseUp,
-  drawingWallsAllowed,
-  currentlyDrawingWalls,
 }) => {
-  const wallsAllowed = (currentState, drawingWallsAllowed) => {
-    return (
-      currentState !== 'start' && currentState !== 'end' && drawingWallsAllowed
-    );
-  };
   return (
     <div
-      className={`node${currentState ? ` node--${currentState}` : ''}`}
+      className={`node node--${currentTexture}${
+        currentPathState ? ` node--${currentPathState}` : ''
+      }`}
       onClick={handleClick}
-      onMouseDown={
-        wallsAllowed(currentState, drawingWallsAllowed)
-          ? handleOnMouseDown
-          : undefined
-      }
-      onMouseEnter={
-        wallsAllowed(currentState, drawingWallsAllowed) && currentlyDrawingWalls
-          ? handleOnMouseEnter
-          : undefined
-      }
-      onMouseUp={
-        wallsAllowed(currentState, drawingWallsAllowed)
-          ? handleOnMouseUp
-          : undefined
-      }
-    ></div>
+      onMouseDown={handleOnMouseDown}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseUp={handleOnMouseUp}
+    >
+      {currentPathState === 'start' && 'S'}
+      {currentPathState === 'end' && 'E'}
+    </div>
   );
 };
 

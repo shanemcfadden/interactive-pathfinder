@@ -1,66 +1,125 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
+import Modal from 'components/Modal';
+import useStateOfPath from 'hooks/useStateOfPath';
+import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
+import {
+  GRID_HEIGHT_NODES,
+  GRID_WIDTH_NODES,
+  GRID_WIDTH_PX,
+  DEFAULT_END_NODE,
+  DEFAULT_START_NODE,
+} from 'settings/grid';
+import { SAMPLE_TERRAINS } from 'settings/terrains';
+import { TEXTURES_NAME_VALUE_MAP } from 'settings/textures';
+import { getShallowCopyIfDefined } from 'util/arr';
+import { mapGrid } from 'util/grid';
 import 'styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: 20 }, () => Array.from({ length: 20 }))
+    Array.from({ length: GRID_HEIGHT_NODES }, () =>
+      Array.from(
+        { length: GRID_WIDTH_NODES },
+        () => TEXTURES_NAME_VALUE_MAP.grass
+      )
+    )
   );
-  const [startNode, setStartNode] = useState([4, 4]);
-  const [endNode, setEndNode] = useState([7, 16]);
+  const [
+    startNode,
+    setStartNode,
+    endNode,
+    setEndNode,
+    stateOfPath,
+    addPathNode,
+    resetStateOfPath,
+    addVisitedNode,
+    clearVisitedNodes,
+  ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
   const [currentClickFunction, setCurrentClickFunction] = useState('none');
-  const [drawingWallsAllowed, setDrawingWallsAllowed] = useState(false);
+  const [currentTexture, setCurrentTexture] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentSampleTerrain, setSampleTerrain] = useState(null);
 
   useEffect(() => {
-    if (drawingWallsAllowed) {
-      setCurrentClickFunction('none');
-    }
-  }, [drawingWallsAllowed]);
+    if (currentSampleTerrain == null) return;
+    const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
 
-  const clickFunctionRef = useRef({
-    setStartNode,
-    setEndNode,
-    none: () => {},
-  });
+    const newStateOfNodes = mapGrid(
+      sampleData.stateOfNodes,
+      (val) => TEXTURES_NAME_VALUE_MAP[val]
+    );
+    const newStartNode = getShallowCopyIfDefined(sampleData.startNode);
+    const newEndNode = getShallowCopyIfDefined(sampleData.endNode);
 
+    setStateOfNodes(newStateOfNodes);
+    if (newStartNode) setStartNode(newStartNode);
+    if (newEndNode) setEndNode(newEndNode);
+  }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const setSampleTerrainToNull = () => {
+    setSampleTerrain(null);
+  };
   const createOnClickFunction = () => {
+    const availableFunctions = {
+      updateStartNode: setStartNode,
+      updateEndNode: setEndNode,
+    };
+    if (!currentClickFunction || !availableFunctions[currentClickFunction])
+      return () => {};
+
     return (i, j) => {
-      clickFunctionRef.current[currentClickFunction]([i, j]);
-      setCurrentClickFunction('none');
+      availableFunctions[currentClickFunction]([i, j]);
+      setCurrentClickFunction(null);
+      setSampleTerrainToNull();
     };
   };
   return (
-    <div className="App">
-      <div className="content-container">
-        <h1 className="centered-text">Interactive pathfinder</h1>
-        <p>
-          Find the shortest path! Select a starting block and an ending block.
-          To make things trickier, draw some walls for the pathfinder to dodge.
-          Once you press find path, the computer will search for the shortest
-          path using Dijkstra's algorithm.
-        </p>
-        <p>
-          Make a guess, and see if you can beat the computer at its own game!
-        </p>
+    <div className="App dark-theme">
+      <div
+        className="content-container"
+        style={{
+          width: GRID_WIDTH_PX + 'px',
+        }}
+      >
+        <div className="content-box light-theme">
+          <h1 className="centered-text">{PAGE_HEADER}</h1>
+          {PAGE_DESCRIPTION.map((paragraphText, i) => (
+            <p key={`p-${i}`}>{paragraphText}</p>
+          ))}
+        </div>
         <Dashboard
+          startNode={startNode}
+          endNode={endNode}
           setCurrentClickFunction={setCurrentClickFunction}
-          startNode={startNode}
-          endNode={endNode}
           stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
-          setDrawingWallsAllowed={setDrawingWallsAllowed}
-        />
-        <Grid
-          startNode={startNode}
-          endNode={endNode}
-          onClickFunction={createOnClickFunction(currentClickFunction)}
-          stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
-          drawingWallsAllowed={drawingWallsAllowed}
+          currentTexture={currentTexture}
+          setCurrentTexture={setCurrentTexture}
+          addPathNode={addPathNode}
+          addVisitedNode={addVisitedNode}
+          resetStateOfPath={resetStateOfPath}
+          clearVisitedNodes={clearVisitedNodes}
+          setModalIsOpen={setModalIsOpen}
+          currentSampleTerrain={currentSampleTerrain}
+          setSampleTerrain={setSampleTerrain}
         />
       </div>
+      <Grid
+        onClickFunction={createOnClickFunction(currentClickFunction)}
+        stateOfNodes={stateOfNodes}
+        setStateOfNodes={setStateOfNodes}
+        stateOfPath={stateOfPath}
+        currentTexture={currentTexture}
+        setSampleTerrainToNull={setSampleTerrainToNull}
+      />
+      {modalIsOpen && (
+        <Modal
+          closeModalFunction={() => setModalIsOpen(false)}
+          title={MODAL_HEADER}
+          confirmLabel={'Reset'}
+        />
+      )}
     </div>
   );
 }
