@@ -58,6 +58,9 @@ function App() {
     if (newEndNode) setEndNode(newEndNode);
   }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const setSampleTerrainToNull = () => {
+    setSampleTerrain(null);
+  };
   const createOnClickFunction = () => {
     const availableFunctions = {
       updateStartNode: setStartNode,
@@ -69,10 +72,8 @@ function App() {
     return (i, j) => {
       availableFunctions[currentClickFunction]([i, j]);
       setCurrentClickFunction(null);
+      setSampleTerrainToNull();
     };
-  };
-  const setSampleTerrainToNull = () => {
-    setSampleTerrain(null);
   };
   return (
     <div className="App dark-theme">
