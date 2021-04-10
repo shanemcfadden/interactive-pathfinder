@@ -114,22 +114,18 @@ const Dashboard = ({
 
   return (
     <div className="dashboard">
-      <button
-        className="dashboard__button"
-        type="button"
-        onClick={handleStartButtonClick}
+      <DashboardButton
+        onClickFn={handleStartButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select Start
-      </button>
-      <button
-        className="dashboard__button"
-        type="button"
-        onClick={handleEndButtonClick}
+      </DashboardButton>
+      <DashboardButton
+        onClickFn={handleEndButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select End
-      </button>
+      </DashboardButton>
       <label htmlFor="select-texture">Draw Texture:</label>
       <select
         id="select-texture"
