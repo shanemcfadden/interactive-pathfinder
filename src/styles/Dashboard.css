@@ -1,13 +1,13 @@
 :root {
-  --button-bg-color: #328fdc;
-  --button-bg-color--hover: #02447b;
+  --button-bg-color: hsl(219, 94%, 49%);
+  --button-bg-color--hover: hsl(241, 94%, 49%);
   --button-color: #fff;
-  --button-bg-color--disabled: #328fdc;
-  --button-color--disabled: #91ceff;
-  --button-bg-color--go: #25c111;
-  --button-bg-color--go--hover: #136d07;
-  --button-bg-color--stop: #f00;
-  --button-bg-color--stop--hover: #962106;
+  --button-bg-color--disabled: hsl(241, 94%, 49%);
+  --button-color--disabled: hsl(219, 94%, 49%);
+  --button-bg-color--go: hsl(118, 94%, 29%);
+  --button-bg-color--go--hover: hsl(118, 94%, 19%);
+  --button-bg-color--stop: hsl(0, 94%, 49%);
+  --button-bg-color--stop--hover: hsl(0, 94%, 39%);
 }
 
 .dashboard {
