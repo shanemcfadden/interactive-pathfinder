@@ -8,11 +8,13 @@ They may also draw textures to make it easier or harder to reach the end. This p
 - Create React App
 - CSS
 
-## Things learned
+## Skills learned
 
-- How to display programming logic meaningfully with a UI
-- How to use component-by-component style sheets
-- How to juggle UI functionality depending on what the software is currently doing (e.g. preventing the user from pressing buttons while pathfinder is running)
+- Display programming logic meaningfully with a UI
+- Use component-by-component style sheets
+- Toggle UI capabilities depending on the current application state
+- Calculate style attributes dynamically using Javascript variables
+- Efficiently disseminate and alter application state across components
 
 ## Possible next steps
 
