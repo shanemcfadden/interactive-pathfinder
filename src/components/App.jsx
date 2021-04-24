@@ -104,15 +104,15 @@ function App() {
           currentSampleTerrain={currentSampleTerrain}
           setSampleTerrain={setSampleTerrain}
         />
+        <Grid
+          onClickFunction={createOnClickFunction(currentClickFunction)}
+          stateOfNodes={stateOfNodes}
+          setStateOfNodes={setStateOfNodes}
+          stateOfPath={stateOfPath}
+          currentTexture={currentTexture}
+          setSampleTerrainToNull={setSampleTerrainToNull}
+        />
       </div>
-      <Grid
-        onClickFunction={createOnClickFunction(currentClickFunction)}
-        stateOfNodes={stateOfNodes}
-        setStateOfNodes={setStateOfNodes}
-        stateOfPath={stateOfPath}
-        currentTexture={currentTexture}
-        setSampleTerrainToNull={setSampleTerrainToNull}
-      />
       {modalIsOpen && (
         <Modal
           closeModalFunction={() => setModalIsOpen(false)}
