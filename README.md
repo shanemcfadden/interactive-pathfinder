@@ -3,16 +3,20 @@
 This project is a single page application that allows users to select start and end points from a grid and calculate the easiest path between them.
 They may also draw textures to make it easier or harder to reach the end. This pathfinder implements Dijkstra's algorithm to find a path with the lowest difficulty.
 
+Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the project from your browser. **Note: the app is not optimized for mobile or tablet use.**
+
 ## Tools used
 
 - Create React App
 - CSS
 
-## Things learned
+## Skills learned
 
-- How to display programming logic meaningfully with a UI
-- How to use component-by-component style sheets
-- How to juggle UI functionality depending on what the software is currently doing (e.g. preventing the user from pressing buttons while pathfinder is running)
+- Display programming logic meaningfully with a UI
+- Use component-by-component style sheets
+- Toggle UI capabilities depending on the current application state
+- Calculate style attributes dynamically using Javascript variables
+- Efficiently disseminate and alter application state across components
 
 ## Possible next steps
 
@@ -21,7 +25,7 @@ They may also draw textures to make it easier or harder to reach the end. This p
 - Make app tablet/mobile friendly
 - Allow users to draw their best guess of the easiest path and assign them a score at the end.
 
-## Running The Project
+## Running the project locally
 
 This project requires npm to run. Download the code and navigate to the root directory. To run the development server, run `yarn start` or `npm start`. View the app in a web browser at localhost:3000.
 

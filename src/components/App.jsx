@@ -85,8 +85,23 @@ function App() {
       >
         <div className="content-box light-theme">
           <h1 className="centered-text">{PAGE_HEADER}</h1>
-          {PAGE_DESCRIPTION.map((paragraphText, i) => (
-            <p key={`p-${i}`}>{paragraphText}</p>
+          {PAGE_DESCRIPTION.map((paragraphText, i, arr) => (
+            <p key={`p-${i}`}>
+              {paragraphText}
+              {i === arr.length - 1 && (
+                <>
+                  View source code{' '}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://github.com/shanemcfadden/interactive-pathfinder"
+                  >
+                    here
+                  </a>
+                  .
+                </>
+              )}
+            </p>
           ))}
         </div>
         <Dashboard
@@ -104,15 +119,15 @@ function App() {
           currentSampleTerrain={currentSampleTerrain}
           setSampleTerrain={setSampleTerrain}
         />
+        <Grid
+          onClickFunction={createOnClickFunction(currentClickFunction)}
+          stateOfNodes={stateOfNodes}
+          setStateOfNodes={setStateOfNodes}
+          stateOfPath={stateOfPath}
+          currentTexture={currentTexture}
+          setSampleTerrainToNull={setSampleTerrainToNull}
+        />
       </div>
-      <Grid
-        onClickFunction={createOnClickFunction(currentClickFunction)}
-        stateOfNodes={stateOfNodes}
-        setStateOfNodes={setStateOfNodes}
-        stateOfPath={stateOfPath}
-        currentTexture={currentTexture}
-        setSampleTerrainToNull={setSampleTerrainToNull}
-      />
       {modalIsOpen && (
         <Modal
           closeModalFunction={() => setModalIsOpen(false)}

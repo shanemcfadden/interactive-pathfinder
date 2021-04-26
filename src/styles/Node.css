@@ -1,14 +1,13 @@
 :root {
-  --start-color: #0bdb0b;
-  --end-color: #ff0000;
+  --start-color: hsl(118, 94%, 29%);
+  --end-color: hsl(0, 94%, 49%);
 
-  --asphalt-color: #868684;
-  --dirt-color: #653c00;
-  --grass-color: #00a500;
-  --sand-color: #dfba8d;
-  --swamp-color: #0e4933;
-  --water-color: #2600ee;
-
+  --asphalt-color: hsl(0, 0%, 49%);
+  --dirt-color: hsl(36, 94%, 29%);
+  --grass-color: hsl(113, 94%, 49%);
+  --sand-color: hsl(36, 94%, 79%);
+  --swamp-color: hsl(168, 94%, 49%);
+  --water-color: hsl(241, 94%, 49%);
   --transition-settings: 500ms ease-in-out;
 }
 
