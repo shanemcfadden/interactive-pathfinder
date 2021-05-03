@@ -85,24 +85,7 @@ function App() {
       >
         <div className="content-box light-theme">
           <h1 className="centered-text">{PAGE_HEADER}</h1>
-          {PAGE_DESCRIPTION.map((paragraphText, i, arr) => (
-            <p key={`p-${i}`}>
-              {paragraphText}
-              {i === arr.length - 1 && (
-                <>
-                  View source code{' '}
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://github.com/shanemcfadden/interactive-pathfinder"
-                  >
-                    here
-                  </a>
-                  .
-                </>
-              )}
-            </p>
-          ))}
+          {PAGE_DESCRIPTION}
         </div>
         <Dashboard
           startNode={startNode}
