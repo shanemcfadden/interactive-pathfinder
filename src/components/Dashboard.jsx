@@ -139,7 +139,7 @@ const Dashboard = ({
           );
         })}
       </select>
-      <label htmlFor="select-sample">Sample terrains:</label>
+      <label htmlFor="select-sample">Sample Terrains:</label>
       <select
         id="select-sample"
         value={currentSampleTerrain == null ? 'none' : currentSampleTerrain}
