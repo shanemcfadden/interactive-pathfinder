@@ -1,9 +1,10 @@
 # Interactive Pathfinder
 
-This project is a single page application that allows users to select start and end points from a grid and calculate the easiest path between them.
-They may also draw textures to make it easier or harder to reach the end. This pathfinder implements Dijkstra's algorithm to find a path with the lowest difficulty.
+While I was building [mcfaddenpiano.com](https://github.com/shanemcfadden/mcfaddenpiano.com), I decided that I wanted my next frontend project to be an application that users could interact with instead of another static site. After watching Clément Mihailescu's [Pathfinding Visualizer](https://www.youtube.com/watch?v=msttfIHHkak) video, I decided to try to build my own variation from scratch. Although his video and application were the inspiration for this project, I chose not to reference his video or source code while building this app.
 
-Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the project from your browser. **Note: the app is not optimized for mobile or tablet use.**
+This project is a single page web application that allows users to select start and end points from a grid and calculate the easiest path between them using Dijkstra's algorithm. They can also draw textures of varying difficulties to make the easiest path more complicated (or even impossible) to find. There are also several sample terrains that the user can test out and edit.
+
+Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the app in your desktop browser. **Note: the app is not optimized for mobile or tablet use.**
 
 [![Pathfinder demonstration](src/images/screencap.gif)](https://shanemcfadden.github.io/interactive-pathfinder)
 
@@ -12,7 +13,7 @@ Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the 
 - Create React App
 - CSS
 
-## Skills learned
+## Skills improved
 
 - Display programming logic meaningfully with a UI
 - Use component-by-component style sheets
