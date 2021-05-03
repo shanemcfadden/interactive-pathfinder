@@ -1,6 +1,33 @@
 import MinHeap from 'models/MinHeap';
 import { coordinatesAreEqual } from 'util/arr';
+/**
+ *
+ * @typedef {[number, number]} Coordinate
+ * @typedef {Array<Array<number>>} TextureGrid
+ */
 
+/**
+ * @callback finishedCallback
+ * @param {string} [errorMessage]
+ * @returns {undefined}
+ */
+
+/**
+ * @callback addNodeCallback
+ * @param {Coordinate} corrdinate
+ * @returns {undefined}
+ */
+
+/**
+ * @function
+ * @param {Coordinate} startingCoordinates
+ * @param {Coordinate} endingCoordinates
+ * @param {TextureGrid} initialGrid - Current texture values for grid
+ * @param {addNodeCallback} addVisitedNode
+ * @param {addNodeCallback} addPathNode
+ * @param {finishedCallback} done - Callback to be run after dijkstra has finished running
+ * @returns {NodeJS.Timeout} Timeout that is cleared by finding an easiest path, finding no possible paths, or by cancelling the timeout
+ */
 export const dijkstra = (
   startingCoordinates,
   endingCoordinates,
