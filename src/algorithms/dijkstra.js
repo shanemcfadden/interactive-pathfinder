@@ -1,22 +1,5 @@
 import MinHeap from 'models/MinHeap';
 import { coordinatesAreEqual } from 'util/arr';
-/**
- *
- * @typedef {[number, number]} Coordinate
- * @typedef {Array<Array<number>>} TextureGrid
- */
-
-/**
- * @callback finishedCallback
- * @param {string} [errorMessage]
- * @returns {undefined}
- */
-
-/**
- * @callback addNodeCallback
- * @param {Coordinate} corrdinate
- * @returns {undefined}
- */
 
 /**
  * @function
@@ -110,7 +93,7 @@ function addNeighboringCoordinatesToHeap(
 /**
  *
  * @param {CoordinateData} coordinateData
- * @param {Object.<string, Coordinate>} previousCoordinateMap
+ * @param {PreviousCoordinateMap} previousCoordinateMap
  */
 function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
   previousCoordinateMap[JSON.stringify(coordinateData.coordinate)] =
@@ -120,7 +103,7 @@ function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
 /**
  *
  * @param {Coordinate} coordinate
- * @param {Object.<string, Coordinate>} previousCoordinateMap
+ * @param {PreviousCoordinateMap} previousCoordinateMap
  * @returns {boolean}
  */
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
@@ -156,8 +139,8 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
 /**
  *
  * @param {Coordinate} finishCoordinate
- * @param {Object.<string, Coordinate>[]} visitedCoordinates
- * @returns
+ * @param {PreviousCoordinateMap} visitedCoordinates
+ * @returns {Coordinate[]}
  */
 function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
   const startToFinishPath = [];
@@ -202,4 +185,21 @@ function initializeCoordinatesHeap(grid, startingCoordinates) {
  *    previousCoordinate: string | Coordinate | null,
  *    coordinate: Coordinate
  * }} CoordinateData
+ * @typedef {[number, number]} Coordinate
+ * @typedef {Array<Array<number>>} TextureGrid
+ * @typedef {Object.<string, Coordinate | 'start'>} PreviousCoordinateMap
+ * An object with keys of stringified coordinates. Each key points to the coordinate that leads closer to the start.
+ * The value for the key of the starting coordinate is "start".
+ */
+
+/**
+ * @callback finishedCallback
+ * @param {string} [errorMessage]
+ * @returns {undefined}
+ */
+
+/**
+ * @callback addNodeCallback
+ * @param {Coordinate} corrdinate
+ * @returns {undefined}
  */
