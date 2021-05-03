@@ -24,8 +24,11 @@ export const dijkstra = (
   grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
+  /** @type {PreviousCoordinateMap} */
   const previousCoordinateMap = {};
+  /** @type {CoordinateData} */
   let finalCoordinateData;
+  /** @type {Coordinate[]} */
   let path;
   let pathFound = false;
   let displayedPathNodes = 0;
