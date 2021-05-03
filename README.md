@@ -12,6 +12,7 @@ Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the 
 
 - Create React App
 - CSS
+- JSDoc
 
 ## Skills improved
 
@@ -20,6 +21,7 @@ Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the 
 - Toggle UI capabilities depending on the current application state
 - Calculate style attributes dynamically using Javascript variables
 - Efficiently disseminate and alter application state across components
+- Document classes and functions within codebase using JSDoc
 
 ## Possible next steps
 
