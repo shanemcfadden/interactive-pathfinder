@@ -5,6 +5,8 @@ They may also draw textures to make it easier or harder to reach the end. This p
 
 Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the project from your browser. **Note: the app is not optimized for mobile or tablet use.**
 
+[![Pathfinder demonstration](src/images/screencap.gif)](https://shanemcfadden.github.io/interactive-pathfinder)
+
 ## Tools used
 
 - Create React App
