@@ -81,6 +81,12 @@ export const dijkstra = (
   return interval;
 };
 
+/**
+ *
+ * @param {CoordinateData} currentCoordinateData
+ * @param {TextureGrid} grid
+ * @param {MinHeap} coordinatesHeap
+ */
 function addNeighboringCoordinatesToHeap(
   currentCoordinateData,
   grid,
@@ -101,15 +107,32 @@ function addNeighboringCoordinatesToHeap(
   });
 }
 
+/**
+ *
+ * @param {CoordinateData} coordinateData
+ * @param {Object.<string, Coordinate>} previousCoordinateMap
+ */
 function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
   previousCoordinateMap[JSON.stringify(coordinateData.coordinate)] =
     coordinateData.previousCoordinate;
 }
 
+/**
+ *
+ * @param {Coordinate} coordinate
+ * @param {Object.<string, Coordinate>} previousCoordinateMap
+ * @returns {boolean}
+ */
 function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
   return !!previousCoordinateMap[JSON.stringify(coordinate)];
 }
 
+/**
+ *
+ * @param {Coordinate} currentCoordinate
+ * @param {TextureGrid} grid
+ * @returns {Coordinate[]}
+ */
 function getNeighboringCoordinates(currentCoordinate, grid) {
   const neighbors = [];
   const [i, j] = currentCoordinate;
@@ -130,6 +153,12 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
   return neighbors;
 }
 
+/**
+ *
+ * @param {Coordinate} finishCoordinate
+ * @param {Object.<string, Coordinate>[]} visitedCoordinates
+ * @returns
+ */
 function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
   const startToFinishPath = [];
   let current = finishCoordinate;
@@ -140,6 +169,12 @@ function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
   return startToFinishPath;
 }
 
+/**
+ *
+ * @param {TextureGrid} grid
+ * @param {Coordinate} startingCoordinates
+ * @returns {MinHeap} Priority queue of CoordinateData starting with coordinate closest to startingCoordinates
+ */
 function initializeCoordinatesHeap(grid, startingCoordinates) {
   const coordinatesHeap = new MinHeap(
     (a, b) => a.distanceFromStart - b.distanceFromStart
@@ -160,3 +195,11 @@ function initializeCoordinatesHeap(grid, startingCoordinates) {
   });
   return coordinatesHeap;
 }
+
+/**
+ * @typedef {{
+ *    distanceFromStart: number,
+ *    previousCoordinate: string | Coordinate | null,
+ *    coordinate: Coordinate
+ * }} CoordinateData
+ */
