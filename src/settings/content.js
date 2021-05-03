@@ -13,13 +13,13 @@ export const PAGE_DESCRIPTION = (
     </p>
     <p>Make a guess, and see if you can beat the computer at its own game!</p>
     <p>
-      View source code{' '}
+      View the source code on{' '}
       <a
         target="_blank"
         rel="noreferrer"
         href="https://github.com/shanemcfadden/interactive-pathfinder"
       >
-        here
+        GitHub
       </a>
       .
     </p>
