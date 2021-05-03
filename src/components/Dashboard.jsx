@@ -94,7 +94,7 @@ const Dashboard = ({
         onClickFn: handleFindPathReset,
       },
       findPath: {
-        innerHTML: 'Find Path!',
+        innerHTML: 'Find Path',
         onClickFn: handleFindPathClick,
         extraClassName: 'dashboard__button--go',
       },
