@@ -1,7 +1,7 @@
 {
   "name": "interactive-pathfinder",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "homepage": "https://shanemcfadden.github.io/interactive-pathfinder",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
