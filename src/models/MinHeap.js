@@ -4,7 +4,7 @@
  */
 class MinHeap {
   /**
-   * Create a MinHeap
+   * Creates a MinHeap.
    * @param {CompareFunction} compareFunction
    */
   constructor(compareFunction) {
@@ -13,7 +13,7 @@ class MinHeap {
   }
 
   /**
-   * Move last element of the heap to its proper place
+   * Moves last element of the heap to its proper place.
    */
   bubbleUp() {
     let currentIndex = this.heap.length - 1;
@@ -30,7 +30,7 @@ class MinHeap {
   }
 
   /**
-   * Get indeces of any immediate children
+   * Gets indeces of any immediate children.
    * @param {number} currentIndex
    * @returns {[number, number] | [number, null] | [null, null]] }
    */
@@ -42,7 +42,7 @@ class MinHeap {
   }
 
   /**
-   * Get the index of immediate parent
+   * Gets the index of immediate parent.
    * @param {number} currentIndex
    * @returns {number?}
    */
@@ -52,7 +52,7 @@ class MinHeap {
   }
 
   /**
-   * Use compare function to determine whether a is less than b
+   * Uses compare function to determine whether a is less than b.
    * @param {*} a
    * @param {*} b
    * @returns {boolean}
@@ -63,7 +63,7 @@ class MinHeap {
   }
 
   /**
-   * Add a value to the heap
+   * Adds a value to the heap.
    * @param {*} value
    */
   push(value) {
@@ -72,7 +72,7 @@ class MinHeap {
   }
 
   /**
-   * Remove minimum value from the heap
+   * Removes minimum value from the heap.
    * @returns {* | undefined}
    */
   pop() {
@@ -83,9 +83,7 @@ class MinHeap {
     return poppedValue;
   }
 
-  /**
-   * Move top value of the heap to its proper place
-   */
+  /** Move top value of the heap to its proper place. */
   sinkDown() {
     let currentIndex = 0;
     let [leftChildIndex, rightChildIndex] = this.getChildIndices(currentIndex);
@@ -116,7 +114,7 @@ class MinHeap {
   }
 
   /**
-   * Switch the position of two values on the heap
+   * Switches the position of two values on the heap.
    * @param {number} i
    * @param {number} j
    */
@@ -128,8 +126,12 @@ class MinHeap {
 export default MinHeap;
 
 /**
+ * Compares two values.
+ * Returns a negative number if a is less than b.
+ * Returns 0 if the values are equal.
+ * Returns a positive number if b is less than a.
  * @callback CompareFunction
  * @param {*} a
  * @param {*} b
- * @returns {number} Returns a negative number if a is less than b. Returns a positive number if a is greater than b
+ * @returns {number}
  */
