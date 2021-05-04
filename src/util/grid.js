@@ -1,5 +1,6 @@
 /**
- *
+ * Similar to Array.prototype.map(), calls a function across every element
+ * of a grid and returns a new grid.
  * @param {Grid} grid
  * @param {MapFunction} mapFn
  * @returns {Grid}
@@ -9,9 +10,9 @@ export const mapGrid = (grid, mapFn) => {
 };
 
 /**
- *
- * @param {Grid} grid
- * @returns {Grid}
+ * Returns a shallow copy of a given grid.
+ * @param {Grid} grid Initial grid
+ * @returns {Grid} Shallow copy of initial grid
  */
 export const shallowCopyOfGrid = (grid) => {
   return grid.map((row) => [...row]);
@@ -19,8 +20,7 @@ export const shallowCopyOfGrid = (grid) => {
 
 /**
  * @typedef {Array<Array<any>>} Grid
- */
-/**
+ *
  * @callback MapFunction
  * @param {*} value
  * @param {number} index
