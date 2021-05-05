@@ -94,7 +94,7 @@ const Dashboard = ({
         onClickFn: handleFindPathReset,
       },
       findPath: {
-        innerHTML: 'Find Path!',
+        innerHTML: 'Find Path',
         onClickFn: handleFindPathClick,
         extraClassName: 'dashboard__button--go',
       },
@@ -139,7 +139,7 @@ const Dashboard = ({
           );
         })}
       </select>
-      <label htmlFor="select-sample">Sample terrains:</label>
+      <label htmlFor="select-sample">Sample Terrains:</label>
       <select
         id="select-sample"
         value={currentSampleTerrain == null ? 'none' : currentSampleTerrain}
