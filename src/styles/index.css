@@ -33,6 +33,10 @@ select {
   padding: 4px 12px;
 }
 
+select:disabled {
+  cursor: default;
+}
+
 /* remove gray background/border in firefox select inputs */
 @supports (-moz-appearance: none) {
   select {
@@ -44,6 +48,13 @@ select {
     background-position: calc(100% - 10px) center !important;
     border: none;
     padding-right: 16px;
+  }
+
+  select:disabled {
+    background: #ccc
+      url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==')
+      right center no-repeat !important;
+    background-position: calc(100% - 10px) center !important;
   }
 }
 
