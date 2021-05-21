@@ -27,9 +27,10 @@ label {
 }
 
 select {
-  padding: 4px 12px;
-  font-size: 16px;
   border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 12px;
 }
 
 /* remove gray background/border in firefox select inputs */
@@ -42,7 +43,6 @@ select {
       right center no-repeat !important;
     background-position: calc(100% - 10px) center !important;
     border: none;
-    cursor: pointer;
   }
 }
 
