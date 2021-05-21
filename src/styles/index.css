@@ -43,6 +43,7 @@ select {
       right center no-repeat !important;
     background-position: calc(100% - 10px) center !important;
     border: none;
+    padding-right: 16px;
   }
 }
 
