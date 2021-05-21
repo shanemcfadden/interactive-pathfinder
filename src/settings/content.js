@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PAGE_HEADER = 'Interactive pathfinder';
+export const PAGE_HEADER = 'Interactive Pathfinder';
 
 export const PAGE_DESCRIPTION = (
   <>
