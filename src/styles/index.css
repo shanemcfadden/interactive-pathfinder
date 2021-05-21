@@ -32,6 +32,20 @@ select {
   border-radius: 20px;
 }
 
+/* remove gray background/border in firefox select inputs */
+@supports (-moz-appearance: none) {
+  select {
+    -moz-appearance: none !important;
+    /* Add arrow image */
+    background: white
+      url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==')
+      right center no-repeat !important;
+    background-position: calc(100% - 10px) center !important;
+    border: none;
+    cursor: pointer;
+  }
+}
+
 button:focus,
 select:focus {
   box-shadow: 0 0 6px 4px #aaa;
