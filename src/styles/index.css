@@ -33,6 +33,10 @@ select {
   padding: 4px 12px;
 }
 
+select:disabled {
+  cursor: default;
+}
+
 /* remove gray background/border in firefox select inputs */
 @supports (-moz-appearance: none) {
   select {
