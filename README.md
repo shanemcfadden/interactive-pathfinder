@@ -4,9 +4,9 @@ While I was building [mcfaddenpiano.com](https://github.com/shanemcfadden/mcfadd
 
 This project is a single page web application that allows users to select start and end points from a grid and calculate the easiest path between them using Dijkstra's algorithm. They can also draw textures of varying difficulties to make the easiest path more complicated (or even impossible) to find. There are also several sample terrains that the user can test out and edit.
 
-Click [here](https://shanemcfadden.github.io/interactive-pathfinder) to use the app in your desktop browser. **Note: the app is not optimized for mobile or tablet use.**
+Click [here](https://shanemcfadden.dev/interactive-pathfinder) to use the app in your desktop browser. **Note: the app is not optimized for mobile or tablet use.**
 
-[![Pathfinder demonstration](src/images/screencap.gif)](https://shanemcfadden.github.io/interactive-pathfinder)
+[![Pathfinder demonstration](src/images/screencap.gif)](https://shanemcfadden.dev/interactive-pathfinder)
 
 ## Tools used
 
