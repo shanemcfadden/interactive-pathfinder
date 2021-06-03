@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Dashboard from 'components/Dashboard';
 import Grid from 'components/Grid';
 import Modal from 'components/Modal';
-import SEO from 'components/SEO';
 import useStateOfPath from 'hooks/useStateOfPath';
 import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
 import {
@@ -78,7 +77,6 @@ function App() {
   };
   return (
     <div className="App dark-theme">
-      <SEO />
       <div
         className="content-container"
         style={{
