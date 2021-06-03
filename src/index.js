@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom';
 import 'styles/index.css';
 import App from 'components/App';
 import reportWebVitals from 'reportWebVitals';
-import SEO from 'components/SEO';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SEO />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
