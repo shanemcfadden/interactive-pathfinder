@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { coordinatesAreEqual } from 'util/arr';
-import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from 'settings/grid';
-import { PATHS_NAME_VALUE_MAP } from 'settings/paths';
-import { mapGrid } from 'util/grid';
+import { coordinatesAreEqual } from '../util/arr';
+import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from '../settings/grid';
+import { PATHS_NAME_VALUE_MAP } from '../settings/paths';
+import { mapGrid } from '../util/grid';
 
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
@@ -17,18 +17,18 @@ const useStateOfPath = (startingCoor, endingCoor) => {
         if (coordinatesAreEqual(start, [i, j])) return startNodeValue;
         if (coordinatesAreEqual(end, [i, j])) return endNodeValue;
         return 0;
-      })
+      }),
     );
   };
   const [stateOfPath, setStateOfPath] = useState(
-    getInitalPathState(startingCoor, endingCoor)
+    getInitalPathState(startingCoor, endingCoor),
   );
   const resetStateOfPath = () => {
     setStateOfPath(getInitalPathState(startNode, endNode));
   };
   const clearVisitedNodes = () => {
     const updatedStateOfPath = mapGrid(stateOfPath, (val) =>
-      val === PATHS_NAME_VALUE_MAP['visited'] ? 0 : val
+      val === PATHS_NAME_VALUE_MAP['visited'] ? 0 : val,
     );
     setStateOfPath(updatedStateOfPath);
   };
@@ -58,7 +58,7 @@ const useStateOfPath = (startingCoor, endingCoor) => {
     updateNodeValue(
       newStart,
       'start',
-      getCleanUpFunction(startNode, setStartNode)
+      getCleanUpFunction(startNode, setStartNode),
     );
   };
   const updateEndNode = (newEnd) => {

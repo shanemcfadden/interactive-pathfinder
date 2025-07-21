@@ -1,4 +1,4 @@
-import { flipKeyValuePairs } from 'util/obj';
+import { flipKeyValuePairs } from '../util/obj';
 
 export const TEXTURES_ARRAY = [
   {
@@ -26,9 +26,9 @@ export const TEXTURES_VALUE_NAME_MAP = TEXTURES_ARRAY.reduce(
     map[weight] = name.toLowerCase();
     return map;
   },
-  {}
+  {},
 );
 
 export const TEXTURES_NAME_VALUE_MAP = flipKeyValuePairs(
-  TEXTURES_VALUE_NAME_MAP
+  TEXTURES_VALUE_NAME_MAP,
 );

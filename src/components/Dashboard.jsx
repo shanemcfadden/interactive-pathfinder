@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { dijkstra } from 'algorithms/dijkstra';
-import { SAMPLE_TERRAINS } from 'settings/terrains';
-import { TEXTURES_ARRAY } from 'settings/textures';
-import 'styles/Dashboard.css';
+import { dijkstra } from '../algorithms/dijkstra';
+import { SAMPLE_TERRAINS } from '../settings/terrains';
+import { TEXTURES_ARRAY } from '../settings/textures';
+import '../styles/Dashboard.css';
 import DashboardButton from './DashboardButton';
 
 const Dashboard = ({
@@ -52,7 +52,7 @@ const Dashboard = ({
       stateOfNodes,
       addVisitedNode,
       addPathNode,
-      afterDijkstraSuccess
+      afterDijkstraSuccess,
     );
     setCurrentInterval(interval);
   };
@@ -99,9 +99,8 @@ const Dashboard = ({
         extraClassName: 'dashboard__button--go',
       },
     };
-    const { innerHTML, onClickFn, extraClassName } = findPathButtons[
-      findPathButton
-    ];
+    const { innerHTML, onClickFn, extraClassName } =
+      findPathButtons[findPathButton];
     return (
       <DashboardButton onClickFn={onClickFn} extraClassName={extraClassName}>
         {innerHTML}
