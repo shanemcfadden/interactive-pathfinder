@@ -1,5 +1,5 @@
-import MinHeap from 'models/MinHeap';
-import { coordinatesAreEqual } from 'util/arr';
+import MinHeap from '../models/MinHeap';
+import { coordinatesAreEqual } from '../util/arr';
 
 /**
  * Find the shortest path using Dijkstra's algorithm
@@ -23,7 +23,7 @@ export const dijkstra = (
   initialGrid,
   addVisitedNode,
   addPathNode,
-  done
+  done,
 ) => {
   const grid = initialGrid.map((row) => row.slice());
   // Make the end node accessible even if the weight is Infinity
@@ -54,7 +54,7 @@ export const dijkstra = (
           finalCoordinateData = current;
           path = getStartToFinishPath(
             finalCoordinateData.coordinate,
-            previousCoordinateMap
+            previousCoordinateMap,
           );
         } else {
           addVisitedNode(current.coordinate);
@@ -82,11 +82,11 @@ export const dijkstra = (
 function addNeighboringCoordinatesToHeap(
   currentCoordinateData,
   grid,
-  coordinatesHeap
+  coordinatesHeap,
 ) {
   const neigboringCoordinates = getNeighboringCoordinates(
     currentCoordinateData.coordinate,
-    grid
+    grid,
   );
   neigboringCoordinates.forEach((neighbor) => {
     let newCoordinateData = {
@@ -176,7 +176,7 @@ function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
  */
 function initializeCoordinatesHeap(grid, startingCoordinates) {
   const coordinatesHeap = new MinHeap(
-    (a, b) => a.distanceFromStart - b.distanceFromStart
+    (a, b) => a.distanceFromStart - b.distanceFromStart,
   );
   grid.forEach((row, i) => {
     row.forEach((val, j) => {

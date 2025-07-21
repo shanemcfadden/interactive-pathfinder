@@ -1,5 +1,5 @@
 import React from 'react';
-import 'styles/Node.css';
+import '../styles/Node.css';
 
 const Node = ({
   currentTexture,

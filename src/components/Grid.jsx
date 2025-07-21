@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Node from 'components/Node';
-import 'styles/Grid.css';
+import Node from './Node';
+import '../styles/Grid.css';
 import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
@@ -8,10 +8,10 @@ import {
   GRID_GAP_PX,
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
-} from 'settings/grid';
-import { PATHS_VALUE_NAME_MAP } from 'settings/paths';
-import { TEXTURES_VALUE_NAME_MAP } from 'settings/textures';
-import { shallowCopyOfGrid } from 'util/grid';
+} from '../settings/grid';
+import { PATHS_VALUE_NAME_MAP } from '../settings/paths';
+import { TEXTURES_VALUE_NAME_MAP } from '../settings/textures';
+import { shallowCopyOfGrid } from '../util/grid';
 
 const Grid = ({
   onClickFunction,
@@ -21,9 +21,8 @@ const Grid = ({
   currentTexture,
   setSampleTerrainToNull,
 }) => {
-  const [currentlyDrawingTextures, setCurrentlyDrawingTextures] = useState(
-    false
-  );
+  const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
+    useState(false);
   const addTexture = (i, j, textureNumber) => {
     const newStateOfNodes = shallowCopyOfGrid(stateOfNodes);
     newStateOfNodes[i][j] = textureNumber;

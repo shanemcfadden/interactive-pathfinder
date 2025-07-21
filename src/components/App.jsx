@@ -1,30 +1,34 @@
 import { useEffect, useState } from 'react';
-import Dashboard from 'components/Dashboard';
-import Grid from 'components/Grid';
-import Modal from 'components/Modal';
-import useStateOfPath from 'hooks/useStateOfPath';
-import { MODAL_HEADER, PAGE_DESCRIPTION, PAGE_HEADER } from 'settings/content';
+import Dashboard from './Dashboard';
+import Grid from './Grid';
+import Modal from './Modal';
+import useStateOfPath from '../hooks/useStateOfPath';
+import {
+  MODAL_HEADER,
+  PAGE_DESCRIPTION,
+  PAGE_HEADER,
+} from '../settings/content';
 import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
-} from 'settings/grid';
-import { SAMPLE_TERRAINS } from 'settings/terrains';
-import { TEXTURES_NAME_VALUE_MAP } from 'settings/textures';
-import { getShallowCopyIfDefined } from 'util/arr';
-import { mapGrid } from 'util/grid';
-import 'styles/App.css';
+} from '../settings/grid';
+import { SAMPLE_TERRAINS } from '../settings/terrains';
+import { TEXTURES_NAME_VALUE_MAP } from '../settings/textures';
+import { getShallowCopyIfDefined } from '../util/arr';
+import { mapGrid } from '../util/grid';
+import '../styles/App.css';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
     Array.from({ length: GRID_HEIGHT_NODES }, () =>
       Array.from(
         { length: GRID_WIDTH_NODES },
-        () => TEXTURES_NAME_VALUE_MAP.grass
-      )
-    )
+        () => TEXTURES_NAME_VALUE_MAP.grass,
+      ),
+    ),
   );
   const [
     startNode,
@@ -48,7 +52,7 @@ function App() {
 
     const newStateOfNodes = mapGrid(
       sampleData.stateOfNodes,
-      (val) => TEXTURES_NAME_VALUE_MAP[val]
+      (val) => TEXTURES_NAME_VALUE_MAP[val],
     );
     const newStartNode = getShallowCopyIfDefined(sampleData.startNode);
     const newEndNode = getShallowCopyIfDefined(sampleData.endNode);

@@ -1,6 +1,6 @@
 import React from 'react';
-import DashboardButton from 'components/DashboardButton';
-import 'styles/Modal.css';
+import DashboardButton from './DashboardButton';
+import '../styles/Modal.css';
 
 const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
   return (

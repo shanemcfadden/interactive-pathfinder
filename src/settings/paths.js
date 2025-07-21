@@ -1,4 +1,4 @@
-import { flipKeyValuePairs } from 'util/obj';
+import { flipKeyValuePairs } from '../util/obj';
 
 export const PATHS_VALUE_NAME_MAP = {
   1: 'visited',
