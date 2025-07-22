@@ -34,10 +34,10 @@ Click [here](https://shanemcfadden.dev/interactive-pathfinder) to use the app in
 
 ## Running the project locally
 
-This project requires yarn or npm to run. If you are not using yarn, be sure to substitute `npm` in place of `yarn` when running the following commands.
+This project requires pnpm to run.
 
 1. Clone the repository and navigate to the root directory.
-2. Install any dependencies by running `yarn install`
-3. To run the development server, run `yarn start`. View the app in a web browser at `localhost:3000`.
+1. Install any dependencies by running `yarn pnpm`
+1. To run the development server, run `yarn pnpm`. View the app in a web browser at `localhost:5173`.
 
-To run in a production environment, follow steps 1 and 2 above. Then run `yarn build` to compile a bundle in the /build directory. Serve this directory locally using software such as [serve](https://github.com/vercel/serve).
+To run in a production environment, follow steps 1 and 2 above. Then run `yarn build` to compile a bundle in the /dist directory. Serve this directory locally using software such as [serve](https://github.com/vercel/serve).
