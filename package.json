@@ -28,7 +28,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "yarn build",
+    "predeploy": "yarn build --base=/interactive-pathfinder",
     "deploy": "gh-pages -d dist"
   },
   "browserslist": {
