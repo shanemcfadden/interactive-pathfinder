@@ -1,5 +1,6 @@
 import MinHeap from '../models/MinHeap';
-import { coordinatesAreEqual } from '../util/arr';
+import { coordinatesAreEqual, type Coordinate } from '../util/arr';
+import type { Grid } from '../util/grid';
 
 /**
  * Find the shortest path using Dijkstra's algorithm
@@ -18,30 +19,30 @@ import { coordinatesAreEqual } from '../util/arr';
  *     paths, or by cancelling the timeout
  */
 export const dijkstra = (
-  startingCoordinates,
-  endingCoordinates,
-  initialGrid,
-  addVisitedNode,
-  addPathNode,
-  done,
-) => {
+  startingCoordinates: Coordinate,
+  endingCoordinates: Coordinate,
+  initialGrid: Grid<number>,
+  addVisitedNode: (node: Coordinate) => void,
+  addPathNode: (node: Coordinate) => void,
+  done: (errorMessage?: string) => void,
+): number => {
   const grid = initialGrid.map((row) => row.slice());
   // Make the end node accessible even if the weight is Infinity
   grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
   const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
 
-  /** @type {PreviousCoordinateMap} */
-  const previousCoordinateMap = {};
-  /** @type {CoordinateData} */
-  let finalCoordinateData;
-  /** @type {Coordinate[]} */
-  let path;
+  const previousCoordinateMap: PreviousCoordinateMap = {};
+  let finalCoordinateData: CoordinateData;
+  let path: Coordinate[];
   let pathFound = false;
   let displayedPathNodes = 0;
 
   const interval = setInterval(() => {
     if (!pathFound) {
       let current = coordinatesHeap.pop();
+      if (!current) {
+        throw new Error('No coordinates left in heap');
+      }
       if (
         !coordinateHasBeenVisited(current.coordinate, previousCoordinateMap)
       ) {
@@ -80,9 +81,9 @@ export const dijkstra = (
  * @param {MinHeap} coordinatesHeap
  */
 function addNeighboringCoordinatesToHeap(
-  currentCoordinateData,
-  grid,
-  coordinatesHeap,
+  currentCoordinateData: CoordinateData,
+  grid: Grid<number>,
+  coordinatesHeap: MinHeap<CoordinateData>,
 ) {
   const neigboringCoordinates = getNeighboringCoordinates(
     currentCoordinateData.coordinate,
@@ -105,30 +106,35 @@ function addNeighboringCoordinatesToHeap(
  * @param {CoordinateData} coordinateData
  * @param {PreviousCoordinateMap} previousCoordinateMap
  */
-function addToVisitedCoordinates(coordinateData, previousCoordinateMap) {
+function addToVisitedCoordinates(
+  coordinateData: CoordinateData,
+  previousCoordinateMap: PreviousCoordinateMap,
+): void {
+  if (coordinateData.previousCoordinate === null) {
+    throw new Error('Previous coordinate cannot be null');
+  }
   previousCoordinateMap[JSON.stringify(coordinateData.coordinate)] =
     coordinateData.previousCoordinate;
 }
 
-/**
- * Indicates whether a given coordinate has already been visited by a previous
- * path
- * @param {Coordinate} coordinate
- * @param {PreviousCoordinateMap} previousCoordinateMap
- * @returns {boolean}
- */
-function coordinateHasBeenVisited(coordinate, previousCoordinateMap) {
+function coordinateHasBeenVisited(
+  coordinate: Coordinate,
+  previousCoordinateMap: PreviousCoordinateMap,
+) {
   return !!previousCoordinateMap[JSON.stringify(coordinate)];
 }
 
-/**
- * Returns an array of all adjacent coordinates
- * @param {Coordinate} currentCoordinate
- * @param {TextureGrid} grid
- * @returns {Coordinate[]}
- */
-function getNeighboringCoordinates(currentCoordinate, grid) {
-  const neighbors = [];
+function getNeighboringCoordinates(
+  currentCoordinate: Coordinate,
+  grid: Grid<number>,
+): {
+  coordinate: Coordinate;
+  distanceFromCurrent: number;
+}[] {
+  const neighbors: {
+    coordinate: Coordinate;
+    distanceFromCurrent: number;
+  }[] = [];
   const [i, j] = currentCoordinate;
   const possibleNeighbors = [
     [i - 1, j],
@@ -147,17 +153,12 @@ function getNeighboringCoordinates(currentCoordinate, grid) {
   return neighbors;
 }
 
-/**
- * Returns the shortest path from starting to ending coordinate based
- * on the data in the visitedCoordinates object
- * @param {Coordinate} finishCoordinate
- * @param {PreviousCoordinateMap} visitedCoordinates
- * @returns {Coordinate[]} An array of coordinates ordered from starting
- * coordinate to ending coordinate
- */
-function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
+function getStartToFinishPath(
+  finishCoordinate: Coordinate,
+  visitedCoordinates: PreviousCoordinateMap,
+): Coordinate[] {
   const startToFinishPath = [];
-  let current = finishCoordinate;
+  let current: 'start' | Coordinate = finishCoordinate;
   while (current !== 'start') {
     startToFinishPath.unshift(current);
     current = visitedCoordinates[JSON.stringify(current)];
@@ -174,44 +175,37 @@ function getStartToFinishPath(finishCoordinate, visitedCoordinates) {
  * @param {Coordinate} startingCoordinates
  * @returns {MinHeap} Priority queue of CoordinateData starting with coordinate closest to startingCoordinates
  */
-function initializeCoordinatesHeap(grid, startingCoordinates) {
-  const coordinatesHeap = new MinHeap(
+function initializeCoordinatesHeap(
+  grid: Grid<number>,
+  startingCoordinates: Coordinate,
+): MinHeap<CoordinateData> {
+  const coordinatesHeap = new MinHeap<CoordinateData>(
     (a, b) => a.distanceFromStart - b.distanceFromStart,
   );
   grid.forEach((row, i) => {
-    row.forEach((val, j) => {
-      const coordinateData = {
-        coordinate: [i, j],
-        previousCoordinate: null,
-        distanceFromStart: Infinity,
-      };
+    row.forEach((_, j) => {
       if (i === startingCoordinates[0] && j === startingCoordinates[1]) {
-        coordinateData.distanceFromStart = 0;
-        coordinateData.previousCoordinate = 'start';
+        coordinatesHeap.push({
+          coordinate: [i, j],
+          distanceFromStart: 0,
+          previousCoordinate: 'start',
+        });
+      } else {
+        coordinatesHeap.push({
+          coordinate: [i, j],
+          previousCoordinate: null,
+          distanceFromStart: Infinity,
+        });
       }
-      coordinatesHeap.push(coordinateData);
     });
   });
   return coordinatesHeap;
 }
 
-/**
- * @typedef {{
- *    distanceFromStart: number,
- *    previousCoordinate: string | Coordinate | null,
- *    coordinate: Coordinate
- * }} CoordinateData
- * @typedef {[number, number]} Coordinate
- * @typedef {Array<Array<number>>} TextureGrid
- * @typedef {Object.<string, Coordinate | 'start'>} PreviousCoordinateMap
- * An object with keys of stringified coordinates. Each key points to the coordinate that leads closer to the start.
- * The value for the key of the starting coordinate is "start".
- *
- * @callback finishedCallback
- * @param {string} [errorMessage]
- * @returns {undefined}
- *
- * @callback addNodeCallback
- * @param {Coordinate} corrdinate
- * @returns {undefined}
- */
+interface CoordinateData {
+  distanceFromStart: number;
+  previousCoordinate: 'start' | Coordinate | null;
+  coordinate: Coordinate;
+}
+
+type PreviousCoordinateMap = Record<string, Coordinate | 'start'>;

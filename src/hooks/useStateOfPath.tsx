@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { coordinatesAreEqual } from '../util/arr';
+import { useState, type Dispatch, type SetStateAction } from 'react';
+import { coordinatesAreEqual, type Coordinate } from '../util/arr';
 import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from '../settings/grid';
 import { PATHS_NAME_VALUE_MAP } from '../settings/paths';
 import { mapGrid } from '../util/grid';
@@ -7,13 +7,13 @@ import { mapGrid } from '../util/grid';
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
 
-const useStateOfPath = (startingCoor, endingCoor) => {
+const useStateOfPath = (startingCoor: Coordinate, endingCoor: Coordinate) => {
   const [startNode, setStartNode] = useState(startingCoor);
   const [endNode, setEndNode] = useState(endingCoor);
 
-  const getInitalPathState = (start, end) => {
-    return Array.from({ length: GRID_HEIGHT_NODES }, (row, i) =>
-      Array.from({ length: GRID_WIDTH_NODES }, (val, j) => {
+  const getInitalPathState = (start: Coordinate, end: Coordinate) => {
+    return Array.from({ length: GRID_HEIGHT_NODES }, (_, i) =>
+      Array.from({ length: GRID_WIDTH_NODES }, (_, j) => {
         if (coordinatesAreEqual(start, [i, j])) return startNodeValue;
         if (coordinatesAreEqual(end, [i, j])) return endNodeValue;
         return 0;
@@ -33,15 +33,19 @@ const useStateOfPath = (startingCoor, endingCoor) => {
     setStateOfPath(updatedStateOfPath);
   };
 
-  const setNodeValue = (nodeCoordinate, nodeValue) => {
+  const setNodeValue = (nodeCoordinate: Coordinate, nodeValue: number) => {
     const newStateOfPath = [...stateOfPath];
     newStateOfPath[nodeCoordinate[0]][nodeCoordinate[1]] = nodeValue;
     setStateOfPath(newStateOfPath);
   };
-  const clearNode = (nodeCoordinate) => {
+  const clearNode = (nodeCoordinate: Coordinate) => {
     setNodeValue(nodeCoordinate, 0);
   };
-  const updateNodeValue = (coor, pathName, cleanUpFunction) => {
+  const updateNodeValue = (
+    coor: Coordinate,
+    pathName: keyof typeof PATHS_NAME_VALUE_MAP,
+    cleanUpFunction?: (coor: Coordinate) => void,
+  ) => {
     if (
       coordinatesAreEqual(coor, startNode) ||
       coordinatesAreEqual(coor, endNode)
@@ -50,24 +54,29 @@ const useStateOfPath = (startingCoor, endingCoor) => {
     setNodeValue(coor, PATHS_NAME_VALUE_MAP[pathName]);
     if (cleanUpFunction) cleanUpFunction(coor);
   };
-  const getCleanUpFunction = (currentState, setState) => (coor) => {
-    clearNode(currentState);
-    setState(coor);
-  };
-  const updateStartNode = (newStart) => {
+  const getCleanUpFunction =
+    (
+      currentState: Coordinate,
+      setState: Dispatch<SetStateAction<Coordinate>>,
+    ) =>
+    (coor: Coordinate) => {
+      clearNode(currentState);
+      setState(coor);
+    };
+  const updateStartNode = (newStart: Coordinate) => {
     updateNodeValue(
       newStart,
       'start',
       getCleanUpFunction(startNode, setStartNode),
     );
   };
-  const updateEndNode = (newEnd) => {
+  const updateEndNode = (newEnd: Coordinate) => {
     updateNodeValue(newEnd, 'end', getCleanUpFunction(endNode, setEndNode));
   };
-  const addPathNode = (coor) => {
+  const addPathNode = (coor: Coordinate) => {
     updateNodeValue(coor, 'path');
   };
-  const addVisitedNode = (coor) => {
+  const addVisitedNode = (coor: Coordinate) => {
     updateNodeValue(coor, 'visited');
   };
 
