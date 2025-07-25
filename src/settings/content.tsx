@@ -1,8 +1,8 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 
 export const PAGE_HEADER = 'Interactive Pathfinder';
 
-export const PAGE_DESCRIPTION = (
+export const PAGE_DESCRIPTION: ReactNode = (
   <>
     <p>
       Find the easiest path! Select a starting block and an ending block. To

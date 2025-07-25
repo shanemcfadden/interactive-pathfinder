@@ -1,5 +1,7 @@
-import React from 'react';
 import '../styles/Node.css';
+import type { Texture } from '../settings/textures';
+import type { PATHS_NAME_VALUE_MAP } from '../settings/paths';
+import type { MouseEventHandler } from 'react';
 
 const Node = ({
   currentTexture,
@@ -8,8 +10,14 @@ const Node = ({
   handleOnMouseDown,
   handleOnMouseEnter,
   handleOnMouseUp,
-}) => {
-  return (
+}: {
+  currentTexture: Texture;
+  currentPathState: keyof typeof PATHS_NAME_VALUE_MAP;
+  handleClick: () => void;
+  handleOnMouseDown: MouseEventHandler | undefined;
+  handleOnMouseEnter: MouseEventHandler | undefined;
+  handleOnMouseUp: MouseEventHandler | undefined;
+}) => (
     <div
       className={`node node--${currentTexture}${
         currentPathState ? ` node--${currentPathState}` : ''
@@ -23,6 +31,5 @@ const Node = ({
       {currentPathState === 'end' && 'E'}
     </div>
   );
-};
 
 export default Node;

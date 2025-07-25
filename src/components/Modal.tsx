@@ -1,9 +1,17 @@
-import React from 'react';
 import DashboardButton from './DashboardButton';
 import '../styles/Modal.css';
 
-const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
-  return (
+const Modal = ({
+  closeModalFunction,
+  title,
+  content,
+  confirmLabel = 'OK',
+}: {
+  closeModalFunction: () => void;
+  title: string;
+  content?: string;
+  confirmLabel?: string;
+}) => (
     <>
       <div
         className="modal__overlay modal__overlay--accent-color modal__overlay--translucent"
@@ -18,6 +26,5 @@ const Modal = ({ closeModalFunction, title, content, confirmLabel = 'OK' }) => {
       </div>
     </>
   );
-};
 
 export default Modal;
