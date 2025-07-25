@@ -38,7 +38,9 @@ class MinHeap<T> {
   }
 
   private getParentIndex(currentIndex: number): number | null {
-    if (currentIndex <= 0) return null;
+    if (currentIndex <= 0) {
+      return null;
+    }
     return Math.floor((currentIndex - 1) / 2);
   }
 
@@ -53,7 +55,9 @@ class MinHeap<T> {
   }
 
   public pop(): T | undefined {
-    if (!this.heap.length) return undefined;
+    if (!this.heap.length) {
+      return undefined;
+    }
     this.swap(0, this.heap.length - 1);
     const poppedValue = this.heap.pop();
     this.sinkDown();

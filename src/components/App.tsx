@@ -51,7 +51,9 @@ function App() {
   );
 
   useEffect(() => {
-    if (currentSampleTerrain == null) return;
+    if (currentSampleTerrain == null) {
+      return;
+    }
     const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
 
     const newStateOfNodes = mapGrid(
@@ -64,8 +66,12 @@ function App() {
     const newEndNode = getShallowCopyOfCoordinateIfDefined(sampleData.endNode);
 
     setStateOfNodes(newStateOfNodes);
-    if (newStartNode) setStartNode(newStartNode);
-    if (newEndNode) setEndNode(newEndNode);
+    if (newStartNode) {
+      setStartNode(newStartNode);
+    }
+    if (newEndNode) {
+      setEndNode(newEndNode);
+    }
   }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const setSampleTerrainToNull = () => {
@@ -76,8 +82,9 @@ function App() {
       updateStartNode: setStartNode,
       updateEndNode: setEndNode,
     };
-    if (!currentClickFunction || !availableFunctions[currentClickFunction])
+    if (!currentClickFunction || !availableFunctions[currentClickFunction]) {
       return () => {};
+    }
 
     return (i: number, j: number) => {
       availableFunctions[currentClickFunction]([i, j]);

@@ -24,10 +24,15 @@ const useStateOfPath = (
   const [startNode, setStartNode] = useState(startingCoor);
   const [endNode, setEndNode] = useState(endingCoor);
 
-  const getInitalPathState = (start: Coordinate, end: Coordinate) => Array.from({ length: GRID_HEIGHT_NODES }, (_, i) =>
+  const getInitalPathState = (start: Coordinate, end: Coordinate) =>
+    Array.from({ length: GRID_HEIGHT_NODES }, (_, i) =>
       Array.from({ length: GRID_WIDTH_NODES }, (_, j) => {
-        if (coordinatesAreEqual(start, [i, j])) return startNodeValue;
-        if (coordinatesAreEqual(end, [i, j])) return endNodeValue;
+        if (coordinatesAreEqual(start, [i, j])) {
+          return startNodeValue;
+        }
+        if (coordinatesAreEqual(end, [i, j])) {
+          return endNodeValue;
+        }
         return 0;
       }),
     );
@@ -60,10 +65,13 @@ const useStateOfPath = (
     if (
       coordinatesAreEqual(coor, startNode) ||
       coordinatesAreEqual(coor, endNode)
-    )
+    ) {
       return;
+    }
     setNodeValue(coor, PATHS_NAME_VALUE_MAP[pathName]);
-    if (cleanUpFunction) cleanUpFunction(coor);
+    if (cleanUpFunction) {
+      cleanUpFunction(coor);
+    }
   };
   const getCleanUpFunction =
     (

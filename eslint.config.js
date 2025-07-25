@@ -21,6 +21,7 @@ export default tseslint.config([
     },
     rules: {
       'arrow-body-style': ['error', 'as-needed'],
+      curly: ['error', 'all'],
     },
   },
 ]);
