@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Dashboard from './Dashboard';
-import Grid from './Grid';
+import GridView from './GridView';
 import Modal from './Modal';
 import useStateOfPath from '../hooks/useStateOfPath';
 import {
@@ -17,7 +17,7 @@ import {
 } from '../settings/grid';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
 import { TEXTURES_NAME_VALUE_MAP } from '../settings/textures';
-import { getShallowCopyIfDefined } from '../util/arr';
+import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 import { mapGrid } from '../util/grid';
 import '../styles/App.css';
 
@@ -41,10 +41,14 @@ function App() {
     addVisitedNode,
     clearVisitedNodes,
   ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
-  const [currentClickFunction, setCurrentClickFunction] = useState('none');
-  const [currentTexture, setCurrentTexture] = useState(null);
+  const [currentClickFunction, setCurrentClickFunction] = useState<
+    'updateEndNode' | 'updateStartNode' | null
+  >(null);
+  const [currentTexture, setCurrentTexture] = useState<number | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentSampleTerrain, setSampleTerrain] = useState(null);
+  const [currentSampleTerrain, setSampleTerrain] = useState<number | null>(
+    null,
+  );
 
   useEffect(() => {
     if (currentSampleTerrain == null) return;
@@ -54,8 +58,10 @@ function App() {
       sampleData.stateOfNodes,
       (val) => TEXTURES_NAME_VALUE_MAP[val],
     );
-    const newStartNode = getShallowCopyIfDefined(sampleData.startNode);
-    const newEndNode = getShallowCopyIfDefined(sampleData.endNode);
+    const newStartNode = getShallowCopyOfCoordinateIfDefined(
+      sampleData.startNode,
+    );
+    const newEndNode = getShallowCopyOfCoordinateIfDefined(sampleData.endNode);
 
     setStateOfNodes(newStateOfNodes);
     if (newStartNode) setStartNode(newStartNode);
@@ -73,7 +79,7 @@ function App() {
     if (!currentClickFunction || !availableFunctions[currentClickFunction])
       return () => {};
 
-    return (i, j) => {
+    return (i: number, j: number) => {
       availableFunctions[currentClickFunction]([i, j]);
       setCurrentClickFunction(null);
       setSampleTerrainToNull();
@@ -106,8 +112,8 @@ function App() {
           currentSampleTerrain={currentSampleTerrain}
           setSampleTerrain={setSampleTerrain}
         />
-        <Grid
-          onClickFunction={createOnClickFunction(currentClickFunction)}
+        <GridView
+          onClickFunction={createOnClickFunction()}
           stateOfNodes={stateOfNodes}
           setStateOfNodes={setStateOfNodes}
           stateOfPath={stateOfPath}

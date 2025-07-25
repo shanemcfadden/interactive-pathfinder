@@ -3,8 +3,8 @@ export const coordinatesAreEqual = (
   coor2: Coordinate,
 ): boolean => JSON.stringify(coor1) === JSON.stringify(coor2);
 
-export const getShallowCopyIfDefined = <T>(
-  arr: Array<T> | undefined,
-): Array<T> | undefined => (arr ? [...arr] : undefined);
+export const getShallowCopyOfCoordinateIfDefined = (
+  coordinate: Coordinate | undefined,
+): Coordinate | undefined => (coordinate ? [...coordinate] : undefined);
 
 export type Coordinate = [number, number];

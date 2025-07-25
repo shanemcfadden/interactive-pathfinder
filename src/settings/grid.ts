@@ -1,5 +1,7 @@
-export const DEFAULT_START_NODE = [4, 4];
-export const DEFAULT_END_NODE = [7, 16];
+import type { Coordinate } from '../util/arr';
+
+export const DEFAULT_START_NODE: Coordinate = [4, 4];
+export const DEFAULT_END_NODE: Coordinate = [7, 16];
 
 export const GRID_GAP_PX = 2;
 export const GRID_WIDTH_PX = 1100;

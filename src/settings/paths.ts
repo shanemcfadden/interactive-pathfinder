@@ -1,4 +1,7 @@
-export const PATHS_VALUE_NAME_MAP = {
+export const PATHS_VALUE_NAME_MAP: Record<
+  number,
+  'visited' | 'path' | 'start' | 'end'
+> = {
   1: 'visited',
   2: 'path',
   3: 'start',

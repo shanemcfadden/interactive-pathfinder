@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState, type MouseEventHandler } from 'react';
 import Node from './Node';
-import '../styles/Grid.css';
 import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
@@ -11,41 +10,54 @@ import {
 } from '../settings/grid';
 import { PATHS_VALUE_NAME_MAP } from '../settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from '../settings/textures';
-import { shallowCopyOfGrid } from '../util/grid';
+import { shallowCopyOfGrid, type Grid } from '../util/grid';
+import '../styles/Grid.css';
 
-const Grid = ({
+const GridView = ({
   onClickFunction,
   stateOfNodes,
   setStateOfNodes,
   stateOfPath,
   currentTexture,
   setSampleTerrainToNull,
+}: {
+  onClickFunction: (i: number, j: number) => void;
+  stateOfNodes: Grid<number>;
+  setStateOfNodes: (newState: number[][]) => void;
+  stateOfPath: Grid<number>;
+  currentTexture: number | null;
+  setSampleTerrainToNull: () => void;
 }) => {
   const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
     useState(false);
-  const addTexture = (i, j, textureNumber) => {
+  const addTexture = (i: number, j: number, textureNumber: number) => {
     const newStateOfNodes = shallowCopyOfGrid(stateOfNodes);
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
-  const createHandleOnMouseDown = (i, j) => {
+  const createHandleOnMouseDown = (i: number, j: number): MouseEventHandler => {
     return (e) => {
       e.preventDefault();
       setCurrentlyDrawingTextures(true);
-      addTexture(i, j, currentTexture);
+      // TODO: fix this
+      addTexture(i, j, currentTexture!);
       setSampleTerrainToNull();
     };
   };
-  const createHandleOnMouseEnter = (i, j) => {
+  const createHandleOnMouseEnter = (
+    i: number,
+    j: number,
+  ): MouseEventHandler | undefined => {
     if (currentlyDrawingTextures) {
       return (e) => {
         e.preventDefault();
-        addTexture(i, j, currentTexture);
+        // TODO: fix this
+        addTexture(i, j, currentTexture!);
       };
     }
   };
 
-  const handleOnMouseUp = (e) => {
+  const handleOnMouseUp: MouseEventHandler = (e) => {
     e.preventDefault();
     setCurrentlyDrawingTextures(false);
   };
@@ -89,4 +101,4 @@ const Grid = ({
   );
 };
 
-export default Grid;
+export default GridView;

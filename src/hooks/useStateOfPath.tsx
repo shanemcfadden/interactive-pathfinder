@@ -2,12 +2,25 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 import { coordinatesAreEqual, type Coordinate } from '../util/arr';
 import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from '../settings/grid';
 import { PATHS_NAME_VALUE_MAP } from '../settings/paths';
-import { mapGrid } from '../util/grid';
+import { mapGrid, type Grid } from '../util/grid';
 
 const startNodeValue = PATHS_NAME_VALUE_MAP.start;
 const endNodeValue = PATHS_NAME_VALUE_MAP.end;
 
-const useStateOfPath = (startingCoor: Coordinate, endingCoor: Coordinate) => {
+const useStateOfPath = (
+  startingCoor: Coordinate,
+  endingCoor: Coordinate,
+): [
+  Coordinate,
+  (newStart: Coordinate) => void,
+  Coordinate,
+  (newEnd: Coordinate) => void,
+  Grid<number>,
+  (coor: Coordinate) => void,
+  () => void,
+  (coor: Coordinate) => void,
+  () => void,
+] => {
   const [startNode, setStartNode] = useState(startingCoor);
   const [endNode, setEndNode] = useState(endingCoor);
 
