@@ -11,8 +11,7 @@ const Modal = ({
   title: string;
   content?: string;
   confirmLabel?: string;
-}) => {
-  return (
+}) => (
     <>
       <div
         className="modal__overlay modal__overlay--accent-color modal__overlay--translucent"
@@ -27,6 +26,5 @@ const Modal = ({
       </div>
     </>
   );
-};
 
 export default Modal;

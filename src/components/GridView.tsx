@@ -35,15 +35,13 @@ const GridView = ({
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
-  const createHandleOnMouseDown = (i: number, j: number): MouseEventHandler => {
-    return (e) => {
+  const createHandleOnMouseDown = (i: number, j: number): MouseEventHandler => (e) => {
       e.preventDefault();
       setCurrentlyDrawingTextures(true);
       // TODO: fix this
       addTexture(i, j, currentTexture!);
       setSampleTerrainToNull();
     };
-  };
   const createHandleOnMouseEnter = (
     i: number,
     j: number,
@@ -76,9 +74,7 @@ const GridView = ({
         setCurrentlyDrawingTextures(false);
       }}
     >
-      {stateOfNodes.map((row, i) => {
-        return row.map((val, j) => {
-          return (
+      {stateOfNodes.map((row, i) => row.map((val, j) => (
             <Node
               currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
               currentPathState={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]]}
@@ -94,9 +90,7 @@ const GridView = ({
               handleOnMouseUp={currentTexture ? handleOnMouseUp : undefined}
               key={`${i}-${j}`}
             />
-          );
-        });
-      })}
+          )))}
     </div>
   );
 };

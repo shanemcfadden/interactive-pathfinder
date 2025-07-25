@@ -17,8 +17,7 @@ const Node = ({
   handleOnMouseDown: MouseEventHandler | undefined;
   handleOnMouseEnter: MouseEventHandler | undefined;
   handleOnMouseUp: MouseEventHandler | undefined;
-}) => {
-  return (
+}) => (
     <div
       className={`node node--${currentTexture}${
         currentPathState ? ` node--${currentPathState}` : ''
@@ -32,6 +31,5 @@ const Node = ({
       {currentPathState === 'end' && 'E'}
     </div>
   );
-};
 
 export default Node;

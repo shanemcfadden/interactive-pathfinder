@@ -158,13 +158,11 @@ const Dashboard = ({
         disabled={findPathButton !== 'findPath'}
       >
         <option value="none">-</option>
-        {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => {
-          return (
+        {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => (
             <option key={name} value={weight}>
               {name} ({difficulty})
             </option>
-          );
-        })}
+          ))}
       </select>
       <label htmlFor="select-sample">Sample Terrains:</label>
       <select
@@ -174,13 +172,11 @@ const Dashboard = ({
         disabled={findPathButton !== 'findPath'}
       >
         <option value="none">-</option>
-        {SAMPLE_TERRAINS.map(({ displayText }, i) => {
-          return (
+        {SAMPLE_TERRAINS.map(({ displayText }, i) => (
             <option value={i} key={`terrain-${i}`}>
               {displayText}
             </option>
-          );
-        })}
+          ))}
       </select>
       {renderFindPathButton()}
     </div>

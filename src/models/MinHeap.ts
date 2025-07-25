@@ -66,8 +66,8 @@ class MinHeap<T> {
     let [leftChildIndex, rightChildIndex] = this.getChildIndices(currentIndex);
 
     while (leftChildIndex !== null) {
-      let leftChildValue = this.heap[leftChildIndex];
-      let rightChildValue =
+      const leftChildValue = this.heap[leftChildIndex];
+      const rightChildValue =
         rightChildIndex === null ? null : this.heap[rightChildIndex];
       let smallestChildValue;
       let smallestChildIndex;

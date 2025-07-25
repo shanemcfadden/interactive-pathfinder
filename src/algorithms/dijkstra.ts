@@ -39,7 +39,7 @@ export const dijkstra = (
 
   const interval = setInterval(() => {
     if (!pathFound) {
-      let current = coordinatesHeap.pop();
+      const current = coordinatesHeap.pop();
       if (!current) {
         throw new Error('No coordinates left in heap');
       }
@@ -90,7 +90,7 @@ function addNeighboringCoordinatesToHeap(
     grid,
   );
   neigboringCoordinates.forEach((neighbor) => {
-    let newCoordinateData = {
+    const newCoordinateData = {
       coordinate: neighbor.coordinate,
       distanceFromStart:
         currentCoordinateData.distanceFromStart + neighbor.distanceFromCurrent,
