@@ -14,22 +14,22 @@ const Node = ({
   currentTexture: Texture;
   currentPathState: keyof typeof PATHS_NAME_VALUE_MAP;
   handleClick: () => void;
-  handleOnMouseDown: MouseEventHandler | undefined;
-  handleOnMouseEnter: MouseEventHandler | undefined;
-  handleOnMouseUp: MouseEventHandler | undefined;
+  handleOnMouseDown: MouseEventHandler;
+  handleOnMouseEnter: MouseEventHandler;
+  handleOnMouseUp: MouseEventHandler;
 }) => (
-    <div
-      className={`node node--${currentTexture}${
-        currentPathState ? ` node--${currentPathState}` : ''
-      }`}
-      onClick={handleClick}
-      onMouseDown={handleOnMouseDown}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseUp={handleOnMouseUp}
-    >
-      {currentPathState === 'start' && 'S'}
-      {currentPathState === 'end' && 'E'}
-    </div>
-  );
+  <div
+    className={`node node--${currentTexture}${
+      currentPathState ? ` node--${currentPathState}` : ''
+    }`}
+    onClick={handleClick}
+    onMouseDown={handleOnMouseDown}
+    onMouseEnter={handleOnMouseEnter}
+    onMouseUp={handleOnMouseUp}
+  >
+    {currentPathState === 'start' && 'S'}
+    {currentPathState === 'end' && 'E'}
+  </div>
+);
 
 export default Node;

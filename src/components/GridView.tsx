@@ -35,28 +35,35 @@ const GridView = ({
     newStateOfNodes[i][j] = textureNumber;
     setStateOfNodes(newStateOfNodes);
   };
-  const createHandleOnMouseDown = (i: number, j: number): MouseEventHandler => (e) => {
+  const createHandleOnMouseDown =
+    (i: number, j: number): MouseEventHandler =>
+    (e) => {
       e.preventDefault();
+      if (!currentTexture) {
+        return;
+      }
       setCurrentlyDrawingTextures(true);
-      // TODO: fix this
-      addTexture(i, j, currentTexture!);
+      addTexture(i, j, currentTexture);
       setSampleTerrainToNull();
     };
   const createHandleOnMouseEnter = (
     i: number,
     j: number,
-  ): MouseEventHandler | undefined => {
-    if (currentlyDrawingTextures) {
-      return (e) => {
-        e.preventDefault();
-        // TODO: fix this
-        addTexture(i, j, currentTexture!);
-      };
-    }
+  ): MouseEventHandler => {
+    return (e) => {
+      e.preventDefault();
+      if (!currentTexture || !currentlyDrawingTextures) {
+        return;
+      }
+      addTexture(i, j, currentTexture);
+    };
   };
 
   const handleOnMouseUp: MouseEventHandler = (e) => {
     e.preventDefault();
+    if (!currentlyDrawingTextures) {
+      return;
+    }
     setCurrentlyDrawingTextures(false);
   };
 
@@ -74,23 +81,21 @@ const GridView = ({
         setCurrentlyDrawingTextures(false);
       }}
     >
-      {stateOfNodes.map((row, i) => row.map((val, j) => (
-            <Node
-              currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
-              currentPathState={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]]}
-              handleClick={() => {
-                onClickFunction(i, j);
-              }}
-              handleOnMouseDown={
-                currentTexture ? createHandleOnMouseDown(i, j) : undefined
-              }
-              handleOnMouseEnter={
-                currentTexture ? createHandleOnMouseEnter(i, j) : undefined
-              }
-              handleOnMouseUp={currentTexture ? handleOnMouseUp : undefined}
-              key={`${i}-${j}`}
-            />
-          )))}
+      {stateOfNodes.map((row, i) =>
+        row.map((val, j) => (
+          <Node
+            currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
+            currentPathState={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]]}
+            handleClick={() => {
+              onClickFunction(i, j);
+            }}
+            handleOnMouseDown={createHandleOnMouseDown(i, j)}
+            handleOnMouseEnter={createHandleOnMouseEnter(i, j)}
+            handleOnMouseUp={handleOnMouseUp}
+            key={`${i}-${j}`}
+          />
+        )),
+      )}
     </div>
   );
 };
