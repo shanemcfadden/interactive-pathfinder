@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: 'lts/jod'
           cache: 'pnpm'
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
       - name: Install dependencies
         run: pnpm install
       - name: Build

@@ -29,6 +29,12 @@
     "preview": "vite preview",
     "deploy-page": "pnpm build --base=/interactive-pathfinder && gh-pages -d dist"
   },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "10.13.1"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
