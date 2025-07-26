@@ -26,8 +26,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy-page": "pnpm build --base=/interactive-pathfinder && gh-pages -d dist"
+    "preview": "vite preview"
   },
   "browserslist": {
     "production": [
