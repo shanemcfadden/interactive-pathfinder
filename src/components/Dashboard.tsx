@@ -11,16 +11,14 @@ import '../styles/Dashboard.css';
 import DashboardButton from './DashboardButton';
 import type { Coordinate } from '../util/arr';
 import type { Grid } from '../util/grid';
+import type { DispatchPath } from '../hooks/usePathReducer';
 
 const Dashboard = ({
   startNode,
   endNode,
   setCurrentClickFunction,
   stateOfNodes,
-  addPathNode,
-  addVisitedNode,
-  resetStateOfPath,
-  clearVisitedNodes,
+  dispatchPath,
   currentTexture,
   setCurrentTexture,
   setModalIsOpen,
@@ -33,10 +31,7 @@ const Dashboard = ({
     SetStateAction<'updateEndNode' | 'updateStartNode' | null>
   >;
   stateOfNodes: Grid<number>;
-  addPathNode: (node: Coordinate) => void;
-  addVisitedNode: (node: Coordinate) => void;
-  resetStateOfPath: () => void;
-  clearVisitedNodes: () => void;
+  dispatchPath: DispatchPath;
   currentTexture: number | null;
   setCurrentTexture: Dispatch<SetStateAction<number | null>>;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -50,7 +45,9 @@ const Dashboard = ({
 
   const afterDijkstraSuccess = (failedMessage?: string) => {
     setCurrentInterval(null);
-    clearVisitedNodes();
+    dispatchPath({
+      type: 'CLEAR_VISITED_NODES',
+    });
     if (failedMessage) {
       setModalIsOpen(true);
       setFindPathButton('findPath');
@@ -75,8 +72,18 @@ const Dashboard = ({
       startNode,
       endNode,
       stateOfNodes,
-      addVisitedNode,
-      addPathNode,
+      (node: Coordinate) => {
+        dispatchPath({
+          type: 'ADD_VISITED_NODE',
+          coordinate: node,
+        });
+      },
+      (node: Coordinate) => {
+        dispatchPath({
+          type: 'ADD_PATH_NODE',
+          coordinate: node,
+        });
+      },
       afterDijkstraSuccess,
     );
     setCurrentInterval(interval);
@@ -89,7 +96,9 @@ const Dashboard = ({
   };
 
   const handleFindPathReset = () => {
-    resetStateOfPath();
+    dispatchPath({
+      type: 'RESET_PATH',
+    });
     setFindPathButton('findPath');
   };
 
@@ -159,10 +168,10 @@ const Dashboard = ({
       >
         <option value="none">-</option>
         {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => (
-            <option key={name} value={weight}>
-              {name} ({difficulty})
-            </option>
-          ))}
+          <option key={name} value={weight}>
+            {name} ({difficulty})
+          </option>
+        ))}
       </select>
       <label htmlFor="select-sample">Sample Terrains:</label>
       <select
@@ -173,10 +182,10 @@ const Dashboard = ({
       >
         <option value="none">-</option>
         {SAMPLE_TERRAINS.map(({ displayText }, i) => (
-            <option value={i} key={`terrain-${i}`}>
-              {displayText}
-            </option>
-          ))}
+          <option value={i} key={`terrain-${i}`}>
+            {displayText}
+          </option>
+        ))}
       </select>
       {renderFindPathButton()}
     </div>

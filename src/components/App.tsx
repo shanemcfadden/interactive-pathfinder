@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Dashboard from './Dashboard';
 import GridView from './GridView';
 import Modal from './Modal';
-import useStateOfPath from '../hooks/useStateOfPath';
 import {
   MODAL_HEADER,
   PAGE_DESCRIPTION,
@@ -12,14 +11,13 @@ import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   GRID_WIDTH_PX,
-  DEFAULT_END_NODE,
-  DEFAULT_START_NODE,
 } from '../settings/grid';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
 import { TEXTURES_NAME_VALUE_MAP } from '../settings/textures';
 import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 import { mapGrid } from '../util/grid';
 import '../styles/App.css';
+import { usePathReducer } from '../hooks/usePathReducer';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
@@ -30,17 +28,7 @@ function App() {
       ),
     ),
   );
-  const [
-    startNode,
-    setStartNode,
-    endNode,
-    setEndNode,
-    stateOfPath,
-    addPathNode,
-    resetStateOfPath,
-    addVisitedNode,
-    clearVisitedNodes,
-  ] = useStateOfPath(DEFAULT_START_NODE, DEFAULT_END_NODE);
+  const { startNode, endNode, stateOfPath, dispatchPath } = usePathReducer();
   const [currentClickFunction, setCurrentClickFunction] = useState<
     'updateEndNode' | 'updateStartNode' | null
   >(null);
@@ -67,10 +55,16 @@ function App() {
 
     setStateOfNodes(newStateOfNodes);
     if (newStartNode) {
-      setStartNode(newStartNode);
+      dispatchPath({
+        type: 'UPDATE_START_NODE',
+        coordinate: newStartNode,
+      });
     }
     if (newEndNode) {
-      setEndNode(newEndNode);
+      dispatchPath({
+        type: 'UPDATE_END_NODE',
+        coordinate: newEndNode,
+      });
     }
   }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -79,8 +73,18 @@ function App() {
   };
   const createOnClickFunction = () => {
     const availableFunctions = {
-      updateStartNode: setStartNode,
-      updateEndNode: setEndNode,
+      updateStartNode: (coordinate: [number, number]) => {
+        dispatchPath({
+          type: 'UPDATE_START_NODE',
+          coordinate,
+        });
+      },
+      updateEndNode: (coordinate: [number, number]) => {
+        dispatchPath({
+          type: 'UPDATE_END_NODE',
+          coordinate,
+        });
+      },
     };
     if (!currentClickFunction || !availableFunctions[currentClickFunction]) {
       return () => {};
@@ -111,10 +115,7 @@ function App() {
           stateOfNodes={stateOfNodes}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
-          addPathNode={addPathNode}
-          addVisitedNode={addVisitedNode}
-          resetStateOfPath={resetStateOfPath}
-          clearVisitedNodes={clearVisitedNodes}
+          dispatchPath={dispatchPath}
           setModalIsOpen={setModalIsOpen}
           currentSampleTerrain={currentSampleTerrain}
           setSampleTerrain={setSampleTerrain}
