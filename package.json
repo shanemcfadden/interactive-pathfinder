@@ -26,8 +26,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy-page": "pnpm build --base=/interactive-pathfinder && gh-pages -d dist"
+    "preview": "vite preview"
   },
   "browserslist": {
     "production": [
@@ -41,5 +40,6 @@
       "last 1 safari version"
     ]
   },
-  "type": "module"
+  "type": "module",
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }
