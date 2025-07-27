@@ -49,15 +49,13 @@ const GridView = ({
   const createHandleOnMouseEnter = (
     i: number,
     j: number,
-  ): MouseEventHandler => {
-    return (e) => {
+  ): MouseEventHandler => (e) => {
       e.preventDefault();
       if (!currentTexture || !currentlyDrawingTextures) {
         return;
       }
       addTexture(i, j, currentTexture);
     };
-  };
 
   const handleOnMouseUp: MouseEventHandler = (e) => {
     e.preventDefault();

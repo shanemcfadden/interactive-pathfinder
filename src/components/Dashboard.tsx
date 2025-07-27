@@ -1,10 +1,11 @@
 import {
+  useCallback,
   useState,
   type ChangeEventHandler,
   type Dispatch,
   type SetStateAction,
 } from 'react';
-import { dijkstra } from '../algorithms/dijkstra';
+import { getDijkstraGenerator } from '../algorithms/dijkstra';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
 import { TEXTURES_ARRAY } from '../settings/textures';
 import '../styles/Dashboard.css';
@@ -43,80 +44,112 @@ const Dashboard = ({
     'findPath' | 'reset' | 'cancel'
   >('findPath');
 
-  const afterDijkstraSuccess = (failedMessage?: string) => {
-    setCurrentInterval(null);
-    dispatchPath({
-      type: 'CLEAR_VISITED_NODES',
-    });
-    if (failedMessage) {
-      setModalIsOpen(true);
-      setFindPathButton('findPath');
-      return;
-    }
-    setFindPathButton('reset');
-  };
+  const afterDijkstraSuccess = useCallback(
+    (failedMessage?: string) => {
+      setCurrentInterval(null);
+      dispatchPath({
+        type: 'CLEAR_VISITED_NODES',
+      });
 
-  const handleStartButtonClick = () => {
+      if (failedMessage) {
+        setModalIsOpen(true);
+        setFindPathButton('findPath');
+        return;
+      }
+
+      setFindPathButton('reset');
+    },
+    [dispatchPath, setModalIsOpen],
+  );
+
+  const handleStartButtonClick = useCallback(() => {
     setCurrentTexture(null);
     setCurrentClickFunction('updateStartNode');
-  };
-  const handleEndButtonClick = () => {
+  }, [setCurrentClickFunction, setCurrentTexture]);
+
+  const handleEndButtonClick = useCallback(() => {
     setCurrentTexture(null);
     setCurrentClickFunction('updateEndNode');
-  };
-  const handleFindPathClick = () => {
+  }, [setCurrentClickFunction, setCurrentTexture]);
+
+  const handleFindPathClick = useCallback(() => {
     setFindPathButton('cancel');
     setCurrentTexture(null);
     setCurrentClickFunction(null);
-    const interval = dijkstra(
+    const dijkstraGenerator = getDijkstraGenerator(
       startNode,
       endNode,
       stateOfNodes,
-      (node: Coordinate) => {
-        dispatchPath({
-          type: 'ADD_VISITED_NODE',
-          coordinate: node,
-        });
-      },
-      (node: Coordinate) => {
-        dispatchPath({
-          type: 'ADD_PATH_NODE',
-          coordinate: node,
-        });
-      },
-      afterDijkstraSuccess,
     );
+    const interval = setInterval(() => {
+      const generated = dijkstraGenerator.next();
+      if (generated.done) {
+        clearInterval(interval);
+        afterDijkstraSuccess(
+          generated.value.pathFound ? undefined : 'Path not found',
+        );
+      } else {
+        switch (generated.value.type) {
+          case 'ADD_VISITED_COORDINATE':
+            dispatchPath({
+              type: 'ADD_VISITED_COORDINATE',
+              coordinate: generated.value.coordinate,
+            });
+            break;
+          case 'ADD_PATH_COORDINATE':
+            dispatchPath({
+              type: 'ADD_PATH_COORDINATE',
+              coordinate: generated.value.coordinate,
+            });
+        }
+      }
+    }, 10);
     setCurrentInterval(interval);
-  };
+  }, [
+    startNode,
+    endNode,
+    stateOfNodes,
+    afterDijkstraSuccess,
+    dispatchPath,
+    setCurrentClickFunction,
+    setCurrentTexture,
+    setFindPathButton,
+  ]);
 
-  const handleCancelFindPath = () => {
-    clearInterval(currentInterval ?? undefined);
-    setCurrentInterval(null);
-    handleFindPathReset();
-  };
-
-  const handleFindPathReset = () => {
+  const handleFindPathReset = useCallback(() => {
     dispatchPath({
       type: 'RESET_PATH',
     });
     setFindPathButton('findPath');
-  };
+  }, [dispatchPath, setFindPathButton]);
 
-  const handleTextureChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    e.preventDefault();
-    setCurrentClickFunction(null);
-    const newValue = e.target.value === 'none' ? null : +e.target.value;
-    setCurrentTexture(newValue);
-  };
+  const handleCancelFindPath = useCallback(() => {
+    clearInterval(currentInterval ?? undefined);
+    setCurrentInterval(null);
+    handleFindPathReset();
+  }, [currentInterval, handleFindPathReset, setCurrentInterval]);
 
-  const handleSampleTerrainChange: ChangeEventHandler<HTMLSelectElement> = (
-    e,
-  ) => {
-    e.preventDefault();
-    setCurrentClickFunction(null);
-    const newValue = e.target.value === 'none' ? null : +e.target.value;
-    setSampleTerrain(newValue);
-  };
+  const handleTextureChange: ChangeEventHandler<HTMLSelectElement> =
+    useCallback(
+      (e) => {
+        e.preventDefault();
+        setCurrentClickFunction(null);
+        const newValue = e.target.value === 'none' ? null : +e.target.value;
+        setCurrentTexture(newValue);
+      },
+      [setCurrentTexture, setCurrentClickFunction],
+    );
+
+  const handleSampleTerrainChange: ChangeEventHandler<HTMLSelectElement> =
+    useCallback(
+      (e) => {
+        e.preventDefault();
+        setCurrentClickFunction(null);
+        const newValue = e.target.value === 'none' ? null : +e.target.value;
+        setSampleTerrain(newValue);
+      },
+      [setSampleTerrain, setCurrentClickFunction],
+    );
 
   const renderFindPathButton = () => {
     const findPathButtons = {
@@ -136,8 +169,10 @@ const Dashboard = ({
         extraClassName: 'dashboard__button--go',
       },
     };
+
     const { innerHTML, onClickFn, extraClassName } =
       findPathButtons[findPathButton];
+
     return (
       <DashboardButton onClickFn={onClickFn} extraClassName={extraClassName}>
         {innerHTML}

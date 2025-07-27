@@ -33,9 +33,11 @@ export const usePathReducer = () => {
     return coordinate;
   }, [stateOfPath]);
 
-  const startNode: Coordinate = useMemo(() => {
-    return [startNodeRaw[0], startNodeRaw[1]];
-  }, [startNodeRaw[0], startNodeRaw[1]]);
+  const startNode: Coordinate = useMemo(
+    () => [startNodeRaw[0], startNodeRaw[1]],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [startNodeRaw[0], startNodeRaw[1]],
+  );
 
   const endNodeRaw = useMemo(() => {
     const coordinate = findCoordinateInGrid(
@@ -49,9 +51,11 @@ export const usePathReducer = () => {
     return coordinate;
   }, [stateOfPath]);
 
-  const endNode: Coordinate = useMemo(() => {
-    return [endNodeRaw[0], endNodeRaw[1]];
-  }, [endNodeRaw[0], endNodeRaw[1]]);
+  const endNode: Coordinate = useMemo(
+    () => [endNodeRaw[0], endNodeRaw[1]],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [endNodeRaw[0], endNodeRaw[1]],
+  );
 
   return {
     startNode,
@@ -130,7 +134,7 @@ const reducer = (
       });
     }
 
-    case 'ADD_PATH_NODE': {
+    case 'ADD_PATH_COORDINATE': {
       const [a, b] = action.coordinate;
       const coordinateValue = state[a][b];
 
@@ -152,7 +156,7 @@ const reducer = (
       });
     }
 
-    case 'ADD_VISITED_NODE': {
+    case 'ADD_VISITED_COORDINATE': {
       const [a, b] = action.coordinate;
       const coordinateValue = state[a][b];
 
@@ -222,11 +226,11 @@ interface UpdateEndNodeAction {
 }
 
 interface AddPathNodeAction {
-  type: 'ADD_PATH_NODE';
+  type: 'ADD_PATH_COORDINATE';
   coordinate: Coordinate;
 }
 
 interface AddVisitedNodeAction {
-  type: 'ADD_VISITED_NODE';
+  type: 'ADD_VISITED_COORDINATE';
   coordinate: Coordinate;
 }

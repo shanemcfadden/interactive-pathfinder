@@ -1,85 +1,86 @@
 import MinHeap from '../models/MinHeap';
 import { coordinatesAreEqual, type Coordinate } from '../util/arr';
-import type { Grid } from '../util/grid';
+import { shallowCopyOfGrid, type Grid } from '../util/grid';
 
-/**
- * Find the shortest path using Dijkstra's algorithm
- * @function
- * @param {Coordinate} startingCoordinates
- * @param {Coordinate} endingCoordinates
- * @param {TextureGrid} initialGrid - Current texture values for grid
- * @param {addNodeCallback} addVisitedNode
- *     Function that adds a visited node to the grid state
- * @param {addNodeCallback} addPathNode
- *     Function that adds a path node to the grid state
- * @param {finishedCallback} done
- *     Callback to be run after dijkstra has finished running
- * @returns {NodeJS.Timeout}
- *     Timeout that is cleared by finding an easiest path, finding no possible
- *     paths, or by cancelling the timeout
- */
-export const dijkstra = (
-  startingCoordinates: Coordinate,
-  endingCoordinates: Coordinate,
+type PathAction = AddVisitedCoordinate | AddPathCoordinate;
+
+interface AddVisitedCoordinate {
+  type: 'ADD_VISITED_COORDINATE';
+  coordinate: Coordinate;
+}
+interface AddPathCoordinate {
+  type: 'ADD_PATH_COORDINATE';
+  coordinate: Coordinate;
+}
+
+interface CompleteCalculation {
+  type: 'COMPLETE_CALCULATION';
+  pathFound: boolean;
+}
+
+export function* getDijkstraGenerator(
+  startingCoordinate: Coordinate,
+  endingCoordinate: Coordinate,
   initialGrid: Grid<number>,
-  addVisitedNode: (node: Coordinate) => void,
-  addPathNode: (node: Coordinate) => void,
-  done: (errorMessage?: string) => void,
-): number => {
-  const grid = initialGrid.map((row) => row.slice());
-  // Make the end node accessible even if the weight is Infinity
-  grid[endingCoordinates[0]][endingCoordinates[1]] = 1;
-  const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinates);
+): Generator<PathAction, CompleteCalculation> {
+  const grid = shallowCopyOfGrid(initialGrid);
+  // Make the end coordinate accessible even if the weight is Infinity
+  grid[endingCoordinate[0]][endingCoordinate[1]] = 1;
+  const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinate);
 
   const previousCoordinateMap: PreviousCoordinateMap = {};
   let finalCoordinateData: CoordinateData;
-  let path: Coordinate[];
+  let path: Coordinate[] = [];
   let pathFound = false;
-  let displayedPathNodes = 0;
+  let addedPathCoordinates = 0;
 
-  const interval = setInterval(() => {
-    if (!pathFound) {
-      const current = coordinatesHeap.pop();
-      if (!current) {
-        throw new Error('No coordinates left in heap');
-      }
-      if (
-        !coordinateHasBeenVisited(current.coordinate, previousCoordinateMap)
-      ) {
-        addToVisitedCoordinates(current, previousCoordinateMap);
-        if (current.distanceFromStart === Infinity) {
-          clearInterval(interval);
-          done('No path found');
-        } else if (coordinatesAreEqual(current.coordinate, endingCoordinates)) {
-          pathFound = true;
-          finalCoordinateData = current;
-          path = getStartToFinishPath(
-            finalCoordinateData.coordinate,
-            previousCoordinateMap,
-          );
-        } else {
-          addVisitedNode(current.coordinate);
-          addNeighboringCoordinatesToHeap(current, grid, coordinatesHeap);
-        }
-      }
-    } else {
-      if (displayedPathNodes < path.length) {
-        addPathNode(path[displayedPathNodes++]);
-      } else {
-        clearInterval(interval);
-        done();
-      }
+  while (!pathFound) {
+    const current = coordinatesHeap.pop();
+    if (!current) {
+      throw new Error('No coordinates left in heap');
     }
-  }, 10);
-  return interval;
-};
 
-/**
- * Adds the coordinate data of every adjacent coordinate to the MinHeap
- * @param {CoordinateData} currentCoordinateData
- * @param {TextureGrid} grid
- * @param {MinHeap} coordinatesHeap
- */
+    if (current.distanceFromStart === Infinity) {
+      return {
+        type: 'COMPLETE_CALCULATION',
+        pathFound: false,
+      };
+    }
+    if (coordinateHasBeenVisited(current.coordinate, previousCoordinateMap)) {
+      continue;
+    }
+
+    addToVisitedCoordinates(current, previousCoordinateMap);
+    if (coordinatesAreEqual(current.coordinate, endingCoordinate)) {
+      pathFound = true;
+      finalCoordinateData = current;
+      path = getStartToFinishPath(
+        finalCoordinateData.coordinate,
+        previousCoordinateMap,
+      );
+    } else {
+      yield {
+        type: 'ADD_VISITED_COORDINATE',
+        coordinate: current.coordinate,
+      };
+      addNeighboringCoordinatesToHeap(current, grid, coordinatesHeap);
+    }
+  }
+
+  while (addedPathCoordinates < path.length) {
+    yield {
+      type: 'ADD_PATH_COORDINATE',
+      coordinate: path[addedPathCoordinates],
+    };
+    addedPathCoordinates++;
+  }
+
+  return {
+    type: 'COMPLETE_CALCULATION',
+    pathFound: true,
+  };
+}
+
 function addNeighboringCoordinatesToHeap(
   currentCoordinateData: CoordinateData,
   grid: Grid<number>,
@@ -89,14 +90,17 @@ function addNeighboringCoordinatesToHeap(
     currentCoordinateData.coordinate,
     grid,
   );
-  neigboringCoordinates.forEach((neighbor) => {
-    const newCoordinateData = {
-      coordinate: neighbor.coordinate,
+
+  neigboringCoordinates.forEach((neighboringCoordinate) => {
+    const neighboringCoordinateDistance =
+      grid[neighboringCoordinate[0]][neighboringCoordinate[1]];
+
+    coordinatesHeap.push({
+      coordinate: neighboringCoordinate,
       distanceFromStart:
-        currentCoordinateData.distanceFromStart + neighbor.distanceFromCurrent,
+        currentCoordinateData.distanceFromStart + neighboringCoordinateDistance,
       previousCoordinate: currentCoordinateData.coordinate,
-    };
-    coordinatesHeap.push(newCoordinateData);
+    });
   });
 }
 
@@ -110,6 +114,8 @@ function addToVisitedCoordinates(
   coordinateData: CoordinateData,
   previousCoordinateMap: PreviousCoordinateMap,
 ): void {
+  // TODO: We're getting this error when trying the all water grid
+  //  Fix this in the generator
   if (coordinateData.previousCoordinate === null) {
     throw new Error('Previous coordinate cannot be null');
   }
@@ -125,32 +131,17 @@ function coordinateHasBeenVisited(
 }
 
 function getNeighboringCoordinates(
-  currentCoordinate: Coordinate,
+  [i, j]: Coordinate,
   grid: Grid<number>,
-): {
-  coordinate: Coordinate;
-  distanceFromCurrent: number;
-}[] {
-  const neighbors: {
-    coordinate: Coordinate;
-    distanceFromCurrent: number;
-  }[] = [];
-  const [i, j] = currentCoordinate;
-  const possibleNeighbors = [
+): Coordinate[] {
+  const possibleNeighbors: Coordinate[] = [
     [i - 1, j],
     [i, j - 1],
     [i + 1, j],
     [i, j + 1],
   ];
-  possibleNeighbors.forEach(([a, b]) => {
-    if (a >= 0 && a < grid.length && b >= 0 && b < grid[0].length) {
-      neighbors.push({
-        coordinate: [a, b],
-        distanceFromCurrent: grid[a][b],
-      });
-    }
-  });
-  return neighbors;
+
+  return possibleNeighbors.filter(([a, b]) => grid[a]?.[b] !== undefined);
 }
 
 function getStartToFinishPath(
@@ -159,11 +150,13 @@ function getStartToFinishPath(
 ): Coordinate[] {
   const startToFinishPath = [];
   let current: 'start' | Coordinate = finishCoordinate;
+
   while (current !== 'start') {
-    startToFinishPath.unshift(current);
+    startToFinishPath.push(current);
     current = visitedCoordinates[JSON.stringify(current)];
   }
-  return startToFinishPath;
+
+  return startToFinishPath.reverse();
 }
 
 /**
