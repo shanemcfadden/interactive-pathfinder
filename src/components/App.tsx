@@ -15,16 +15,18 @@ import {
 import { SAMPLE_TERRAINS } from '../settings/terrains';
 import { TEXTURES_NAME_VALUE_MAP } from '../settings/textures';
 import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
-import { mapGrid } from '../util/grid';
 import '../styles/App.css';
 import { usePathReducer } from '../hooks/usePathReducer';
+import { Grid } from '../util/grid';
 
 function App() {
   const [stateOfNodes, setStateOfNodes] = useState(
-    Array.from({ length: GRID_HEIGHT_NODES }, () =>
-      Array.from(
-        { length: GRID_WIDTH_NODES },
-        () => TEXTURES_NAME_VALUE_MAP.grass,
+    new Grid(
+      Array.from({ length: GRID_HEIGHT_NODES }, () =>
+        Array.from(
+          { length: GRID_WIDTH_NODES },
+          () => TEXTURES_NAME_VALUE_MAP.grass,
+        ),
       ),
     ),
   );
@@ -44,8 +46,7 @@ function App() {
     }
     const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
 
-    const newStateOfNodes = mapGrid(
-      sampleData.stateOfNodes,
+    const newStateOfNodes = sampleData.stateOfNodes.map(
       (val) => TEXTURES_NAME_VALUE_MAP[val],
     );
     const newStartNode = getShallowCopyOfCoordinateIfDefined(

@@ -1,5 +1,5 @@
 import type { Texture } from './textures';
-import type { Grid } from '../util/grid';
+import { Grid } from '../util/grid';
 import type { Coordinate } from '../util/arr';
 
 export interface Terrain {
@@ -11,7 +11,7 @@ export interface Terrain {
 export const SAMPLE_TERRAINS: Terrain[] = [
   {
     displayText: 'All Grass',
-    stateOfNodes: [
+    stateOfNodes: new Grid([
       [
         'grass',
         'grass',
@@ -789,11 +789,11 @@ export const SAMPLE_TERRAINS: Terrain[] = [
         'grass',
         'grass',
       ],
-    ],
+    ]),
   },
   {
     displayText: 'All Water',
-    stateOfNodes: [
+    stateOfNodes: new Grid([
       [
         'water',
         'water',
@@ -1571,13 +1571,13 @@ export const SAMPLE_TERRAINS: Terrain[] = [
         'water',
         'water',
       ],
-    ],
+    ]),
   },
   {
     displayText: 'Beachside Drive',
     startNode: [0, 0],
     endNode: [17, 34],
-    stateOfNodes: [
+    stateOfNodes: new Grid([
       [
         'asphalt',
         'asphalt',
@@ -2355,13 +2355,13 @@ export const SAMPLE_TERRAINS: Terrain[] = [
         'sand',
         'sand',
       ],
-    ],
+    ]),
   },
   {
     displayText: 'Jackson Pollock',
     startNode: [15, 4],
     endNode: [5, 28],
-    stateOfNodes: [
+    stateOfNodes: new Grid([
       [
         'water',
         'water',
@@ -3139,13 +3139,13 @@ export const SAMPLE_TERRAINS: Terrain[] = [
         'grass',
         'grass',
       ],
-    ],
+    ]),
   },
   {
     displayText: 'Swamp Maze',
     startNode: [0, 0],
     endNode: [20, 34],
-    stateOfNodes: [
+    stateOfNodes: new Grid([
       [
         'swamp',
         'water',
@@ -3923,6 +3923,6 @@ export const SAMPLE_TERRAINS: Terrain[] = [
         'water',
         'swamp',
       ],
-    ],
+    ]),
   },
 ] as const;

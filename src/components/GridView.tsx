@@ -10,7 +10,7 @@ import {
 } from '../settings/grid';
 import { PATHS_VALUE_NAME_MAP } from '../settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from '../settings/textures';
-import { shallowCopyOfGrid, type Grid } from '../util/grid';
+import { Grid } from '../util/grid';
 import '../styles/Grid.css';
 
 const GridView = ({
@@ -23,7 +23,7 @@ const GridView = ({
 }: {
   onClickFunction: (i: number, j: number) => void;
   stateOfNodes: Grid<number>;
-  setStateOfNodes: (newState: number[][]) => void;
+  setStateOfNodes: (newState: Grid<number>) => void;
   stateOfPath: Grid<number>;
   currentTexture: number | null;
   setSampleTerrainToNull: () => void;
@@ -31,8 +31,8 @@ const GridView = ({
   const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
     useState(false);
   const addTexture = (i: number, j: number, textureNumber: number) => {
-    const newStateOfNodes = shallowCopyOfGrid(stateOfNodes);
-    newStateOfNodes[i][j] = textureNumber;
+    const newStateOfNodes = stateOfNodes.shallowCopyOfGrid();
+    newStateOfNodes.setCoordinate([i, j], textureNumber);
     setStateOfNodes(newStateOfNodes);
   };
   const createHandleOnMouseDown =
@@ -46,10 +46,9 @@ const GridView = ({
       addTexture(i, j, currentTexture);
       setSampleTerrainToNull();
     };
-  const createHandleOnMouseEnter = (
-    i: number,
-    j: number,
-  ): MouseEventHandler => (e) => {
+  const createHandleOnMouseEnter =
+    (i: number, j: number): MouseEventHandler =>
+    (e) => {
       e.preventDefault();
       if (!currentTexture || !currentlyDrawingTextures) {
         return;
@@ -79,11 +78,13 @@ const GridView = ({
         setCurrentlyDrawingTextures(false);
       }}
     >
-      {stateOfNodes.map((row, i) =>
+      {stateOfNodes.values.map((row, i) =>
         row.map((val, j) => (
           <Node
             currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
-            currentPathState={PATHS_VALUE_NAME_MAP[stateOfPath[i][j]]}
+            currentPathState={
+              PATHS_VALUE_NAME_MAP[stateOfPath.getCoordinate([i, j])]
+            }
             handleClick={() => {
               onClickFunction(i, j);
             }}
