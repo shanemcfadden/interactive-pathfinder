@@ -5,51 +5,62 @@ import { PreviousCoordinateMap } from './PreviousCoordinateMap';
 import type { CompleteCalculation, CoordinateData, PathAction } from './types';
 
 export function* getDijkstraGenerator(
-  startingCoordinate: Coordinate,
-  endingCoordinate: Coordinate,
+  start: Coordinate,
+  end: Coordinate,
   initialGrid: Grid<number>,
 ): Generator<PathAction, CompleteCalculation> {
   const grid = new GridClass(initialGrid);
+
   // Make the end coordinate accessible even if the weight is Infinity
-  grid.setCoordinate(endingCoordinate, 1);
-  const coordinatesHeap = initializeCoordinatesHeap(grid, startingCoordinate);
+  grid.setCoordinate(end, 1);
+  const coordinatesDataMinHeap = initializeCoordinateDataMinHeap(grid, start);
 
   const previousCoordinateMap = new PreviousCoordinateMap();
-  let path: Coordinate[] | null = null;
+  let pathToEnd: Coordinate[] | null = null;
 
-  while (!path) {
-    const current = coordinatesHeap.pop();
-    if (!current) {
+  while (!pathToEnd) {
+    const currentCoordinateData = coordinatesDataMinHeap.pop();
+    if (!currentCoordinateData) {
       throw new Error('No coordinates left in heap');
     }
 
-    if (current.distanceFromStart === Infinity) {
+    if (currentCoordinateData.distanceFromStart === Infinity) {
       return {
         type: 'COMPLETE_CALCULATION',
         pathFound: false,
       };
     }
 
-    if (previousCoordinateMap.hasCoordinateBeenVisited(current.coordinate)) {
+    if (
+      previousCoordinateMap.hasCoordinateBeenVisited(
+        currentCoordinateData.coordinate,
+      )
+    ) {
       continue;
     }
+
     previousCoordinateMap.setPreviousCoordinate(
-      current.coordinate,
-      current.previousCoordinate,
+      currentCoordinateData.coordinate,
+      currentCoordinateData.previousCoordinate,
     );
 
-    if (areCoordinatesEqual(current.coordinate, endingCoordinate)) {
-      path = previousCoordinateMap.getPathToEnd(endingCoordinate);
-    } else {
-      yield {
-        type: 'ADD_VISITED_COORDINATE',
-        coordinate: current.coordinate,
-      };
-      addNeighboringCoordinateDataToHeap(current, grid, coordinatesHeap);
+    if (areCoordinatesEqual(currentCoordinateData.coordinate, end)) {
+      pathToEnd = previousCoordinateMap.getPathToEnd(end);
+      break;
     }
+
+    yield {
+      type: 'ADD_VISITED_COORDINATE',
+      coordinate: currentCoordinateData.coordinate,
+    };
+    addNeighboringCoordinateDataToMinHeap(
+      currentCoordinateData,
+      grid,
+      coordinatesDataMinHeap,
+    );
   }
 
-  for (const coordinate of path) {
+  for (const coordinate of pathToEnd) {
     yield {
       type: 'ADD_PATH_COORDINATE',
       coordinate,
@@ -62,7 +73,7 @@ export function* getDijkstraGenerator(
   };
 }
 
-function addNeighboringCoordinateDataToHeap(
+function addNeighboringCoordinateDataToMinHeap(
   currentCoordinateData: CoordinateData,
   grid: GridClass<number>,
   coordinatesHeap: MinHeap<CoordinateData>,
@@ -86,9 +97,9 @@ function addNeighboringCoordinateDataToHeap(
   );
 }
 
-function initializeCoordinatesHeap(
+function initializeCoordinateDataMinHeap(
   grid: GridClass<number>,
-  startingCoordinates: Coordinate,
+  start: Coordinate,
 ): MinHeap<CoordinateData> {
   const coordinatesHeap = new MinHeap<CoordinateData>(
     (a, b) => a.distanceFromStart - b.distanceFromStart,
@@ -97,9 +108,9 @@ function initializeCoordinatesHeap(
   coordinatesHeap.push(
     ...grid.flatMap(
       (_, [a, b]): CoordinateData =>
-        areCoordinatesEqual([a, b], startingCoordinates)
+        areCoordinatesEqual([a, b], start)
           ? {
-              coordinate: startingCoordinates,
+              coordinate: start,
               distanceFromStart: 0,
               previousCoordinate: null,
             }
@@ -125,7 +136,7 @@ class GridClass<T> {
     return this._values;
   }
 
-  setCoordinate(coordinate: Coordinate, value: T): void {
+  public setCoordinate(coordinate: Coordinate, value: T): void {
     if (!this.isValidCoordinate(coordinate)) {
       throw new Error(
         `Invalid coordinate: ${JSON.stringify(coordinate)}. Grid size: ${this._values.length}x${this._values[0].length}`,
@@ -134,7 +145,7 @@ class GridClass<T> {
     this._values[coordinate[0]][coordinate[1]] = value;
   }
 
-  getCoordinate(coordinate: Coordinate): T {
+  public getCoordinate(coordinate: Coordinate): T {
     if (!this.isValidCoordinate(coordinate)) {
       throw new Error(
         `Invalid coordinate: ${JSON.stringify(coordinate)}. Grid size: ${this._values.length}x${this._values[0].length}`,
@@ -151,12 +162,12 @@ class GridClass<T> {
     );
   }
 
-  public getNeighboringCoordinates([i, j]: Coordinate): Coordinate[] {
+  public getNeighboringCoordinates([a, b]: Coordinate): Coordinate[] {
     const possibleNeighbors: Coordinate[] = [
-      [i - 1, j],
-      [i, j - 1],
-      [i + 1, j],
-      [i, j + 1],
+      [a - 1, b],
+      [a, b - 1],
+      [a + 1, b],
+      [a, b + 1],
     ];
 
     return possibleNeighbors.filter((coordinate) =>
