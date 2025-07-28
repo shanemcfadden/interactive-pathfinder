@@ -2,8 +2,17 @@ import type { Coordinate } from './arr';
 
 export const mapGrid = <T, U>(
   grid: Grid<T>,
-  mapFn: (element: T, coordinate: Coordinate) => U,
-) => grid.map((row, i) => row.map((element, j) => mapFn(element, [i, j])));
+  mapFunction: (element: T, coordinate: Coordinate) => U,
+) =>
+  grid.map((row, i) => row.map((element, j) => mapFunction(element, [i, j])));
+
+export const flatMapGrid = <T, U>(
+  grid: Grid<T>,
+  flatMapFunction: (element: T, coordinate: Coordinate) => U | U[],
+): U[] =>
+  grid.flatMap((row, i) =>
+    row.flatMap((element, j) => flatMapFunction(element, [i, j])),
+  );
 
 export const shallowCopyOfGrid = <T>(grid: Grid<T>): Grid<T> =>
   grid.map((row) => [...row]);

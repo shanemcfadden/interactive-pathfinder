@@ -6,7 +6,7 @@ import {
   GRID_WIDTH_NODES,
 } from '../settings/grid';
 import { PATHS_NAME_VALUE_MAP } from '../settings/paths';
-import { coordinatesAreEqual, type Coordinate } from '../util/arr';
+import { areCoordinatesEqual, type Coordinate } from '../util/arr';
 import { findCoordinateInGrid, mapGrid, type Grid } from '../util/grid';
 
 export type DispatchPath = Dispatch<PathReducerAction>;
@@ -100,7 +100,7 @@ const reducer = (
       }
 
       return mapGrid(state, (value, [i, j]) => {
-        if (coordinatesAreEqual(action.coordinate, [i, j])) {
+        if (areCoordinatesEqual(action.coordinate, [i, j])) {
           return PATHS_NAME_VALUE_MAP.start;
         }
         if (value === PATHS_NAME_VALUE_MAP.start) {
@@ -124,7 +124,7 @@ const reducer = (
       }
 
       return mapGrid(state, (value, [i, j]) => {
-        if (coordinatesAreEqual(action.coordinate, [i, j])) {
+        if (areCoordinatesEqual(action.coordinate, [i, j])) {
           return PATHS_NAME_VALUE_MAP.end;
         }
         if (value === PATHS_NAME_VALUE_MAP.end) {
@@ -149,7 +149,7 @@ const reducer = (
       }
 
       return mapGrid(state, (value, [i, j]) => {
-        if (coordinatesAreEqual(action.coordinate, [i, j])) {
+        if (areCoordinatesEqual(action.coordinate, [i, j])) {
           return PATHS_NAME_VALUE_MAP.path;
         }
         return value;
@@ -171,7 +171,7 @@ const reducer = (
       }
 
       return mapGrid(state, (value, [i, j]) => {
-        if (coordinatesAreEqual(action.coordinate, [i, j])) {
+        if (areCoordinatesEqual(action.coordinate, [i, j])) {
           return PATHS_NAME_VALUE_MAP.visited;
         }
         return value;
@@ -189,10 +189,10 @@ const getInitalPathState = ({
 }) =>
   Array.from({ length: GRID_HEIGHT_NODES }, (_, i) =>
     Array.from({ length: GRID_WIDTH_NODES }, (_, j) => {
-      if (coordinatesAreEqual(start, [i, j])) {
+      if (areCoordinatesEqual(start, [i, j])) {
         return PATHS_NAME_VALUE_MAP.start;
       }
-      if (coordinatesAreEqual(end, [i, j])) {
+      if (areCoordinatesEqual(end, [i, j])) {
         return PATHS_NAME_VALUE_MAP.end;
       }
       return 0;
