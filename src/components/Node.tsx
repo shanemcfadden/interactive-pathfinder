@@ -1,10 +1,12 @@
 import '../styles/Node.css';
 import type { Texture } from '../settings/textures';
-import type { PATHS_NAME_VALUE_MAP } from '../settings/paths';
+import { Path, type PathValue } from '../settings/paths';
 import type { MouseEventHandler } from 'react';
 
 const Node = ({
   currentTexture,
+  isStart,
+  isEnd,
   currentPathState,
   handleClick,
   handleOnMouseDown,
@@ -12,24 +14,56 @@ const Node = ({
   handleOnMouseUp,
 }: {
   currentTexture: Texture;
-  currentPathState: keyof typeof PATHS_NAME_VALUE_MAP;
+  isStart: boolean;
+  isEnd: boolean;
+  currentPathState: PathValue;
   handleClick: () => void;
   handleOnMouseDown: MouseEventHandler;
   handleOnMouseEnter: MouseEventHandler;
   handleOnMouseUp: MouseEventHandler;
-}) => (
-  <div
-    className={`node node--${currentTexture}${
-      currentPathState ? ` node--${currentPathState}` : ''
-    }`}
-    onClick={handleClick}
-    onMouseDown={handleOnMouseDown}
-    onMouseEnter={handleOnMouseEnter}
-    onMouseUp={handleOnMouseUp}
-  >
-    {currentPathState === 'start' && 'S'}
-    {currentPathState === 'end' && 'E'}
-  </div>
-);
+}) => {
+  return (
+    <div
+      className={`node node--${currentTexture} ${getPathStateClass({
+        isStart,
+        isEnd,
+        path: currentPathState,
+      })}`}
+      onClick={handleClick}
+      onMouseDown={handleOnMouseDown}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseUp={handleOnMouseUp}
+    >
+      {isStart && 'S'}
+      {isEnd && 'E'}
+    </div>
+  );
+};
 
 export default Node;
+
+const getPathStateClass = ({
+  isStart,
+  isEnd,
+  path,
+}: {
+  isStart: boolean;
+  isEnd: boolean;
+  path: PathValue;
+}): string => {
+  if (isStart) {
+    return 'node--start';
+  }
+
+  if (isEnd) {
+    return 'node--end';
+  }
+
+  return PATH_VALUE_TO_CLASS_MAP[path];
+};
+
+const PATH_VALUE_TO_CLASS_MAP: Record<PathValue, string> = {
+  [Path.Unvisited]: '',
+  [Path.Visited]: 'node--visited',
+  [Path.Path]: 'node--path',
+};

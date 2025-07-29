@@ -1,16 +1,9 @@
-export const PATHS_VALUE_NAME_MAP: Record<
-  number,
-  'visited' | 'path' | 'start' | 'end'
-> = {
-  1: 'visited',
-  2: 'path',
-  3: 'start',
-  4: 'end',
+export const Path = {
+  Unvisited: 0,
+  Visited: 1,
+  Path: 2,
 };
 
-export const PATHS_NAME_VALUE_MAP = {
-  visited: 1,
-  path: 2,
-  start: 3,
-  end: 4,
-};
+export type PathValue = ValueOf<typeof Path>;
+
+type ValueOf<T> = T[keyof T];

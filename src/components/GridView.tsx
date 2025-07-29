@@ -8,10 +8,11 @@ import {
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
 } from '../settings/grid';
-import { PATHS_VALUE_NAME_MAP } from '../settings/paths';
 import { TEXTURES_VALUE_NAME_MAP } from '../settings/textures';
 import { Grid } from '../util/grid';
 import '../styles/Grid.css';
+import { areCoordinatesEqual } from '../util/arr';
+import type { PathState } from '../hooks/usePathReducer';
 
 const GridView = ({
   onClickFunction,
@@ -24,7 +25,7 @@ const GridView = ({
   onClickFunction: (i: number, j: number) => void;
   stateOfNodes: Grid<number>;
   setStateOfNodes: (newState: Grid<number>) => void;
-  stateOfPath: Grid<number>;
+  stateOfPath: PathState;
   currentTexture: number | null;
   setSampleTerrainToNull: () => void;
 }) => {
@@ -82,9 +83,9 @@ const GridView = ({
         row.map((val, j) => (
           <Node
             currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
-            currentPathState={
-              PATHS_VALUE_NAME_MAP[stateOfPath.getCoordinate([i, j])]
-            }
+            isStart={areCoordinatesEqual([i, j], stateOfPath.start)}
+            isEnd={areCoordinatesEqual([i, j], stateOfPath.end)}
+            currentPathState={stateOfPath.pathValues.getCoordinate([i, j])}
             handleClick={() => {
               onClickFunction(i, j);
             }}

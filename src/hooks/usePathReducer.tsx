@@ -1,199 +1,132 @@
-import { useMemo, useReducer, type Dispatch } from 'react';
+import { useReducer, type Dispatch } from 'react';
 import {
   DEFAULT_END_NODE,
   DEFAULT_START_NODE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
 } from '../settings/grid';
-import { PATHS_NAME_VALUE_MAP } from '../settings/paths';
+import { Path, type PathValue } from '../settings/paths';
 import { areCoordinatesEqual, type Coordinate } from '../util/arr';
 import { Grid } from '../util/grid';
 
 export type DispatchPath = Dispatch<PathReducerAction>;
 
 export const usePathReducer = () => {
-  const [stateOfPath, dispatchPath] = useReducer(
-    reducer,
-    {
-      start: DEFAULT_START_NODE,
-      end: DEFAULT_END_NODE,
-    },
-    getInitalPathState,
-  );
-
-  const startNodeRaw = useMemo(() => {
-    const coordinate = stateOfPath.findCoordinate(
-      (value) => value === PATHS_NAME_VALUE_MAP.start,
-    );
-
-    if (!coordinate) {
-      throw new Error('Failed to find start node in path state');
-    }
-    return coordinate;
-  }, [stateOfPath]);
-
-  const startNode: Coordinate = useMemo(
-    () => [startNodeRaw[0], startNodeRaw[1]],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [startNodeRaw[0], startNodeRaw[1]],
-  );
-
-  const endNodeRaw = useMemo(() => {
-    const coordinate = stateOfPath.findCoordinate(
-      (value) => value === PATHS_NAME_VALUE_MAP.end,
-    );
-
-    if (!coordinate) {
-      throw new Error('Failed to find end node in path state');
-    }
-    return coordinate;
-  }, [stateOfPath]);
-
-  const endNode: Coordinate = useMemo(
-    () => [endNodeRaw[0], endNodeRaw[1]],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [endNodeRaw[0], endNodeRaw[1]],
-  );
-
-  return {
-    startNode,
-    stateOfPath,
-    endNode,
-    dispatchPath,
-  };
+  return useReducer(reducer, {
+    start: DEFAULT_START_NODE,
+    end: DEFAULT_END_NODE,
+    pathValues: new Grid<PathValue>(
+      Array.from({ length: GRID_HEIGHT_NODES }, () =>
+        Array.from({ length: GRID_WIDTH_NODES }, () => {
+          return Path.Unvisited;
+        }),
+      ),
+    ),
+  });
 };
 
-const reducer = (
-  state: Grid<number>,
-  action: PathReducerAction,
-): Grid<number> => {
+export interface PathState {
+  start: Coordinate;
+  end: Coordinate;
+  pathValues: Grid<PathValue>;
+}
+const reducer = (state: PathState, action: PathReducerAction): PathState => {
   switch (action.type) {
     case 'RESET_PATH':
-      return state.map((value) => {
-        if (
-          value === PATHS_NAME_VALUE_MAP.start ||
-          value === PATHS_NAME_VALUE_MAP.end
-        ) {
-          return value;
-        }
-        return 0;
-      });
+      return {
+        ...state,
+        pathValues: state.pathValues.map(() => Path.Unvisited),
+      };
 
     case 'CLEAR_VISITED_NODES':
-      return state.map((value) =>
-        value === PATHS_NAME_VALUE_MAP.visited ? 0 : value,
-      );
+      return {
+        ...state,
+        pathValues: state.pathValues.map((value) =>
+          value === Path.Visited ? Path.Unvisited : value,
+        ),
+      };
 
     case 'UPDATE_START_NODE': {
-      const coordinateValue = state.getCoordinate(action.coordinate);
-
       if (
         // Replacing start node with start should not trigger a rerender
-        coordinateValue === PATHS_NAME_VALUE_MAP.start ||
+        areCoordinatesEqual(action.coordinate, state.start) ||
         // Replacing end node with start is invalid
-        coordinateValue === PATHS_NAME_VALUE_MAP.end
+        areCoordinatesEqual(action.coordinate, state.end)
       ) {
         return state;
       }
 
-      return state.map((value, [i, j]) => {
-        if (areCoordinatesEqual(action.coordinate, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.start;
-        }
-        if (value === PATHS_NAME_VALUE_MAP.start) {
-          return 0;
-        }
-        return value;
-      });
+      return {
+        ...state,
+        start: action.coordinate,
+      };
     }
 
     case 'UPDATE_END_NODE': {
-      const coordinateValue = state.getCoordinate(action.coordinate);
-
       if (
         // Replacing end node with end should not trigger a rerender
-        coordinateValue === PATHS_NAME_VALUE_MAP.end ||
+        areCoordinatesEqual(action.coordinate, state.end) ||
         // Replacing start node with end is invalid
-        coordinateValue === PATHS_NAME_VALUE_MAP.start
+        areCoordinatesEqual(action.coordinate, state.start)
       ) {
         return state;
       }
 
-      return state.map((value, [i, j]) => {
-        if (areCoordinatesEqual(action.coordinate, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.end;
-        }
-        if (value === PATHS_NAME_VALUE_MAP.end) {
-          return 0;
-        }
-        return value;
-      });
+      return {
+        ...state,
+        end: action.coordinate,
+      };
     }
 
     case 'ADD_PATH_COORDINATE': {
-      const coordinateValue = state.getCoordinate(action.coordinate);
+      const coordinateValue = state.pathValues.getCoordinate(action.coordinate);
 
       if (
         // Adding a path node on start or end is not valid
-        coordinateValue === PATHS_NAME_VALUE_MAP.start ||
-        coordinateValue === PATHS_NAME_VALUE_MAP.end ||
+        areCoordinatesEqual(action.coordinate, state.start) ||
+        areCoordinatesEqual(action.coordinate, state.end) ||
         // Replacing a path node with a path node should not trigger a rerender
-        coordinateValue === PATHS_NAME_VALUE_MAP.path
+        coordinateValue === Path.Path
       ) {
         return state;
       }
 
-      return state.map((value, [i, j]) => {
-        if (areCoordinatesEqual(action.coordinate, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.path;
-        }
-        return value;
-      });
+      return {
+        ...state,
+        pathValues: state.pathValues.map((value, [i, j]) => {
+          if (areCoordinatesEqual(action.coordinate, [i, j])) {
+            return Path.Path;
+          }
+          return value;
+        }),
+      };
     }
 
     case 'ADD_VISITED_COORDINATE': {
-      const coordinateValue = state.getCoordinate(action.coordinate);
+      const coordinateValue = state.pathValues.getCoordinate(action.coordinate);
 
       if (
         // Adding a visited node on start or end is not valid
-        coordinateValue === PATHS_NAME_VALUE_MAP.start ||
-        coordinateValue === PATHS_NAME_VALUE_MAP.end ||
+        areCoordinatesEqual(action.coordinate, state.start) ||
+        areCoordinatesEqual(action.coordinate, state.end) ||
         // Replacing a visited node with a visited node should not trigger a rerender
-        coordinateValue === PATHS_NAME_VALUE_MAP.visited
+        coordinateValue === Path.Visited
       ) {
         return state;
       }
 
-      return state.map((value, [i, j]) => {
-        if (areCoordinatesEqual(action.coordinate, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.visited;
-        }
-        return value;
-      });
+      return {
+        ...state,
+        pathValues: state.pathValues.map((value, [i, j]) => {
+          if (areCoordinatesEqual(action.coordinate, [i, j])) {
+            return Path.Visited;
+          }
+          return value;
+        }),
+      };
     }
   }
 };
-
-const getInitalPathState = ({
-  start,
-  end,
-}: {
-  start: Coordinate;
-  end: Coordinate;
-}) =>
-  new Grid(
-    Array.from({ length: GRID_HEIGHT_NODES }, (_, i) =>
-      Array.from({ length: GRID_WIDTH_NODES }, (_, j) => {
-        if (areCoordinatesEqual(start, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.start;
-        }
-        if (areCoordinatesEqual(end, [i, j])) {
-          return PATHS_NAME_VALUE_MAP.end;
-        }
-        return 0;
-      }),
-    ),
-  );
 
 type PathReducerAction =
   | ResetPathAction

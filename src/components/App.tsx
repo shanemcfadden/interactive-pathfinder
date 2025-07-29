@@ -30,7 +30,7 @@ function App() {
       ),
     ),
   );
-  const { startNode, endNode, stateOfPath, dispatchPath } = usePathReducer();
+  const { stateOfPath, dispatchPath } = usePathReducer();
   const [currentClickFunction, setCurrentClickFunction] = useState<
     'updateEndNode' | 'updateStartNode' | null
   >(null);
@@ -110,8 +110,8 @@ function App() {
           {PAGE_DESCRIPTION}
         </div>
         <Dashboard
-          startNode={startNode}
-          endNode={endNode}
+          startNode={stateOfPath.start}
+          endNode={stateOfPath.end}
           setCurrentClickFunction={setCurrentClickFunction}
           stateOfNodes={stateOfNodes}
           currentTexture={currentTexture}
