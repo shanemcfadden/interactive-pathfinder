@@ -21,26 +21,24 @@ const Node = ({
   handleOnMouseDown: MouseEventHandler;
   handleOnMouseEnter: MouseEventHandler;
   handleOnMouseUp: MouseEventHandler;
-}) => {
-  return (
-    <div
-      className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
-        {
-          isStart,
-          isEnd,
-          path: currentPathState,
-        },
-      )}`}
-      onClick={handleClick}
-      onMouseDown={handleOnMouseDown}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseUp={handleOnMouseUp}
-    >
-      {isStart && 'S'}
-      {isEnd && 'E'}
-    </div>
-  );
-};
+}) => (
+  <div
+    className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
+      {
+        isStart,
+        isEnd,
+        path: currentPathState,
+      },
+    )}`}
+    onClick={handleClick}
+    onMouseDown={handleOnMouseDown}
+    onMouseEnter={handleOnMouseEnter}
+    onMouseUp={handleOnMouseUp}
+  >
+    {isStart && 'S'}
+    {isEnd && 'E'}
+  </div>
+);
 
 export default Node;
 

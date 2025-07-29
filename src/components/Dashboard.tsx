@@ -7,38 +7,33 @@ import {
 } from 'react';
 import { getDijkstraGenerator } from '../algorithms/dijkstra';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
-import { TEXTURES_ARRAY, type TextureWeightValue } from '../settings/textures';
+import { TEXTURES_ARRAY } from '../settings/textures';
 import '../styles/Dashboard.css';
 import DashboardButton from './DashboardButton';
-import type { Coordinate } from '../util/arr';
-import type { Grid } from '../util/grid';
-import type { DispatchPath } from '../hooks/usePathReducer';
+import {
+  usePathFindingContext,
+  usePathFindingDispatchContext,
+} from '../contexts/PathFindingContext';
 
 const Dashboard = ({
-  startNode,
-  endNode,
   setCurrentClickFunction,
-  terrain,
-  dispatchPath,
   currentTexture,
   setCurrentTexture,
   setModalIsOpen,
   currentSampleTerrain,
   setSampleTerrain,
 }: {
-  startNode: Coordinate;
-  endNode: Coordinate;
   setCurrentClickFunction: Dispatch<
     SetStateAction<'updateEndNode' | 'updateStartNode' | null>
   >;
-  terrain: Grid<TextureWeightValue>;
-  dispatchPath: DispatchPath;
   currentTexture: number | null;
   setCurrentTexture: Dispatch<SetStateAction<number | null>>;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
   currentSampleTerrain: number | null;
   setSampleTerrain: Dispatch<SetStateAction<number | null>>;
 }) => {
+  const { start, end, terrainMap } = usePathFindingContext();
+  const dispatchPath = usePathFindingDispatchContext();
   const [currentInterval, setCurrentInterval] = useState<number | null>(null);
   const [findPathButton, setFindPathButton] = useState<
     'findPath' | 'reset' | 'cancel'
@@ -76,7 +71,7 @@ const Dashboard = ({
     setFindPathButton('cancel');
     setCurrentTexture(null);
     setCurrentClickFunction(null);
-    const dijkstraGenerator = getDijkstraGenerator(startNode, endNode, terrain);
+    const dijkstraGenerator = getDijkstraGenerator(start, end, terrainMap);
     const interval = setInterval(() => {
       const generated = dijkstraGenerator.next();
       if (generated.done) {
@@ -102,9 +97,9 @@ const Dashboard = ({
     }, 10);
     setCurrentInterval(interval);
   }, [
-    startNode,
-    endNode,
-    terrain,
+    start,
+    end,
+    terrainMap,
     afterDijkstraSuccess,
     dispatchPath,
     setCurrentClickFunction,

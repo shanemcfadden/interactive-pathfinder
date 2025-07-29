@@ -9,35 +9,26 @@ import {
   GRID_HEIGHT_PX,
 } from '../settings/grid';
 import { type TextureWeightValue } from '../settings/textures';
-import { Grid } from '../util/grid';
 import '../styles/Grid.css';
 import { areCoordinatesEqual } from '../util/arr';
-import type { DispatchPath, PathState } from '../hooks/usePathReducer';
+import {
+  usePathFindingContext,
+  usePathFindingDispatchContext,
+} from '../contexts/PathFindingContext';
 
 const GridView = ({
   onClickFunction,
-  terrain: terrain,
-  // setStateOfNodes,
-  dispatchPath,
-  stateOfPath,
   currentTexture,
   setSampleTerrainToNull,
 }: {
   onClickFunction: (i: number, j: number) => void;
-  terrain: Grid<TextureWeightValue>;
-  // setStateOfNodes: (newState: Grid<number>) => void;
-  dispatchPath: DispatchPath;
-  stateOfPath: PathState;
   currentTexture: TextureWeightValue | null;
   setSampleTerrainToNull: () => void;
 }) => {
+  const dispatchPath = usePathFindingDispatchContext();
+  const { start, end, path, terrainMap: terrain } = usePathFindingContext();
   const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
     useState(false);
-  // const addTexture = (i: number, j: number, textureNumber: number) => {
-  //   const newStateOfNodes = terrain.shallowCopyOfGrid();
-  //   newStateOfNodes.setCoordinate([i, j], textureNumber);
-  //   setStateOfNodes(newStateOfNodes);
-  // };
   const createHandleOnMouseDown =
     (i: number, j: number): MouseEventHandler =>
     (e) => {
@@ -93,9 +84,9 @@ const GridView = ({
         row.map((textureValue, j) => (
           <Node
             currentTexture={textureValue}
-            isStart={areCoordinatesEqual([i, j], stateOfPath.start)}
-            isEnd={areCoordinatesEqual([i, j], stateOfPath.end)}
-            currentPathState={stateOfPath.pathValues.getCoordinate([i, j])}
+            isStart={areCoordinatesEqual([i, j], start)}
+            isEnd={areCoordinatesEqual([i, j], end)}
+            currentPathState={path.getCoordinate([i, j])}
             handleClick={() => {
               onClickFunction(i, j);
             }}

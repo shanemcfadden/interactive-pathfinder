@@ -7,21 +7,14 @@ import {
   PAGE_DESCRIPTION,
   PAGE_HEADER,
 } from '../settings/content';
-import {
-  GRID_HEIGHT_NODES,
-  GRID_WIDTH_NODES,
-  GRID_WIDTH_PX,
-} from '../settings/grid';
+import { GRID_WIDTH_PX } from '../settings/grid';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
-import { TextureWeight } from '../settings/textures';
-// import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 import '../styles/App.css';
-import { usePathReducer } from '../hooks/usePathReducer';
-import { Grid } from '../util/grid';
+import { usePathFindingDispatchContext } from '../contexts/PathFindingContext';
 import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 
 function App() {
-  const [stateOfPath, dispatchPath] = usePathReducer();
+  const dispatchPath = usePathFindingDispatchContext();
   const [currentClickFunction, setCurrentClickFunction] = useState<
     'updateEndNode' | 'updateStartNode' | null
   >(null);
@@ -43,7 +36,7 @@ function App() {
       start: getShallowCopyOfCoordinateIfDefined(terrain.startNode),
       end: getShallowCopyOfCoordinateIfDefined(terrain.endNode),
     });
-  }, [currentSampleTerrain]);
+  }, [currentSampleTerrain, dispatchPath]);
 
   const setSampleTerrainToNull = () => {
     setSampleTerrain(null);
@@ -74,6 +67,7 @@ function App() {
       setSampleTerrainToNull();
     };
   };
+
   return (
     <div className="App dark-theme">
       <div
@@ -87,23 +81,15 @@ function App() {
           {PAGE_DESCRIPTION}
         </div>
         <Dashboard
-          startNode={stateOfPath.start}
-          endNode={stateOfPath.end}
           setCurrentClickFunction={setCurrentClickFunction}
-          terrain={stateOfPath.terrain}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
-          dispatchPath={dispatchPath}
           setModalIsOpen={setModalIsOpen}
           currentSampleTerrain={currentSampleTerrain}
           setSampleTerrain={setSampleTerrain}
         />
         <GridView
           onClickFunction={createOnClickFunction()}
-          terrain={stateOfPath.terrain}
-          dispatchPath={dispatchPath}
-          // setStateOfNodes={setStateOfNodes}
-          stateOfPath={stateOfPath}
           currentTexture={currentTexture}
           setSampleTerrainToNull={setSampleTerrainToNull}
         />
