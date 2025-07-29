@@ -1,56 +1,48 @@
-export type Texture = 'asphalt' | 'dirt' | 'grass' | 'sand' | 'swamp' | 'water';
+import type { ValueOf } from '../types';
 
-export const TEXTURES_NAME_VALUE_MAP: Record<Texture, number> = {
-  asphalt: 1,
-  dirt: 2,
-  grass: 5,
-  sand: 10,
-  swamp: 20,
-  water: Infinity,
+export const TextureWeight = {
+  Asphalt: 1,
+  Dirt: 2,
+  Grass: 5,
+  Sand: 10,
+  Swamp: 20,
+  Water: Infinity,
 };
 
-export const TEXTURES_VALUE_NAME_MAP = Object.entries(
-  TEXTURES_NAME_VALUE_MAP,
-).reduce<Record<string, Texture>>(
-  (map, [name, value]): Record<string, Texture> => {
-    map[value] = name as Texture;
-    return map;
-  },
-  {},
-);
+export type TextureWeightValue = ValueOf<typeof TextureWeight>;
 
 export const TEXTURES_ARRAY: {
-  weight: number;
+  weight: TextureWeightValue;
   name: string;
   difficulty: string;
 }[] = [
   {
-    weight: TEXTURES_NAME_VALUE_MAP.asphalt,
+    weight: TextureWeight.Asphalt,
     name: 'Asphalt',
     difficulty: 'super easy',
   },
   {
-    weight: TEXTURES_NAME_VALUE_MAP.dirt,
+    weight: TextureWeight.Dirt,
     name: 'Dirt',
     difficulty: 'easy',
   },
   {
-    weight: TEXTURES_NAME_VALUE_MAP.grass,
+    weight: TextureWeight.Grass,
     name: 'Grass',
     difficulty: 'moderate',
   },
   {
-    weight: TEXTURES_NAME_VALUE_MAP.sand,
+    weight: TextureWeight.Sand,
     name: 'Sand',
     difficulty: 'difficult',
   },
   {
-    weight: TEXTURES_NAME_VALUE_MAP.swamp,
+    weight: TextureWeight.Swamp,
     name: 'Swamp',
     difficulty: 'super difficult',
   },
   {
-    weight: TEXTURES_NAME_VALUE_MAP.water,
+    weight: TextureWeight.Water,
     name: 'Water',
     difficulty: 'impossible',
   },

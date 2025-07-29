@@ -49,9 +49,11 @@ class MinHeap<T> {
     return compareValue < 0;
   }
 
-  public push(value: T): void {
-    this.heap.push(value);
-    this.bubbleUp();
+  public push(...values: T[]): void {
+    for (const value of values) {
+      this.heap.push(value);
+      this.bubbleUp();
+    }
   }
 
   public pop(): T | undefined {
