@@ -13,24 +13,15 @@ import {
   GRID_WIDTH_PX,
 } from '../settings/grid';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
-import { TEXTURES_NAME_VALUE_MAP } from '../settings/textures';
-import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
+import { TextureWeight } from '../settings/textures';
+// import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 import '../styles/App.css';
 import { usePathReducer } from '../hooks/usePathReducer';
 import { Grid } from '../util/grid';
+import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 
 function App() {
-  const [stateOfNodes, setStateOfNodes] = useState(
-    new Grid(
-      Array.from({ length: GRID_HEIGHT_NODES }, () =>
-        Array.from(
-          { length: GRID_WIDTH_NODES },
-          () => TEXTURES_NAME_VALUE_MAP.grass,
-        ),
-      ),
-    ),
-  );
-  const { stateOfPath, dispatchPath } = usePathReducer();
+  const [stateOfPath, dispatchPath] = usePathReducer();
   const [currentClickFunction, setCurrentClickFunction] = useState<
     'updateEndNode' | 'updateStartNode' | null
   >(null);
@@ -44,34 +35,20 @@ function App() {
     if (currentSampleTerrain == null) {
       return;
     }
-    const sampleData = SAMPLE_TERRAINS[currentSampleTerrain];
 
-    const newStateOfNodes = sampleData.stateOfNodes.map(
-      (val) => TEXTURES_NAME_VALUE_MAP[val],
-    );
-    const newStartNode = getShallowCopyOfCoordinateIfDefined(
-      sampleData.startNode,
-    );
-    const newEndNode = getShallowCopyOfCoordinateIfDefined(sampleData.endNode);
-
-    setStateOfNodes(newStateOfNodes);
-    if (newStartNode) {
-      dispatchPath({
-        type: 'UPDATE_START_NODE',
-        coordinate: newStartNode,
-      });
-    }
-    if (newEndNode) {
-      dispatchPath({
-        type: 'UPDATE_END_NODE',
-        coordinate: newEndNode,
-      });
-    }
-  }, [currentSampleTerrain]); // eslint-disable-line react-hooks/exhaustive-deps
+    const terrain = SAMPLE_TERRAINS[currentSampleTerrain];
+    dispatchPath({
+      type: 'USE_SAMPLE_TERRAIN',
+      terrain: terrain.stateOfNodes,
+      start: getShallowCopyOfCoordinateIfDefined(terrain.startNode),
+      end: getShallowCopyOfCoordinateIfDefined(terrain.endNode),
+    });
+  }, [currentSampleTerrain]);
 
   const setSampleTerrainToNull = () => {
     setSampleTerrain(null);
   };
+
   const createOnClickFunction = () => {
     const availableFunctions = {
       updateStartNode: (coordinate: [number, number]) => {
@@ -113,7 +90,7 @@ function App() {
           startNode={stateOfPath.start}
           endNode={stateOfPath.end}
           setCurrentClickFunction={setCurrentClickFunction}
-          stateOfNodes={stateOfNodes}
+          terrain={stateOfPath.terrain}
           currentTexture={currentTexture}
           setCurrentTexture={setCurrentTexture}
           dispatchPath={dispatchPath}
@@ -123,8 +100,9 @@ function App() {
         />
         <GridView
           onClickFunction={createOnClickFunction()}
-          stateOfNodes={stateOfNodes}
-          setStateOfNodes={setStateOfNodes}
+          terrain={stateOfPath.terrain}
+          dispatchPath={dispatchPath}
+          // setStateOfNodes={setStateOfNodes}
           stateOfPath={stateOfPath}
           currentTexture={currentTexture}
           setSampleTerrainToNull={setSampleTerrainToNull}

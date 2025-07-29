@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { getDijkstraGenerator } from '../algorithms/dijkstra';
 import { SAMPLE_TERRAINS } from '../settings/terrains';
-import { TEXTURES_ARRAY } from '../settings/textures';
+import { TEXTURES_ARRAY, type TextureWeightValue } from '../settings/textures';
 import '../styles/Dashboard.css';
 import DashboardButton from './DashboardButton';
 import type { Coordinate } from '../util/arr';
@@ -18,7 +18,7 @@ const Dashboard = ({
   startNode,
   endNode,
   setCurrentClickFunction,
-  stateOfNodes,
+  terrain,
   dispatchPath,
   currentTexture,
   setCurrentTexture,
@@ -31,7 +31,7 @@ const Dashboard = ({
   setCurrentClickFunction: Dispatch<
     SetStateAction<'updateEndNode' | 'updateStartNode' | null>
   >;
-  stateOfNodes: Grid<number>;
+  terrain: Grid<TextureWeightValue>;
   dispatchPath: DispatchPath;
   currentTexture: number | null;
   setCurrentTexture: Dispatch<SetStateAction<number | null>>;
@@ -76,11 +76,7 @@ const Dashboard = ({
     setFindPathButton('cancel');
     setCurrentTexture(null);
     setCurrentClickFunction(null);
-    const dijkstraGenerator = getDijkstraGenerator(
-      startNode,
-      endNode,
-      stateOfNodes,
-    );
+    const dijkstraGenerator = getDijkstraGenerator(startNode, endNode, terrain);
     const interval = setInterval(() => {
       const generated = dijkstraGenerator.next();
       if (generated.done) {
@@ -108,7 +104,7 @@ const Dashboard = ({
   }, [
     startNode,
     endNode,
-    stateOfNodes,
+    terrain,
     afterDijkstraSuccess,
     dispatchPath,
     setCurrentClickFunction,

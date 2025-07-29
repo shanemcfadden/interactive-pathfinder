@@ -8,6 +8,7 @@ import {
 import { Path, type PathValue } from '../settings/paths';
 import { areCoordinatesEqual, type Coordinate } from '../util/arr';
 import { Grid } from '../util/grid';
+import { TextureWeight, type TextureWeightValue } from '../settings/textures';
 
 export type DispatchPath = Dispatch<PathReducerAction>;
 
@@ -22,6 +23,13 @@ export const usePathReducer = () => {
         }),
       ),
     ),
+    terrain: new Grid<TextureWeightValue>(
+      Array.from({ length: GRID_HEIGHT_NODES }, () =>
+        Array.from({ length: GRID_WIDTH_NODES }, () => {
+          return TextureWeight.Grass;
+        }),
+      ),
+    ),
   });
 };
 
@@ -29,6 +37,7 @@ export interface PathState {
   start: Coordinate;
   end: Coordinate;
   pathValues: Grid<PathValue>;
+  terrain: Grid<TextureWeightValue>;
 }
 const reducer = (state: PathState, action: PathReducerAction): PathState => {
   switch (action.type) {
@@ -125,6 +134,34 @@ const reducer = (state: PathState, action: PathReducerAction): PathState => {
         }),
       };
     }
+
+    case 'USE_SAMPLE_TERRAIN': {
+      return {
+        ...state,
+        terrain: action.terrain,
+        ...(action.start ? { start: action.start } : {}),
+        ...(action.end ? { end: action.end } : {}),
+      };
+    }
+
+    case 'UPDATE_TERRAIN_TEXTURE': {
+      const currentTexture = state.terrain.getCoordinate(action.coordinate);
+
+      // Replacing a texture with the same texture should not trigger a rerender
+      if (currentTexture === action.texture) {
+        return state;
+      }
+
+      return {
+        ...state,
+        terrain: state.terrain.map((value, [i, j]) => {
+          if (areCoordinatesEqual(action.coordinate, [i, j])) {
+            return action.texture;
+          }
+          return value;
+        }),
+      };
+    }
   }
 };
 
@@ -134,7 +171,9 @@ type PathReducerAction =
   | UpdateStartNodeAction
   | UpdateEndNodeAction
   | AddPathNodeAction
-  | AddVisitedNodeAction;
+  | AddVisitedNodeAction
+  | UseSampleTerrainAction
+  | UpdateTerrainTexture;
 
 interface ResetPathAction {
   type: 'RESET_PATH';
@@ -162,4 +201,17 @@ interface AddPathNodeAction {
 interface AddVisitedNodeAction {
   type: 'ADD_VISITED_COORDINATE';
   coordinate: Coordinate;
+}
+
+interface UseSampleTerrainAction {
+  type: 'USE_SAMPLE_TERRAIN';
+  terrain: Grid<TextureWeightValue>;
+  start?: Coordinate | undefined;
+  end?: Coordinate | undefined;
+}
+
+interface UpdateTerrainTexture {
+  type: 'UPDATE_TERRAIN_TEXTURE';
+  coordinate: Coordinate;
+  texture: TextureWeightValue;
 }

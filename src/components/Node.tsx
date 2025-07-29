@@ -1,5 +1,5 @@
 import '../styles/Node.css';
-import type { Texture } from '../settings/textures';
+import { TextureWeight, type TextureWeightValue } from '../settings/textures';
 import { Path, type PathValue } from '../settings/paths';
 import type { MouseEventHandler } from 'react';
 
@@ -13,7 +13,7 @@ const Node = ({
   handleOnMouseEnter,
   handleOnMouseUp,
 }: {
-  currentTexture: Texture;
+  currentTexture: TextureWeightValue;
   isStart: boolean;
   isEnd: boolean;
   currentPathState: PathValue;
@@ -24,11 +24,13 @@ const Node = ({
 }) => {
   return (
     <div
-      className={`node node--${currentTexture} ${getPathStateClass({
-        isStart,
-        isEnd,
-        path: currentPathState,
-      })}`}
+      className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
+        {
+          isStart,
+          isEnd,
+          path: currentPathState,
+        },
+      )}`}
       onClick={handleClick}
       onMouseDown={handleOnMouseDown}
       onMouseEnter={handleOnMouseEnter}
@@ -66,4 +68,13 @@ const PATH_VALUE_TO_CLASS_MAP: Record<PathValue, string> = {
   [Path.Unvisited]: '',
   [Path.Visited]: 'node--visited',
   [Path.Path]: 'node--path',
+};
+
+const TEXTURE_WEIGHT_TO_CLASS_MAP: Record<TextureWeightValue, string> = {
+  [TextureWeight.Asphalt]: 'node--asphalt',
+  [TextureWeight.Dirt]: 'node--dirt',
+  [TextureWeight.Grass]: 'node--grass',
+  [TextureWeight.Sand]: 'node--sand',
+  [TextureWeight.Swamp]: 'node--swamp',
+  [TextureWeight.Water]: 'node--water',
 };

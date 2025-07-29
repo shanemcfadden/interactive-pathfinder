@@ -1,3 +1,5 @@
+import type { ValueOf } from '../types';
+
 export const Path = {
   Unvisited: 0,
   Visited: 1,
@@ -5,5 +7,3 @@ export const Path = {
 };
 
 export type PathValue = ValueOf<typeof Path>;
-
-type ValueOf<T> = T[keyof T];

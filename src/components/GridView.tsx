@@ -8,34 +8,36 @@ import {
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
 } from '../settings/grid';
-import { TEXTURES_VALUE_NAME_MAP } from '../settings/textures';
+import { type TextureWeightValue } from '../settings/textures';
 import { Grid } from '../util/grid';
 import '../styles/Grid.css';
 import { areCoordinatesEqual } from '../util/arr';
-import type { PathState } from '../hooks/usePathReducer';
+import type { DispatchPath, PathState } from '../hooks/usePathReducer';
 
 const GridView = ({
   onClickFunction,
-  stateOfNodes,
-  setStateOfNodes,
+  terrain: terrain,
+  // setStateOfNodes,
+  dispatchPath,
   stateOfPath,
   currentTexture,
   setSampleTerrainToNull,
 }: {
   onClickFunction: (i: number, j: number) => void;
-  stateOfNodes: Grid<number>;
-  setStateOfNodes: (newState: Grid<number>) => void;
+  terrain: Grid<TextureWeightValue>;
+  // setStateOfNodes: (newState: Grid<number>) => void;
+  dispatchPath: DispatchPath;
   stateOfPath: PathState;
-  currentTexture: number | null;
+  currentTexture: TextureWeightValue | null;
   setSampleTerrainToNull: () => void;
 }) => {
   const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
     useState(false);
-  const addTexture = (i: number, j: number, textureNumber: number) => {
-    const newStateOfNodes = stateOfNodes.shallowCopyOfGrid();
-    newStateOfNodes.setCoordinate([i, j], textureNumber);
-    setStateOfNodes(newStateOfNodes);
-  };
+  // const addTexture = (i: number, j: number, textureNumber: number) => {
+  //   const newStateOfNodes = terrain.shallowCopyOfGrid();
+  //   newStateOfNodes.setCoordinate([i, j], textureNumber);
+  //   setStateOfNodes(newStateOfNodes);
+  // };
   const createHandleOnMouseDown =
     (i: number, j: number): MouseEventHandler =>
     (e) => {
@@ -44,7 +46,11 @@ const GridView = ({
         return;
       }
       setCurrentlyDrawingTextures(true);
-      addTexture(i, j, currentTexture);
+      dispatchPath({
+        type: 'UPDATE_TERRAIN_TEXTURE',
+        coordinate: [i, j],
+        texture: currentTexture,
+      });
       setSampleTerrainToNull();
     };
   const createHandleOnMouseEnter =
@@ -54,7 +60,11 @@ const GridView = ({
       if (!currentTexture || !currentlyDrawingTextures) {
         return;
       }
-      addTexture(i, j, currentTexture);
+      dispatchPath({
+        type: 'UPDATE_TERRAIN_TEXTURE',
+        coordinate: [i, j],
+        texture: currentTexture,
+      });
     };
 
   const handleOnMouseUp: MouseEventHandler = (e) => {
@@ -79,10 +89,10 @@ const GridView = ({
         setCurrentlyDrawingTextures(false);
       }}
     >
-      {stateOfNodes.values.map((row, i) =>
-        row.map((val, j) => (
+      {terrain.values.map((row, i) =>
+        row.map((textureValue, j) => (
           <Node
-            currentTexture={TEXTURES_VALUE_NAME_MAP[val]}
+            currentTexture={textureValue}
             isStart={areCoordinatesEqual([i, j], stateOfPath.start)}
             isEnd={areCoordinatesEqual([i, j], stateOfPath.end)}
             currentPathState={stateOfPath.pathValues.getCoordinate([i, j])}
