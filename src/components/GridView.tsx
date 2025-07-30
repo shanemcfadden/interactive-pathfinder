@@ -8,13 +8,8 @@ import {
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
 } from '../settings/grid';
-// import { type TextureWeightValue } from '../settings/textures';
 import '../styles/Grid.css';
-// import { areCoordinatesEqual } from '../util/arr';
-import {
-  usePathFindingContext,
-  // usePathFindingDispatchContext,
-} from '../contexts/PathFindingContext';
+import { usePathFindingContext } from '../contexts/PathFindingContext';
 import {
   useUserActionContext,
   useUserActionDispatchContext,
