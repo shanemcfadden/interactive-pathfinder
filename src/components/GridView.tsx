@@ -1,4 +1,4 @@
-import { useState, type MouseEventHandler } from 'react';
+import { useCallback, type MouseEventHandler } from 'react';
 import Node from './Node';
 import {
   GRID_HEIGHT_NODES,
@@ -8,64 +8,38 @@ import {
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
 } from '../settings/grid';
-import { type TextureWeightValue } from '../settings/textures';
+// import { type TextureWeightValue } from '../settings/textures';
 import '../styles/Grid.css';
-import { areCoordinatesEqual } from '../util/arr';
+// import { areCoordinatesEqual } from '../util/arr';
 import {
   usePathFindingContext,
-  usePathFindingDispatchContext,
+  // usePathFindingDispatchContext,
 } from '../contexts/PathFindingContext';
+import {
+  useUserActionContext,
+  useUserActionDispatchContext,
+} from '../contexts/UserActionContext';
 
-const GridView = ({
-  onClickFunction,
-  currentTexture,
-  setSampleTerrainToNull,
-}: {
-  onClickFunction: (i: number, j: number) => void;
-  currentTexture: TextureWeightValue | null;
-  setSampleTerrainToNull: () => void;
-}) => {
-  const dispatchPath = usePathFindingDispatchContext();
-  const { start, end, path, terrainMap: terrain } = usePathFindingContext();
-  const [currentlyDrawingTextures, setCurrentlyDrawingTextures] =
-    useState(false);
-  const createHandleOnMouseDown =
-    (i: number, j: number): MouseEventHandler =>
+const GridView = () => {
+  const { terrainMap: terrain } = usePathFindingContext();
+  const userAction = useUserActionContext();
+  const dispatchUserAction = useUserActionDispatchContext();
+
+  const onMouseLeave = useCallback<MouseEventHandler>(
     (e) => {
       e.preventDefault();
-      if (!currentTexture) {
+
+      if (userAction.type !== 'APPLY_TEXTURE') {
         return;
       }
-      setCurrentlyDrawingTextures(true);
-      dispatchPath({
-        type: 'UPDATE_TERRAIN_TEXTURE',
-        coordinate: [i, j],
-        texture: currentTexture,
-      });
-      setSampleTerrainToNull();
-    };
-  const createHandleOnMouseEnter =
-    (i: number, j: number): MouseEventHandler =>
-    (e) => {
-      e.preventDefault();
-      if (!currentTexture || !currentlyDrawingTextures) {
-        return;
-      }
-      dispatchPath({
-        type: 'UPDATE_TERRAIN_TEXTURE',
-        coordinate: [i, j],
-        texture: currentTexture,
-      });
-    };
 
-  const handleOnMouseUp: MouseEventHandler = (e) => {
-    e.preventDefault();
-    if (!currentlyDrawingTextures) {
-      return;
-    }
-    setCurrentlyDrawingTextures(false);
-  };
-
+      dispatchUserAction({
+        type: 'PREPARE_APPLY_TEXTURE',
+        texture: userAction.texture,
+      });
+    },
+    [userAction, dispatchUserAction],
+  );
   return (
     <div
       className="grid"
@@ -76,25 +50,11 @@ const GridView = ({
         height: `${GRID_HEIGHT_PX}px`,
         width: `${GRID_WIDTH_PX}px`,
       }}
-      onMouseLeave={() => {
-        setCurrentlyDrawingTextures(false);
-      }}
+      onMouseLeave={onMouseLeave}
     >
       {terrain.values.map((row, i) =>
-        row.map((textureValue, j) => (
-          <Node
-            currentTexture={textureValue}
-            isStart={areCoordinatesEqual([i, j], start)}
-            isEnd={areCoordinatesEqual([i, j], end)}
-            currentPathState={path.getCoordinate([i, j])}
-            handleClick={() => {
-              onClickFunction(i, j);
-            }}
-            handleOnMouseDown={createHandleOnMouseDown(i, j)}
-            handleOnMouseEnter={createHandleOnMouseEnter(i, j)}
-            handleOnMouseUp={handleOnMouseUp}
-            key={`${i}-${j}`}
-          />
+        row.map((_, j) => (
+          <Node rowIndex={i} columnIndex={j} key={`${i}-${j}`} />
         )),
       )}
     </div>

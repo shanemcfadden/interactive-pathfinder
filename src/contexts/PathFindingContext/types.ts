@@ -1,4 +1,5 @@
 import type { PathValue } from '../../settings/paths';
+import type { Terrain, TerrainKey } from '../../settings/terrains';
 import type { TextureWeightValue } from '../../settings/textures';
 import type { Coordinate } from '../../util/arr';
 import type { Grid } from '../../util/grid';
@@ -8,6 +9,7 @@ export interface PathFindingState {
   end: Coordinate;
   path: Grid<PathValue>;
   terrainMap: Grid<TextureWeightValue>;
+  sampleTerrain: TerrainKey | null;
 }
 
 export type PathReducerAction =
@@ -40,9 +42,7 @@ interface ResetPathAction {
 
 interface UseSampleTerrainAction {
   type: 'USE_SAMPLE_TERRAIN';
-  terrain: Grid<TextureWeightValue>;
-  start?: Coordinate | undefined;
-  end?: Coordinate | undefined;
+  terrain: Terrain;
 }
 
 interface UpdateTerrainTexture {

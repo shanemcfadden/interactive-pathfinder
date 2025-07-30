@@ -6,10 +6,7 @@ import {
 } from '../../settings/grid';
 import { Path, type PathValue } from '../../settings/paths';
 import { Grid } from '../../util/grid';
-import {
-  TextureWeight,
-  type TextureWeightValue,
-} from '../../settings/textures';
+import { DEFAULT_STARTING_TERRAIN } from '../../settings/terrains';
 
 export const INITIAL_PATH_FINDING_STATE = {
   start: DEFAULT_START_NODE,
@@ -19,9 +16,6 @@ export const INITIAL_PATH_FINDING_STATE = {
       Array.from({ length: GRID_WIDTH_NODES }, () => Path.Unvisited),
     ),
   ),
-  terrainMap: new Grid<TextureWeightValue>(
-    Array.from({ length: GRID_HEIGHT_NODES }, () =>
-      Array.from({ length: GRID_WIDTH_NODES }, () => TextureWeight.Grass),
-    ),
-  ),
+  sampleTerrain: DEFAULT_STARTING_TERRAIN.key,
+  terrainMap: DEFAULT_STARTING_TERRAIN.stateOfNodes,
 };
