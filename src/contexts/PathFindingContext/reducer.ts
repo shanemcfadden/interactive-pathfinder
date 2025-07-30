@@ -34,6 +34,7 @@ export const reducer = (
       return {
         ...state,
         start: action.coordinate,
+        sampleTerrain: null,
       };
     }
 
@@ -50,6 +51,7 @@ export const reducer = (
       return {
         ...state,
         end: action.coordinate,
+        sampleTerrain: null,
       };
     }
 
@@ -104,9 +106,12 @@ export const reducer = (
     case 'USE_SAMPLE_TERRAIN': {
       return {
         ...state,
-        terrainMap: action.terrain,
-        ...(action.start ? { start: action.start } : {}),
-        ...(action.end ? { end: action.end } : {}),
+        sampleTerrain: action.terrain.key,
+        terrainMap: action.terrain.stateOfNodes,
+        ...(action.terrain.startNode
+          ? { start: action.terrain.startNode }
+          : {}),
+        ...(action.terrain.endNode ? { end: action.terrain.endNode } : {}),
       };
     }
 
@@ -126,6 +131,7 @@ export const reducer = (
           }
           return value;
         }),
+        sampleTerrain: null,
       };
     }
   }

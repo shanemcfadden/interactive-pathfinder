@@ -1,44 +1,155 @@
 import '../styles/Node.css';
 import { TextureWeight, type TextureWeightValue } from '../settings/textures';
 import { Path, type PathValue } from '../settings/paths';
-import type { MouseEventHandler } from 'react';
+import { useCallback, useMemo, type MouseEventHandler } from 'react';
+import { areCoordinatesEqual, type Coordinate } from '../util/arr';
+import {
+  usePathFindingContext,
+  usePathFindingDispatchContext,
+} from '../contexts/PathFindingContext';
+import {
+  useUserActionContext,
+  useUserActionDispatchContext,
+} from '../contexts/UserActionContext';
 
 const Node = ({
-  currentTexture,
-  isStart,
-  isEnd,
-  currentPathState,
-  handleClick,
-  handleOnMouseDown,
-  handleOnMouseEnter,
-  handleOnMouseUp,
+  rowIndex,
+  columnIndex,
 }: {
-  currentTexture: TextureWeightValue;
-  isStart: boolean;
-  isEnd: boolean;
-  currentPathState: PathValue;
-  handleClick: () => void;
-  handleOnMouseDown: MouseEventHandler;
-  handleOnMouseEnter: MouseEventHandler;
-  handleOnMouseUp: MouseEventHandler;
-}) => (
-  <div
-    className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
-      {
-        isStart,
-        isEnd,
-        path: currentPathState,
-      },
-    )}`}
-    onClick={handleClick}
-    onMouseDown={handleOnMouseDown}
-    onMouseEnter={handleOnMouseEnter}
-    onMouseUp={handleOnMouseUp}
-  >
-    {isStart && 'S'}
-    {isEnd && 'E'}
-  </div>
-);
+  rowIndex: number;
+  columnIndex: number;
+}) => {
+  const coordinate = useMemo<Coordinate>(
+    () => [rowIndex, columnIndex],
+    [rowIndex, columnIndex],
+  );
+  const { start, end, path, terrainMap: terrain } = usePathFindingContext();
+  const dispatchPath = usePathFindingDispatchContext();
+
+  const userAction = useUserActionContext();
+  const dispatchUserAction = useUserActionDispatchContext();
+
+  const isStart = useMemo(
+    () => areCoordinatesEqual(coordinate, start),
+    [coordinate, start],
+  );
+
+  const isEnd = useMemo(
+    () => areCoordinatesEqual(coordinate, end),
+    [coordinate, end],
+  );
+
+  const currentTexture = useMemo(
+    () => terrain.getCoordinate(coordinate),
+    [terrain, coordinate],
+  );
+
+  const currentPathState = useMemo(
+    () => path.getCoordinate(coordinate),
+    [path, coordinate],
+  );
+
+  const onClick = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      e.preventDefault();
+
+      switch (userAction.type) {
+        case 'UPDATE_START_NODE':
+          dispatchPath({
+            type: 'UPDATE_START_NODE',
+            coordinate,
+          });
+          break;
+        case 'UPDATE_END_NODE':
+          dispatchPath({
+            type: 'UPDATE_END_NODE',
+            coordinate,
+          });
+          break;
+        default:
+          return;
+      }
+
+      dispatchUserAction({
+        type: 'NO_ACTION',
+      });
+    },
+    [dispatchUserAction, dispatchPath, userAction.type, coordinate],
+  );
+
+  const onMouseDown = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      e.preventDefault();
+
+      if (userAction.type !== 'PREPARE_APPLY_TEXTURE') {
+        return;
+      }
+
+      dispatchPath({
+        type: 'UPDATE_TERRAIN_TEXTURE',
+        coordinate,
+        texture: userAction.texture,
+      });
+      dispatchUserAction({
+        type: 'APPLY_TEXTURE',
+        texture: userAction.texture,
+      });
+    },
+    [userAction, dispatchPath, dispatchUserAction, coordinate],
+  );
+
+  const onMouseEnter = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      e.preventDefault();
+
+      if (userAction.type !== 'APPLY_TEXTURE') {
+        return;
+      }
+
+      dispatchPath({
+        type: 'UPDATE_TERRAIN_TEXTURE',
+        coordinate,
+        texture: userAction.texture,
+      });
+    },
+    [userAction, dispatchPath, coordinate],
+  );
+
+  const onMouseUp = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      e.preventDefault();
+
+      if (userAction.type !== 'APPLY_TEXTURE') {
+        return;
+      }
+
+      dispatchUserAction({
+        type: 'PREPARE_APPLY_TEXTURE',
+        texture: userAction.texture,
+      });
+    },
+    [userAction, dispatchUserAction],
+  );
+
+  return (
+    <div
+      className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
+        {
+          isStart,
+          isEnd,
+          path: currentPathState,
+        },
+      )}`}
+      onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseEnter={onMouseEnter}
+      onMouseUp={onMouseUp}
+    >
+      {isStart && 'S'}
+      {isEnd && 'E'}
+    </div>
+  );
+};
 
 export default Node;
 

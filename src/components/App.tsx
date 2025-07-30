@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Dashboard from './Dashboard';
 import GridView from './GridView';
 import Modal from './Modal';
@@ -8,65 +8,10 @@ import {
   PAGE_HEADER,
 } from '../settings/content';
 import { GRID_WIDTH_PX } from '../settings/grid';
-import { SAMPLE_TERRAINS } from '../settings/terrains';
 import '../styles/App.css';
-import { usePathFindingDispatchContext } from '../contexts/PathFindingContext';
-import { getShallowCopyOfCoordinateIfDefined } from '../util/arr';
 
 function App() {
-  const dispatchPath = usePathFindingDispatchContext();
-  const [currentClickFunction, setCurrentClickFunction] = useState<
-    'updateEndNode' | 'updateStartNode' | null
-  >(null);
-  const [currentTexture, setCurrentTexture] = useState<number | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentSampleTerrain, setSampleTerrain] = useState<number | null>(
-    null,
-  );
-
-  useEffect(() => {
-    if (currentSampleTerrain == null) {
-      return;
-    }
-
-    const terrain = SAMPLE_TERRAINS[currentSampleTerrain];
-    dispatchPath({
-      type: 'USE_SAMPLE_TERRAIN',
-      terrain: terrain.stateOfNodes,
-      start: getShallowCopyOfCoordinateIfDefined(terrain.startNode),
-      end: getShallowCopyOfCoordinateIfDefined(terrain.endNode),
-    });
-  }, [currentSampleTerrain, dispatchPath]);
-
-  const setSampleTerrainToNull = () => {
-    setSampleTerrain(null);
-  };
-
-  const createOnClickFunction = () => {
-    const availableFunctions = {
-      updateStartNode: (coordinate: [number, number]) => {
-        dispatchPath({
-          type: 'UPDATE_START_NODE',
-          coordinate,
-        });
-      },
-      updateEndNode: (coordinate: [number, number]) => {
-        dispatchPath({
-          type: 'UPDATE_END_NODE',
-          coordinate,
-        });
-      },
-    };
-    if (!currentClickFunction || !availableFunctions[currentClickFunction]) {
-      return () => {};
-    }
-
-    return (i: number, j: number) => {
-      availableFunctions[currentClickFunction]([i, j]);
-      setCurrentClickFunction(null);
-      setSampleTerrainToNull();
-    };
-  };
 
   return (
     <div className="App dark-theme">
@@ -80,19 +25,8 @@ function App() {
           <h1 className="centered-text">{PAGE_HEADER}</h1>
           {PAGE_DESCRIPTION}
         </div>
-        <Dashboard
-          setCurrentClickFunction={setCurrentClickFunction}
-          currentTexture={currentTexture}
-          setCurrentTexture={setCurrentTexture}
-          setModalIsOpen={setModalIsOpen}
-          currentSampleTerrain={currentSampleTerrain}
-          setSampleTerrain={setSampleTerrain}
-        />
-        <GridView
-          onClickFunction={createOnClickFunction()}
-          currentTexture={currentTexture}
-          setSampleTerrainToNull={setSampleTerrainToNull}
-        />
+        <Dashboard setModalIsOpen={setModalIsOpen} />
+        <GridView />
       </div>
       {modalIsOpen && (
         <Modal

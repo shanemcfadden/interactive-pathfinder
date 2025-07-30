@@ -1,37 +1,26 @@
 import {
   useCallback,
   useState,
-  type ChangeEventHandler,
   type Dispatch,
   type SetStateAction,
 } from 'react';
 import { getDijkstraGenerator } from '../algorithms/dijkstra';
-import { SAMPLE_TERRAINS } from '../settings/terrains';
-import { TEXTURES_ARRAY } from '../settings/textures';
 import '../styles/Dashboard.css';
 import DashboardButton from './DashboardButton';
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
 } from '../contexts/PathFindingContext';
+import { useUserActionDispatchContext } from '../contexts/UserActionContext';
+import { SelectTexture } from './SelectTexture';
+import { SelectTerrain } from './SelectTerrain';
 
 const Dashboard = ({
-  setCurrentClickFunction,
-  currentTexture,
-  setCurrentTexture,
   setModalIsOpen,
-  currentSampleTerrain,
-  setSampleTerrain,
 }: {
-  setCurrentClickFunction: Dispatch<
-    SetStateAction<'updateEndNode' | 'updateStartNode' | null>
-  >;
-  currentTexture: number | null;
-  setCurrentTexture: Dispatch<SetStateAction<number | null>>;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-  currentSampleTerrain: number | null;
-  setSampleTerrain: Dispatch<SetStateAction<number | null>>;
 }) => {
+  const dispatchUserAction = useUserActionDispatchContext();
   const { start, end, terrainMap } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
   const [currentInterval, setCurrentInterval] = useState<number | null>(null);
@@ -58,19 +47,22 @@ const Dashboard = ({
   );
 
   const handleStartButtonClick = useCallback(() => {
-    setCurrentTexture(null);
-    setCurrentClickFunction('updateStartNode');
-  }, [setCurrentClickFunction, setCurrentTexture]);
+    dispatchUserAction({
+      type: 'UPDATE_START_NODE',
+    });
+  }, [dispatchUserAction]);
 
   const handleEndButtonClick = useCallback(() => {
-    setCurrentTexture(null);
-    setCurrentClickFunction('updateEndNode');
-  }, [setCurrentClickFunction, setCurrentTexture]);
+    dispatchUserAction({
+      type: 'UPDATE_END_NODE',
+    });
+  }, [dispatchUserAction]);
 
   const handleFindPathClick = useCallback(() => {
     setFindPathButton('cancel');
-    setCurrentTexture(null);
-    setCurrentClickFunction(null);
+    dispatchUserAction({
+      type: 'NO_ACTION',
+    });
     const dijkstraGenerator = getDijkstraGenerator(start, end, terrainMap);
     const interval = setInterval(() => {
       const generated = dijkstraGenerator.next();
@@ -102,8 +94,7 @@ const Dashboard = ({
     terrainMap,
     afterDijkstraSuccess,
     dispatchPath,
-    setCurrentClickFunction,
-    setCurrentTexture,
+    dispatchUserAction,
     setFindPathButton,
   ]);
 
@@ -119,28 +110,6 @@ const Dashboard = ({
     setCurrentInterval(null);
     handleFindPathReset();
   }, [currentInterval, handleFindPathReset, setCurrentInterval]);
-
-  const handleTextureChange: ChangeEventHandler<HTMLSelectElement> =
-    useCallback(
-      (e) => {
-        e.preventDefault();
-        setCurrentClickFunction(null);
-        const newValue = e.target.value === 'none' ? null : +e.target.value;
-        setCurrentTexture(newValue);
-      },
-      [setCurrentTexture, setCurrentClickFunction],
-    );
-
-  const handleSampleTerrainChange: ChangeEventHandler<HTMLSelectElement> =
-    useCallback(
-      (e) => {
-        e.preventDefault();
-        setCurrentClickFunction(null);
-        const newValue = e.target.value === 'none' ? null : +e.target.value;
-        setSampleTerrain(newValue);
-      },
-      [setSampleTerrain, setCurrentClickFunction],
-    );
 
   const renderFindPathButton = () => {
     const findPathButtons = {
@@ -185,34 +154,8 @@ const Dashboard = ({
       >
         Select End
       </DashboardButton>
-      <label htmlFor="select-texture">Draw Texture:</label>
-      <select
-        id="select-texture"
-        value={currentTexture == null ? 'none' : currentTexture.toString()}
-        onChange={handleTextureChange}
-        disabled={findPathButton !== 'findPath'}
-      >
-        <option value="none">-</option>
-        {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => (
-          <option key={name} value={weight}>
-            {name} ({difficulty})
-          </option>
-        ))}
-      </select>
-      <label htmlFor="select-sample">Sample Terrains:</label>
-      <select
-        id="select-sample"
-        value={currentSampleTerrain == null ? 'none' : currentSampleTerrain}
-        onChange={handleSampleTerrainChange}
-        disabled={findPathButton !== 'findPath'}
-      >
-        <option value="none">-</option>
-        {SAMPLE_TERRAINS.map(({ displayText }, i) => (
-          <option value={i} key={`terrain-${i}`}>
-            {displayText}
-          </option>
-        ))}
-      </select>
+      <SelectTexture disabled={findPathButton !== 'findPath'} />
+      <SelectTerrain disabled={findPathButton !== 'findPath'} />
       {renderFindPathButton()}
     </div>
   );
