@@ -11,6 +11,7 @@ import { DEFAULT_STARTING_TERRAIN } from '../../settings/terrains';
 export const INITIAL_PATH_FINDING_STATE = {
   start: DEFAULT_START_NODE,
   end: DEFAULT_END_NODE,
+  isFindingPath: false,
   path: new Grid<PathValue>(
     Array.from({ length: GRID_HEIGHT_NODES }, () =>
       Array.from({ length: GRID_WIDTH_NODES }, () => Path.Unvisited),

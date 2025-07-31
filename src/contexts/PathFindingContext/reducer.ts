@@ -10,12 +10,14 @@ export const reducer = (
     case 'RESET_PATH':
       return {
         ...state,
+        isFindingPath: false,
         path: state.path.map(() => Path.Unvisited),
       };
 
     case 'CLEAR_VISITED_NODES':
       return {
         ...state,
+        isFindingPath: false,
         path: state.path.map((value) =>
           value === Path.Visited ? Path.Unvisited : value,
         ),
@@ -70,6 +72,7 @@ export const reducer = (
 
       return {
         ...state,
+        isFindingPath: true,
         path: state.path.map((value, [i, j]) => {
           if (areCoordinatesEqual(action.coordinate, [i, j])) {
             return Path.Path;
@@ -94,6 +97,7 @@ export const reducer = (
 
       return {
         ...state,
+        isFindingPath: true,
         path: state.path.map((value, [i, j]) => {
           if (areCoordinatesEqual(action.coordinate, [i, j])) {
             return Path.Visited;
