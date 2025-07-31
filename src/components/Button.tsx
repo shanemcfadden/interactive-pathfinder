@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from 'react';
 
-const DashboardButton = ({
+const Button = ({
   children,
   onClickFn,
   extraClassName = '',
@@ -20,4 +20,4 @@ const DashboardButton = ({
   </button>
 );
 
-export default DashboardButton;
+export default Button;

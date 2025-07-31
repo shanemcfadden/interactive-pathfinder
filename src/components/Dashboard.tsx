@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { getDijkstraGenerator } from '../algorithms/dijkstra';
 import '../styles/Dashboard.css';
-import DashboardButton from './DashboardButton';
+import Button from './Button';
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
@@ -134,26 +134,26 @@ const Dashboard = ({
       findPathButtons[findPathButton];
 
     return (
-      <DashboardButton onClickFn={onClickFn} extraClassName={extraClassName}>
+      <Button onClickFn={onClickFn} extraClassName={extraClassName}>
         {innerHTML}
-      </DashboardButton>
+      </Button>
     );
   };
 
   return (
     <div className="dashboard">
-      <DashboardButton
+      <Button
         onClickFn={handleStartButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select Start
-      </DashboardButton>
-      <DashboardButton
+      </Button>
+      <Button
         onClickFn={handleEndButtonClick}
         disabled={findPathButton !== 'findPath'}
       >
         Select End
-      </DashboardButton>
+      </Button>
       <SelectTexture disabled={findPathButton !== 'findPath'} />
       <SelectTerrain disabled={findPathButton !== 'findPath'} />
       {renderFindPathButton()}
