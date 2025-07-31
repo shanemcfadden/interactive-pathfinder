@@ -4,10 +4,10 @@
   --button-color: #fff;
   --button-bg-color--disabled: hsl(241, 94%, 49%);
   --button-color--disabled: hsl(219, 94%, 49%);
-  --button-bg-color--go: hsl(118, 94%, 29%);
-  --button-bg-color--go--hover: hsl(118, 94%, 19%);
-  --button-bg-color--stop: hsl(0, 94%, 49%);
-  --button-bg-color--stop--hover: hsl(0, 94%, 39%);
+  --button-bg-color--submit: hsl(118, 94%, 29%);
+  --button-bg-color--submit--hover: hsl(118, 94%, 19%);
+  --button-bg-color--danger: hsl(0, 94%, 49%);
+  --button-bg-color--danger--hover: hsl(0, 94%, 39%);
 }
 
 .dashboard {
@@ -47,18 +47,18 @@
   cursor: auto;
 }
 
-.dashboard__button.dashboard__button--go {
-  background-color: var(--button-bg-color--go);
+.dashboard__button.dashboard__button--submit {
+  background-color: var(--button-bg-color--submit);
 }
 
-.dashboard__button.dashboard__button--go:hover {
-  background-color: var(--button-bg-color--go--hover);
+.dashboard__button.dashboard__button--submit:hover {
+  background-color: var(--button-bg-color--submit--hover);
 }
 
-.dashboard__button.dashboard__button--stop {
-  background-color: var(--button-bg-color--stop);
+.dashboard__button.dashboard__button--danger {
+  background-color: var(--button-bg-color--danger);
 }
 
-.dashboard__button.dashboard__button--stop:hover {
-  background-color: var(--button-bg-color--stop--hover);
+.dashboard__button.dashboard__button--danger:hover {
+  background-color: var(--button-bg-color--danger--hover);
 }

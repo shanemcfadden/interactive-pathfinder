@@ -7,6 +7,7 @@ import type { Grid } from '../../util/grid';
 export interface PathFindingState {
   start: Coordinate;
   end: Coordinate;
+  isFindingPath: boolean;
   path: Grid<PathValue>;
   terrainMap: Grid<TextureWeightValue>;
   sampleTerrain: TerrainKey | null;
