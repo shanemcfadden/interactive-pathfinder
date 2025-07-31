@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction } from 'react';
-import '../styles/Dashboard.css';
-import { usePathFindingContext } from '../contexts/PathFindingContext';
+import '../../styles/Dashboard.css';
+import { usePathFindingContext } from '../../contexts/PathFindingContext';
 import { SelectTexture } from './SelectTexture';
 import { SelectTerrain } from './SelectTerrain';
 import { ActionButton } from './ActionButton';

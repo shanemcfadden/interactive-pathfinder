@@ -1,5 +1,4 @@
 import { useState, type Dispatch, type SetStateAction } from 'react';
-import '../../styles/Dashboard.css';
 import { FindPathButton } from './FindPathButton';
 import { CancelPathButton } from './CancelPathButton';
 import { ResetPathButton } from './ResetPathButton';

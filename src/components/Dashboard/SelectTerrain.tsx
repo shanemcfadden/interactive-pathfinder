@@ -1,10 +1,10 @@
 import { useCallback, type ChangeEventHandler } from 'react';
-import { useUserActionDispatchContext } from '../contexts/UserActionContext';
-import { SAMPLE_TERRAINS } from '../settings/terrains';
+import { useUserActionDispatchContext } from '../../contexts/UserActionContext';
+import { SAMPLE_TERRAINS } from '../../settings/terrains';
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from '../contexts/PathFindingContext';
+} from '../../contexts/PathFindingContext';
 
 export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
