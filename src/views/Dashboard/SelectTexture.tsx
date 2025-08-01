@@ -8,6 +8,7 @@ import {
   TextureWeight,
   type TextureWeightValue,
 } from '../../settings/textures';
+import { Select, type SelectOption } from '../../components/Select';
 
 export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   const userAction = useUserActionContext();
@@ -48,22 +49,25 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
     [dispatchUserAction],
   );
 
+  const options: SelectOption[] = useMemo(
+    () => [
+      { label: '-', value: 'none' },
+      ...TEXTURES_ARRAY.map(({ weight, name, difficulty }) => ({
+        label: `${name} (${difficulty})`,
+        value: weight.toString(),
+      })),
+    ],
+    [],
+  );
+
   return (
-    <>
-      <label htmlFor="select-texture">Draw Texture:</label>
-      <select
-        id="select-texture"
-        value={currentTexture == null ? 'none' : currentTexture.toString()}
-        onChange={onChange}
-        disabled={disabled}
-      >
-        <option value="none">-</option>
-        {TEXTURES_ARRAY.map(({ weight, name, difficulty }) => (
-          <option key={name} value={weight}>
-            {name} ({difficulty})
-          </option>
-        ))}
-      </select>
-    </>
+    <Select
+      id="select-texture"
+      label="Draw Texture:"
+      value={currentTexture == null ? 'none' : currentTexture.toString()}
+      disabled={disabled}
+      onChange={onChange}
+      options={options}
+    />
   );
 };
