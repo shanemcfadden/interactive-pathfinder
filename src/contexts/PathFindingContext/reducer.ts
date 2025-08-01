@@ -17,7 +17,7 @@ export const reducer = (
     case 'CLEAR_VISITED_NODES':
       return {
         ...state,
-        isFindingPath: false,
+        isFindingPath: true,
         path: state.path.map((value) =>
           value === Path.Visited ? Path.Unvisited : value,
         ),
