@@ -48,6 +48,7 @@ it('MinHeap accepts custom comparison functions', () => {
         const heap = new MinHeap<ValueWithSequenceNumber>(compareFunction);
         values.forEach((value) => heap.push(value));
         const poppedValues: ValueWithSequenceNumber[] = [];
+
         while (true) {
           const poppedValue = heap.pop();
           if (poppedValue === undefined) {
@@ -55,7 +56,10 @@ it('MinHeap accepts custom comparison functions', () => {
           }
           poppedValues.push(poppedValue);
         }
-        expect(poppedValues).toEqual(values.sort(compareFunction));
+
+        expect(poppedValues.map((value) => value.sequenceNumber)).toEqual(
+          values.sort(compareFunction).map((value) => value.sequenceNumber),
+        );
       },
     ),
   );
