@@ -1,4 +1,4 @@
-import type { Coordinate } from '../../util/coordinate';
+import type { Coordinate } from '../../coordinate';
 
 export type PathAction = AddVisitedCoordinate | AddPathCoordinate;
 

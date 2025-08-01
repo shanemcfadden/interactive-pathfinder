@@ -1,6 +1,6 @@
-import MinHeap from '../../models/MinHeap';
-import { areCoordinatesEqual, type Coordinate } from '../../util/coordinate';
-import { Grid } from '../../util/grid';
+import MinHeap from '../../min-heap';
+import { areCoordinatesEqual, type Coordinate } from '../../coordinate';
+import { Grid } from '../../grid';
 import { PreviousCoordinateMap } from './PreviousCoordinateMap';
 import type { CompleteCalculation, CoordinateData, PathAction } from './types';
 

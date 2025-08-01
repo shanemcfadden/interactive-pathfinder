@@ -1,4 +1,4 @@
-import MinHeap from './MinHeap';
+import MinHeap from './min-heap';
 import { it, expect } from 'vitest';
 import fc from 'fast-check';
 

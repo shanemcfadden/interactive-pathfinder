@@ -1,4 +1,4 @@
-import type { Coordinate } from '../../util/coordinate';
+import type { Coordinate } from '../../coordinate';
 
 export class PreviousCoordinateMap {
   private map: Record<string, Coordinate | null>;
