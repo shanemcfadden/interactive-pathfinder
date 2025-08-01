@@ -12,14 +12,14 @@ const Dashboard = ({
 }: {
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { isFindingPath } = usePathFindingContext();
+  const { isPathFinderActive } = usePathFindingContext();
 
   return (
     <div className="dashboard">
-      <SelectStartButton disabled={isFindingPath} />
-      <SelectEndButton disabled={isFindingPath} />
-      <SelectTexture disabled={isFindingPath} />
-      <SelectTerrain disabled={isFindingPath} />
+      <SelectStartButton disabled={isPathFinderActive} />
+      <SelectEndButton disabled={isPathFinderActive} />
+      <SelectTexture disabled={isPathFinderActive} />
+      <SelectTerrain disabled={isPathFinderActive} />
       <ActionButton setModalIsOpen={setModalIsOpen} />
     </div>
   );
