@@ -2,7 +2,7 @@ import '../styles/Node.css';
 import { TextureWeight, type TextureWeightValue } from '../settings/textures';
 import { Path, type PathValue } from '../settings/paths';
 import { useCallback, useMemo, type MouseEventHandler } from 'react';
-import { areCoordinatesEqual, type Coordinate } from '../util/arr';
+import { areCoordinatesEqual, type Coordinate } from '../util/coordinate';
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,

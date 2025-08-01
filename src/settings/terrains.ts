@@ -1,6 +1,6 @@
 import { TextureWeight, type TextureWeightValue } from './textures';
 import { Grid } from '../util/grid';
-import type { Coordinate } from '../util/arr';
+import type { Coordinate } from '../util/coordinate';
 
 export interface Terrain {
   key: TerrainKey;
