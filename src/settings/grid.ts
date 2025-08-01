@@ -1,4 +1,4 @@
-import type { Coordinate } from '../util/arr';
+import type { Coordinate } from '../util/coordinate';
 
 export const DEFAULT_START_NODE: Coordinate = [4, 4];
 export const DEFAULT_END_NODE: Coordinate = [7, 16];

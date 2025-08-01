@@ -1,5 +1,5 @@
 import { Path } from '../../settings/paths';
-import { areCoordinatesEqual } from '../../util/arr';
+import { areCoordinatesEqual } from '../../util/coordinate';
 import type { PathReducerAction, PathFindingState } from './types';
 
 export const reducer = (
