@@ -1,7 +1,7 @@
 import type { PathValue } from '../../settings/paths';
 import type { Terrain, TerrainKey } from '../../settings/terrains';
 import type { TextureWeightValue } from '../../settings/textures';
-import type { Coordinate } from '../../util/arr';
+import type { Coordinate } from '../../util/coordinate';
 import type { Grid } from '../../util/grid';
 
 export interface PathFindingState {

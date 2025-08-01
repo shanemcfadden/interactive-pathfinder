@@ -1,5 +1,5 @@
 import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import { getDijkstraGenerator } from '../../../algorithms/dijkstra';
+import { getDijkstraGenerator } from '../../../util/algorithms/dijkstra';
 import Button from '../../../components/Button';
 import {
   usePathFindingContext,
