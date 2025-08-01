@@ -1,10 +1,11 @@
-import { useCallback, type ChangeEventHandler } from 'react';
+import { useCallback, useMemo, type ChangeEventHandler } from 'react';
 import { useUserActionDispatchContext } from '../../contexts/UserActionContext';
 import { SAMPLE_TERRAINS } from '../../settings/terrains';
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
 } from '../../contexts/PathFindingContext';
+import { Select, type SelectOption } from '../Select';
 
 export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
@@ -34,22 +35,25 @@ export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
       [dispatchPath, dispatchUserAction],
     );
 
+  const options: SelectOption[] = useMemo(
+    () => [
+      { label: '-', value: 'none' },
+      ...SAMPLE_TERRAINS.map(({ displayText, key }) => ({
+        label: displayText,
+        value: key,
+      })),
+    ],
+    [],
+  );
+
   return (
-    <>
-      <label htmlFor="select-sample">Sample Terrains:</label>
-      <select
-        id="select-sample"
-        value={sampleTerrain == null ? 'none' : sampleTerrain}
-        onChange={handleSampleTerrainChange}
-        disabled={disabled}
-      >
-        <option value="none">-</option>
-        {SAMPLE_TERRAINS.map(({ displayText, key }) => (
-          <option value={key} key={key}>
-            {displayText}
-          </option>
-        ))}
-      </select>
-    </>
+    <Select
+      id="select-sample"
+      label="Sample Terrains:"
+      value={sampleTerrain == null ? 'none' : sampleTerrain}
+      onChange={handleSampleTerrainChange}
+      disabled={disabled}
+      options={options}
+    />
   );
 };
