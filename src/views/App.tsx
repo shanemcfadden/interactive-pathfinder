@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Dashboard from './Dashboard';
 import GridView from './GridView';
-import Modal from './Modal';
+import Modal from '../components/Modal';
 import {
   MODAL_HEADER,
   PAGE_DESCRIPTION,

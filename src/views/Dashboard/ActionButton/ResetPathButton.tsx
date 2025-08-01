@@ -1,5 +1,5 @@
 import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import Button from '../../Button';
+import Button from '../../../components/Button';
 import { usePathFindingDispatchContext } from '../../../contexts/PathFindingContext';
 
 export const ResetPathButton = ({

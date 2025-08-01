@@ -8,7 +8,7 @@ import {
   TextureWeight,
   type TextureWeightValue,
 } from '../../settings/textures';
-import { Select, type SelectOption } from '../Select';
+import { Select, type SelectOption } from '../../components/Select';
 
 export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   const userAction = useUserActionContext();

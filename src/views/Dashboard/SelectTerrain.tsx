@@ -5,7 +5,7 @@ import {
   usePathFindingContext,
   usePathFindingDispatchContext,
 } from '../../contexts/PathFindingContext';
-import { Select, type SelectOption } from '../Select';
+import { Select, type SelectOption } from '../../components/Select';
 
 export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();

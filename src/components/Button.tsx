@@ -10,15 +10,15 @@ const Button = ({
   disabled?: boolean;
   onClickFn: () => void;
 }>) => (
-    <button
-      className={'dashboard__button ' + ACTION_TYPE_TO_CLASS[actionType]}
-      type="button"
-      onClick={onClickFn}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
+  <button
+    className={'dashboard__button ' + ACTION_TYPE_TO_CLASS[actionType]}
+    type="button"
+    onClick={onClickFn}
+    disabled={disabled}
+  >
+    {children}
+  </button>
+);
 
 export default memo(Button);
 
