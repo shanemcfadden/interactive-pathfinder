@@ -17,7 +17,7 @@
 
 .node::after {
   background-color: transparent;
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   opacity: 0;

@@ -1,14 +1,14 @@
-import { useCallback, useMemo, type ChangeEventHandler } from 'react';
+import { useCallback, useMemo, type ChangeEventHandler } from "react";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from '../../contexts/UserActionContext';
+} from "../../contexts/UserActionContext";
 import {
   TEXTURES_ARRAY,
   TextureWeight,
   type TextureWeightValue,
-} from '../../settings/textures';
-import { Select, type SelectOption } from '../../components/Select';
+} from "../../settings/textures";
+import { Select, type SelectOption } from "../../components/Select";
 
 export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   const userAction = useUserActionContext();
@@ -16,8 +16,8 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
 
   const currentTexture = useMemo(() => {
     if (
-      userAction.type === 'APPLY_TEXTURE' ||
-      userAction.type === 'PREPARE_APPLY_TEXTURE'
+      userAction.type === "APPLY_TEXTURE" ||
+      userAction.type === "PREPARE_APPLY_TEXTURE"
     ) {
       return userAction.texture;
     }
@@ -28,7 +28,7 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
     (e) => {
       e.preventDefault();
 
-      const newValue = e.target.value === 'none' ? null : +e.target.value;
+      const newValue = e.target.value === "none" ? null : +e.target.value;
 
       const isTextureWeight = (
         value: number | null,
@@ -37,12 +37,12 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
 
       if (isTextureWeight(newValue)) {
         dispatchUserAction({
-          type: 'PREPARE_APPLY_TEXTURE',
+          type: "PREPARE_APPLY_TEXTURE",
           texture: newValue,
         });
       } else {
         dispatchUserAction({
-          type: 'NO_ACTION',
+          type: "NO_ACTION",
         });
       }
     },
@@ -51,7 +51,7 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
 
   const options: SelectOption[] = useMemo(
     () => [
-      { label: '-', value: 'none' },
+      { label: "-", value: "none" },
       ...TEXTURES_ARRAY.map(({ weight, name, difficulty }) => ({
         label: `${name} (${difficulty})`,
         value: weight.toString(),
@@ -64,7 +64,7 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
     <Select
       id="select-texture"
       label="Draw Texture:"
-      value={currentTexture == null ? 'none' : currentTexture.toString()}
+      value={currentTexture == null ? "none" : currentTexture.toString()}
       disabled={disabled}
       onChange={onChange}
       options={options}

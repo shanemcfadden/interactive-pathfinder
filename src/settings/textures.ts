@@ -1,4 +1,4 @@
-import type { ValueOf } from '../types';
+import type { ValueOf } from "../types";
 
 export const TextureWeight = {
   Asphalt: 1,
@@ -18,32 +18,32 @@ export const TEXTURES_ARRAY: {
 }[] = [
   {
     weight: TextureWeight.Asphalt,
-    name: 'Asphalt',
-    difficulty: 'super easy',
+    name: "Asphalt",
+    difficulty: "super easy",
   },
   {
     weight: TextureWeight.Dirt,
-    name: 'Dirt',
-    difficulty: 'easy',
+    name: "Dirt",
+    difficulty: "easy",
   },
   {
     weight: TextureWeight.Grass,
-    name: 'Grass',
-    difficulty: 'moderate',
+    name: "Grass",
+    difficulty: "moderate",
   },
   {
     weight: TextureWeight.Sand,
-    name: 'Sand',
-    difficulty: 'difficult',
+    name: "Sand",
+    difficulty: "difficult",
   },
   {
     weight: TextureWeight.Swamp,
-    name: 'Swamp',
-    difficulty: 'super difficult',
+    name: "Swamp",
+    difficulty: "super difficult",
   },
   {
     weight: TextureWeight.Water,
-    name: 'Water',
-    difficulty: 'impossible',
+    name: "Water",
+    difficulty: "impossible",
   },
 ] as const;

@@ -1,4 +1,4 @@
-import type { ValueOf } from '../types';
+import type { ValueOf } from "../types";
 
 export const Path = {
   Unvisited: 0,

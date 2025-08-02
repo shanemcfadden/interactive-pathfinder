@@ -1,6 +1,6 @@
-import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import Button from '../../../components/Button';
-import { usePathFindingDispatchContext } from '../../../contexts/PathFindingContext';
+import { useCallback, type Dispatch, type SetStateAction } from "react";
+import Button from "../../../components/Button";
+import { usePathFindingDispatchContext } from "../../../contexts/PathFindingContext";
 
 export const CancelPathButton = ({
   currentInterval,
@@ -9,14 +9,14 @@ export const CancelPathButton = ({
 }: {
   currentInterval: number | null;
   setCurrentInterval: Dispatch<SetStateAction<number | null>>;
-  setFindPathButton: Dispatch<SetStateAction<'findPath' | 'reset' | 'cancel'>>;
+  setFindPathButton: Dispatch<SetStateAction<"findPath" | "reset" | "cancel">>;
 }) => {
   const dispatchPath = usePathFindingDispatchContext();
   const handleFindPathReset = useCallback(() => {
     dispatchPath({
-      type: 'RESET_PATH',
+      type: "RESET_PATH",
     });
-    setFindPathButton('findPath');
+    setFindPathButton("findPath");
   }, [dispatchPath, setFindPathButton]);
   const handleCancelFindPath = useCallback(() => {
     clearInterval(currentInterval ?? undefined);
@@ -25,7 +25,7 @@ export const CancelPathButton = ({
   }, [currentInterval, handleFindPathReset, setCurrentInterval]);
 
   return (
-    <Button onClickFn={handleCancelFindPath} actionType={'danger'}>
+    <Button onClickFn={handleCancelFindPath} actionType={"danger"}>
       Cancel
     </Button>
   );

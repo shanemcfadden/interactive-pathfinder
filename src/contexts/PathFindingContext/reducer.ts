@@ -1,20 +1,20 @@
-import { Path } from '../../settings/paths';
-import { areCoordinatesEqual } from '../../util/coordinate';
-import type { PathReducerAction, PathFindingState } from './types';
+import { Path } from "../../settings/paths";
+import { areCoordinatesEqual } from "../../util/coordinate";
+import type { PathReducerAction, PathFindingState } from "./types";
 
 export const reducer = (
   state: PathFindingState,
   action: PathReducerAction,
 ): PathFindingState => {
   switch (action.type) {
-    case 'RESET_PATH':
+    case "RESET_PATH":
       return {
         ...state,
         isPathFinderActive: false,
         path: state.path.map(() => Path.Unvisited),
       };
 
-    case 'CLEAR_VISITED_NODES':
+    case "CLEAR_VISITED_NODES":
       return {
         ...state,
         isPathFinderActive: true,
@@ -23,7 +23,7 @@ export const reducer = (
         ),
       };
 
-    case 'UPDATE_START_NODE': {
+    case "UPDATE_START_NODE": {
       if (
         // Replacing start node with start should not trigger a rerender
         areCoordinatesEqual(action.coordinate, state.start) ||
@@ -40,7 +40,7 @@ export const reducer = (
       };
     }
 
-    case 'UPDATE_END_NODE': {
+    case "UPDATE_END_NODE": {
       if (
         // Replacing end node with end should not trigger a rerender
         areCoordinatesEqual(action.coordinate, state.end) ||
@@ -57,7 +57,7 @@ export const reducer = (
       };
     }
 
-    case 'ADD_PATH_COORDINATE': {
+    case "ADD_PATH_COORDINATE": {
       const coordinateValue = state.path.getCoordinate(action.coordinate);
 
       if (
@@ -82,7 +82,7 @@ export const reducer = (
       };
     }
 
-    case 'ADD_VISITED_COORDINATE': {
+    case "ADD_VISITED_COORDINATE": {
       const coordinateValue = state.path.getCoordinate(action.coordinate);
 
       if (
@@ -107,7 +107,7 @@ export const reducer = (
       };
     }
 
-    case 'USE_SAMPLE_TERRAIN': {
+    case "USE_SAMPLE_TERRAIN": {
       return {
         ...state,
         sampleTerrain: action.terrain.key,
@@ -119,7 +119,7 @@ export const reducer = (
       };
     }
 
-    case 'UPDATE_TERRAIN_TEXTURE': {
+    case "UPDATE_TERRAIN_TEXTURE": {
       const currentTexture = state.terrainMap.getCoordinate(action.coordinate);
 
       // Replacing a texture with the same texture should not trigger a rerender

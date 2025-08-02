@@ -1,5 +1,5 @@
-import { useCallback, type MouseEventHandler } from 'react';
-import Node from './Node';
+import { useCallback, type MouseEventHandler } from "react";
+import Node from "./Node";
 import {
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
@@ -7,13 +7,13 @@ import {
   GRID_GAP_PX,
   NODE_WIDTH_PX,
   GRID_HEIGHT_PX,
-} from '../settings/grid';
-import '../styles/Grid.css';
-import { usePathFindingContext } from '../contexts/PathFindingContext';
+} from "../settings/grid";
+import "../styles/Grid.css";
+import { usePathFindingContext } from "../contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from '../contexts/UserActionContext';
+} from "../contexts/UserActionContext";
 
 const GridView = () => {
   const { terrainMap: terrain } = usePathFindingContext();
@@ -24,12 +24,12 @@ const GridView = () => {
     (e) => {
       e.preventDefault();
 
-      if (userAction.type !== 'APPLY_TEXTURE') {
+      if (userAction.type !== "APPLY_TEXTURE") {
         return;
       }
 
       dispatchUserAction({
-        type: 'PREPARE_APPLY_TEXTURE',
+        type: "PREPARE_APPLY_TEXTURE",
         texture: userAction.texture,
       });
     },

@@ -1,4 +1,4 @@
-import { memo, type ChangeEventHandler } from 'react';
+import { memo, type ChangeEventHandler } from "react";
 
 export interface SelectOption {
   label: string;

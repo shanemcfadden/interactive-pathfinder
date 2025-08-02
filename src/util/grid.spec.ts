@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import fc from 'fast-check';
-import { Grid } from './grid';
-import { areCoordinatesEqual } from './coordinate';
+import { describe, expect, it } from "vitest";
+import fc from "fast-check";
+import { Grid } from "./grid";
+import { areCoordinatesEqual } from "./coordinate";
 
 const mockGridHeight = 8;
 const mockGridWidth = 10;
@@ -25,8 +25,8 @@ const arrayToGrid = (array: number[]) => {
   );
 };
 
-describe('findCoordinate', () => {
-  it('returns the coordinate of the only element that matches the condition', () => {
+describe("findCoordinate", () => {
+  it("returns the coordinate of the only element that matches the condition", () => {
     fc.assert(
       fc.property(
         fc.uniqueArray(fc.integer(), {
@@ -50,7 +50,7 @@ describe('findCoordinate', () => {
       ),
     );
   });
-  it('returns the coordinate of the first element that matches the condition', () => {
+  it("returns the coordinate of the first element that matches the condition", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {
@@ -77,7 +77,7 @@ describe('findCoordinate', () => {
       ),
     );
   });
-  it('returns undefined if no element matches the condition', () => {
+  it("returns undefined if no element matches the condition", () => {
     fc.assert(
       fc.property(
         fc.uniqueArray(fc.integer(), {
@@ -98,8 +98,8 @@ describe('findCoordinate', () => {
   });
 });
 
-describe('flatMap', () => {
-  it('flattens the grid and applies the mapping function to each element', () => {
+describe("flatMap", () => {
+  it("flattens the grid and applies the mapping function to each element", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {
@@ -120,8 +120,8 @@ describe('flatMap', () => {
   });
 });
 
-describe('getCoordinate', () => {
-  it('returns the value at the specified coordinate', () => {
+describe("getCoordinate", () => {
+  it("returns the value at the specified coordinate", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {
@@ -139,7 +139,7 @@ describe('getCoordinate', () => {
       ),
     );
   });
-  it('throws an error for out of range integers', () => {
+  it("throws an error for out of range integers", () => {
     fc.assert(
       fc.property(fc.integer(), fc.integer(), (row, column) => {
         fc.pre(
@@ -159,7 +159,7 @@ describe('getCoordinate', () => {
       }),
     );
   });
-  it('throws an error for non-integer numbers', () => {
+  it("throws an error for non-integer numbers", () => {
     fc.assert(
       fc.property(fc.float(), fc.float(), (row, column) => {
         fc.pre(!Number.isInteger(row) || !Number.isInteger(column));
@@ -176,8 +176,8 @@ describe('getCoordinate', () => {
   });
 });
 
-describe('getNeighboringCoordinates', () => {
-  it('yields neighboring upper coordinate if it exists', () => {
+describe("getNeighboringCoordinates", () => {
+  it("yields neighboring upper coordinate if it exists", () => {
     fc.assert(
       fc.property(
         fc.integer({ min: 1, max: mockGridHeight - 1 }),
@@ -200,7 +200,7 @@ describe('getNeighboringCoordinates', () => {
       ),
     );
   });
-  it('yields neighboring left coordinate if it exists', () => {
+  it("yields neighboring left coordinate if it exists", () => {
     fc.assert(
       fc.property(
         fc.integer({ min: 0, max: mockGridHeight - 1 }),
@@ -223,7 +223,7 @@ describe('getNeighboringCoordinates', () => {
       ),
     );
   });
-  it('yields neighboring lower coordinate if it exists', () => {
+  it("yields neighboring lower coordinate if it exists", () => {
     fc.assert(
       fc.property(
         fc.integer({ min: 0, max: mockGridHeight - 2 }),
@@ -246,7 +246,7 @@ describe('getNeighboringCoordinates', () => {
       ),
     );
   });
-  it('yields neighboring right coordinate if it exists', () => {
+  it("yields neighboring right coordinate if it exists", () => {
     fc.assert(
       fc.property(
         fc.integer({ min: 0, max: mockGridHeight - 1 }),
@@ -269,7 +269,7 @@ describe('getNeighboringCoordinates', () => {
       ),
     );
   });
-  it('does not yield upper coordinate for first row', () => {
+  it("does not yield upper coordinate for first row", () => {
     fc.assert(
       fc.property(fc.integer({ min: 0, max: mockGridWidth - 1 }), (column) => {
         const grid = new Grid<number>(
@@ -288,7 +288,7 @@ describe('getNeighboringCoordinates', () => {
       }),
     );
   });
-  it('does not yield left coordinate for first column', () => {
+  it("does not yield left coordinate for first column", () => {
     fc.assert(
       fc.property(fc.integer({ min: 0, max: mockGridHeight - 1 }), (row) => {
         const grid = new Grid<number>(
@@ -307,7 +307,7 @@ describe('getNeighboringCoordinates', () => {
       }),
     );
   });
-  it('does not yield lower coordinate for last row', () => {
+  it("does not yield lower coordinate for last row", () => {
     fc.assert(
       fc.property(fc.integer({ min: 0, max: mockGridWidth - 1 }), (column) => {
         const grid = new Grid<number>(
@@ -329,7 +329,7 @@ describe('getNeighboringCoordinates', () => {
       }),
     );
   });
-  it('does not yield right coordinate for last column', () => {
+  it("does not yield right coordinate for last column", () => {
     fc.assert(
       fc.property(fc.integer({ min: 0, max: mockGridHeight - 1 }), (row) => {
         const grid = new Grid<number>(
@@ -353,8 +353,8 @@ describe('getNeighboringCoordinates', () => {
   });
 });
 
-describe('map', () => {
-  it('applies the mapping function to each element', () => {
+describe("map", () => {
+  it("applies the mapping function to each element", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {
@@ -377,8 +377,8 @@ describe('map', () => {
   });
 });
 
-describe('setCoordinate', () => {
-  it('sets the value at the specified coordinate', () => {
+describe("setCoordinate", () => {
+  it("sets the value at the specified coordinate", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {
@@ -399,8 +399,8 @@ describe('setCoordinate', () => {
   });
 });
 
-describe('shallowCopy', () => {
-  it('creates a shallow copy of the grid', () => {
+describe("shallowCopy", () => {
+  it("creates a shallow copy of the grid", () => {
     fc.assert(
       fc.property(
         fc.array(fc.integer(), {

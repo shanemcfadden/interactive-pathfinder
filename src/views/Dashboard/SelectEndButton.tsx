@@ -1,13 +1,13 @@
-import { useCallback } from 'react';
-import { useUserActionDispatchContext } from '../../contexts/UserActionContext';
-import Button from '../../components/Button';
+import { useCallback } from "react";
+import { useUserActionDispatchContext } from "../../contexts/UserActionContext";
+import Button from "../../components/Button";
 
 export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
 
   const handleEndButtonClick = useCallback(() => {
     dispatchUserAction({
-      type: 'UPDATE_END_NODE',
+      type: "UPDATE_END_NODE",
     });
   }, [dispatchUserAction]);
 
