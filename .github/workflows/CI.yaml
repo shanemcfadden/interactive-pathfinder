@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: pnpm build
   lint:
-    name: Lint
+    name: Format/Lint
     runs-on: ubuntu-latest
     needs: [build]
     steps:
@@ -34,7 +34,9 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Run lint
+      - name: Check Formatting
+        run: pnpm format:check
+      - name: Lint
         run: pnpm lint
   test:
     name: Test
