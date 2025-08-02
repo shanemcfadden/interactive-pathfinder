@@ -1,11 +1,11 @@
-import { useCallback, type Dispatch, type SetStateAction } from 'react';
-import { getDijkstraGenerator } from '../../../util/algorithms/dijkstra';
-import Button from '../../../components/Button';
+import { useCallback, type Dispatch, type SetStateAction } from "react";
+import { getDijkstraGenerator } from "../../../util/algorithms/dijkstra";
+import Button from "../../../components/Button";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from '../../../contexts/PathFindingContext';
-import { useUserActionDispatchContext } from '../../../contexts/UserActionContext';
+} from "../../../contexts/PathFindingContext";
+import { useUserActionDispatchContext } from "../../../contexts/UserActionContext";
 
 export const FindPathButton = ({
   setCurrentInterval,
@@ -14,7 +14,7 @@ export const FindPathButton = ({
 }: {
   setCurrentInterval: Dispatch<SetStateAction<number | null>>;
   setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-  setFindPathButton: Dispatch<SetStateAction<'findPath' | 'reset' | 'cancel'>>;
+  setFindPathButton: Dispatch<SetStateAction<"findPath" | "reset" | "cancel">>;
 }) => {
   const dispatchUserAction = useUserActionDispatchContext();
   const { start, end, terrainMap } = usePathFindingContext();
@@ -24,24 +24,24 @@ export const FindPathButton = ({
     (failedMessage?: string) => {
       setCurrentInterval(null);
       dispatchPath({
-        type: 'CLEAR_VISITED_NODES',
+        type: "CLEAR_VISITED_NODES",
       });
 
       if (failedMessage) {
         setModalIsOpen(true);
-        setFindPathButton('findPath');
+        setFindPathButton("findPath");
         return;
       }
 
-      setFindPathButton('reset');
+      setFindPathButton("reset");
     },
     [dispatchPath, setModalIsOpen, setCurrentInterval, setFindPathButton],
   );
 
   const handleFindPathClick = useCallback(() => {
-    setFindPathButton('cancel');
+    setFindPathButton("cancel");
     dispatchUserAction({
-      type: 'NO_ACTION',
+      type: "NO_ACTION",
     });
     const dijkstraGenerator = getDijkstraGenerator(start, end, terrainMap);
     const interval = setInterval(() => {
@@ -49,19 +49,19 @@ export const FindPathButton = ({
       if (generated.done) {
         clearInterval(interval);
         afterDijkstraSuccess(
-          generated.value.pathFound ? undefined : 'Path not found',
+          generated.value.pathFound ? undefined : "Path not found",
         );
       } else {
         switch (generated.value.type) {
-          case 'ADD_VISITED_COORDINATE':
+          case "ADD_VISITED_COORDINATE":
             dispatchPath({
-              type: 'ADD_VISITED_COORDINATE',
+              type: "ADD_VISITED_COORDINATE",
               coordinate: generated.value.coordinate,
             });
             break;
-          case 'ADD_PATH_COORDINATE':
+          case "ADD_PATH_COORDINATE":
             dispatchPath({
-              type: 'ADD_PATH_COORDINATE',
+              type: "ADD_PATH_COORDINATE",
               coordinate: generated.value.coordinate,
             });
         }
@@ -80,7 +80,7 @@ export const FindPathButton = ({
   ]);
 
   return (
-    <Button onClickFn={handleFindPathClick} actionType={'submit'}>
+    <Button onClickFn={handleFindPathClick} actionType={"submit"}>
       Find Path
     </Button>
   );

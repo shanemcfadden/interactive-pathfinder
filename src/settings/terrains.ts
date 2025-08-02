@@ -1,6 +1,6 @@
-import { TextureWeight, type TextureWeightValue } from './textures';
-import { Grid } from '../util/grid';
-import type { Coordinate } from '../util/coordinate';
+import { TextureWeight, type TextureWeightValue } from "./textures";
+import { Grid } from "../util/grid";
+import type { Coordinate } from "../util/coordinate";
 
 export interface Terrain {
   key: TerrainKey;
@@ -11,15 +11,15 @@ export interface Terrain {
 }
 
 export type TerrainKey =
-  | 'all-grass'
-  | 'all-water'
-  | 'beachside-drive'
-  | 'jackson-pollock'
-  | 'swamp-maze';
+  | "all-grass"
+  | "all-water"
+  | "beachside-drive"
+  | "jackson-pollock"
+  | "swamp-maze";
 
 export const DEFAULT_STARTING_TERRAIN: Terrain = {
-  key: 'all-grass',
-  displayText: 'All Grass',
+  key: "all-grass",
+  displayText: "All Grass",
   stateOfNodes: new Grid([
     [
       TextureWeight.Grass,
@@ -804,8 +804,8 @@ export const DEFAULT_STARTING_TERRAIN: Terrain = {
 export const SAMPLE_TERRAINS: Terrain[] = [
   DEFAULT_STARTING_TERRAIN,
   {
-    key: 'all-water',
-    displayText: 'All Water',
+    key: "all-water",
+    displayText: "All Water",
     stateOfNodes: new Grid([
       [
         TextureWeight.Water,
@@ -1587,8 +1587,8 @@ export const SAMPLE_TERRAINS: Terrain[] = [
     ]),
   },
   {
-    key: 'beachside-drive',
-    displayText: 'Beachside Drive',
+    key: "beachside-drive",
+    displayText: "Beachside Drive",
     startNode: [0, 0],
     endNode: [17, 34],
     stateOfNodes: new Grid([
@@ -2372,8 +2372,8 @@ export const SAMPLE_TERRAINS: Terrain[] = [
     ]),
   },
   {
-    key: 'jackson-pollock',
-    displayText: 'Jackson Pollock',
+    key: "jackson-pollock",
+    displayText: "Jackson Pollock",
     startNode: [15, 4],
     endNode: [5, 28],
     stateOfNodes: new Grid([
@@ -3157,8 +3157,8 @@ export const SAMPLE_TERRAINS: Terrain[] = [
     ]),
   },
   {
-    key: 'swamp-maze',
-    displayText: 'Swamp Maze',
+    key: "swamp-maze",
+    displayText: "Swamp Maze",
     startNode: [0, 0],
     endNode: [20, 34],
     stateOfNodes: new Grid([

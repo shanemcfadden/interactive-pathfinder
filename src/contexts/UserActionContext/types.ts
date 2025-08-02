@@ -1,4 +1,4 @@
-import type { TextureWeightValue } from '../../settings/textures';
+import type { TextureWeightValue } from "../../settings/textures";
 
 export type UserAction =
   | NoAction
@@ -8,22 +8,22 @@ export type UserAction =
   | PrepareApplyTexture;
 
 interface NoAction {
-  type: 'NO_ACTION';
+  type: "NO_ACTION";
 }
 
 interface UpdateStartNode {
-  type: 'UPDATE_START_NODE';
+  type: "UPDATE_START_NODE";
 }
 
 interface UpdateEndNode {
-  type: 'UPDATE_END_NODE';
+  type: "UPDATE_END_NODE";
 }
 
 interface ApplyTexture {
-  type: 'APPLY_TEXTURE';
+  type: "APPLY_TEXTURE";
   texture: TextureWeightValue;
 }
 interface PrepareApplyTexture {
-  type: 'PREPARE_APPLY_TEXTURE';
+  type: "PREPARE_APPLY_TEXTURE";
   texture: TextureWeightValue;
 }

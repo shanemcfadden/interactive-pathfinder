@@ -1,16 +1,16 @@
-import '../styles/Node.css';
-import { TextureWeight, type TextureWeightValue } from '../settings/textures';
-import { Path, type PathValue } from '../settings/paths';
-import { useCallback, useMemo, type MouseEventHandler } from 'react';
-import { areCoordinatesEqual, type Coordinate } from '../util/coordinate';
+import "../styles/Node.css";
+import { TextureWeight, type TextureWeightValue } from "../settings/textures";
+import { Path, type PathValue } from "../settings/paths";
+import { useCallback, useMemo, type MouseEventHandler } from "react";
+import { areCoordinatesEqual, type Coordinate } from "../util/coordinate";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from '../contexts/PathFindingContext';
+} from "../contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from '../contexts/UserActionContext';
+} from "../contexts/UserActionContext";
 
 const Node = ({
   rowIndex,
@@ -54,15 +54,15 @@ const Node = ({
       e.preventDefault();
 
       switch (userAction.type) {
-        case 'UPDATE_START_NODE':
+        case "UPDATE_START_NODE":
           dispatchPath({
-            type: 'UPDATE_START_NODE',
+            type: "UPDATE_START_NODE",
             coordinate,
           });
           break;
-        case 'UPDATE_END_NODE':
+        case "UPDATE_END_NODE":
           dispatchPath({
-            type: 'UPDATE_END_NODE',
+            type: "UPDATE_END_NODE",
             coordinate,
           });
           break;
@@ -71,7 +71,7 @@ const Node = ({
       }
 
       dispatchUserAction({
-        type: 'NO_ACTION',
+        type: "NO_ACTION",
       });
     },
     [dispatchUserAction, dispatchPath, userAction.type, coordinate],
@@ -81,17 +81,17 @@ const Node = ({
     (e) => {
       e.preventDefault();
 
-      if (userAction.type !== 'PREPARE_APPLY_TEXTURE') {
+      if (userAction.type !== "PREPARE_APPLY_TEXTURE") {
         return;
       }
 
       dispatchPath({
-        type: 'UPDATE_TERRAIN_TEXTURE',
+        type: "UPDATE_TERRAIN_TEXTURE",
         coordinate,
         texture: userAction.texture,
       });
       dispatchUserAction({
-        type: 'APPLY_TEXTURE',
+        type: "APPLY_TEXTURE",
         texture: userAction.texture,
       });
     },
@@ -102,12 +102,12 @@ const Node = ({
     (e) => {
       e.preventDefault();
 
-      if (userAction.type !== 'APPLY_TEXTURE') {
+      if (userAction.type !== "APPLY_TEXTURE") {
         return;
       }
 
       dispatchPath({
-        type: 'UPDATE_TERRAIN_TEXTURE',
+        type: "UPDATE_TERRAIN_TEXTURE",
         coordinate,
         texture: userAction.texture,
       });
@@ -119,12 +119,12 @@ const Node = ({
     (e) => {
       e.preventDefault();
 
-      if (userAction.type !== 'APPLY_TEXTURE') {
+      if (userAction.type !== "APPLY_TEXTURE") {
         return;
       }
 
       dispatchUserAction({
-        type: 'PREPARE_APPLY_TEXTURE',
+        type: "PREPARE_APPLY_TEXTURE",
         texture: userAction.texture,
       });
     },
@@ -145,8 +145,8 @@ const Node = ({
       onMouseEnter={onMouseEnter}
       onMouseUp={onMouseUp}
     >
-      {isStart && 'S'}
-      {isEnd && 'E'}
+      {isStart && "S"}
+      {isEnd && "E"}
     </div>
   );
 };
@@ -163,27 +163,27 @@ const getPathStateClass = ({
   path: PathValue;
 }): string => {
   if (isStart) {
-    return 'node--start';
+    return "node--start";
   }
 
   if (isEnd) {
-    return 'node--end';
+    return "node--end";
   }
 
   return PATH_VALUE_TO_CLASS_MAP[path];
 };
 
 const PATH_VALUE_TO_CLASS_MAP: Record<PathValue, string> = {
-  [Path.Unvisited]: '',
-  [Path.Visited]: 'node--visited',
-  [Path.Path]: 'node--path',
+  [Path.Unvisited]: "",
+  [Path.Visited]: "node--visited",
+  [Path.Path]: "node--path",
 };
 
 const TEXTURE_WEIGHT_TO_CLASS_MAP: Record<TextureWeightValue, string> = {
-  [TextureWeight.Asphalt]: 'node--asphalt',
-  [TextureWeight.Dirt]: 'node--dirt',
-  [TextureWeight.Grass]: 'node--grass',
-  [TextureWeight.Sand]: 'node--sand',
-  [TextureWeight.Swamp]: 'node--swamp',
-  [TextureWeight.Water]: 'node--water',
+  [TextureWeight.Asphalt]: "node--asphalt",
+  [TextureWeight.Dirt]: "node--dirt",
+  [TextureWeight.Grass]: "node--grass",
+  [TextureWeight.Sand]: "node--sand",
+  [TextureWeight.Swamp]: "node--swamp",
+  [TextureWeight.Water]: "node--water",
 };

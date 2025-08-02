@@ -1,6 +1,6 @@
-import { type ReactNode } from 'react';
+import { type ReactNode } from "react";
 
-export const PAGE_HEADER = 'Interactive Pathfinder';
+export const PAGE_HEADER = "Interactive Pathfinder";
 
 export const PAGE_DESCRIPTION: ReactNode = (
   <>
@@ -19,7 +19,7 @@ export const PAGE_DESCRIPTION: ReactNode = (
       </strong>
     </p>
     <p>
-      View the source code on{' '}
+      View the source code on{" "}
       <a
         target="_blank"
         rel="noreferrer"
@@ -32,4 +32,4 @@ export const PAGE_DESCRIPTION: ReactNode = (
   </>
 );
 
-export const MODAL_HEADER = 'There are no possible paths!';
+export const MODAL_HEADER = "There are no possible paths!";

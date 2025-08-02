@@ -1,18 +1,18 @@
-import type { Coordinate } from '../../coordinate';
+import type { Coordinate } from "../../coordinate";
 
 export type PathAction = AddVisitedCoordinate | AddPathCoordinate;
 
 interface AddVisitedCoordinate {
-  type: 'ADD_VISITED_COORDINATE';
+  type: "ADD_VISITED_COORDINATE";
   coordinate: Coordinate;
 }
 interface AddPathCoordinate {
-  type: 'ADD_PATH_COORDINATE';
+  type: "ADD_PATH_COORDINATE";
   coordinate: Coordinate;
 }
 
 export interface CompleteCalculation {
-  type: 'COMPLETE_CALCULATION';
+  type: "COMPLETE_CALCULATION";
   pathFound: boolean;
 }
 

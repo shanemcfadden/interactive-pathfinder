@@ -1,8 +1,8 @@
-import MinHeap from './min-heap';
-import { it, expect } from 'vitest';
-import fc from 'fast-check';
+import MinHeap from "./min-heap";
+import { it, expect } from "vitest";
+import fc from "fast-check";
 
-it('MinHeap pops the number of values that have been pushed.', () => {
+it("MinHeap pops the number of values that have been pushed.", () => {
   fc.assert(
     fc.property(fc.array(fc.integer()), (values) => {
       const heap = new MinHeap<number>((a, b) => a - b);
@@ -15,7 +15,7 @@ it('MinHeap pops the number of values that have been pushed.', () => {
     }),
   );
 });
-it('MinHeap pops the values from lowest to highest', () => {
+it("MinHeap pops the values from lowest to highest", () => {
   fc.assert(
     fc.property(fc.array(fc.integer()), (values) => {
       const heap = new MinHeap<number>((a, b) => a - b);
@@ -32,7 +32,7 @@ it('MinHeap pops the values from lowest to highest', () => {
     }),
   );
 });
-it('MinHeap accepts custom comparison functions', () => {
+it("MinHeap accepts custom comparison functions", () => {
   type ValueWithSequenceNumber = {
     sequenceNumber: number;
     value: string;

@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
-import fc from 'fast-check';
-import { areCoordinatesEqual } from './coordinate';
+import { describe, expect, it } from "vitest";
+import fc from "fast-check";
+import { areCoordinatesEqual } from "./coordinate";
 
-describe('areCoordinatesEqual', () => {
-  it('yields true for identical coordinates', () => {
+describe("areCoordinatesEqual", () => {
+  it("yields true for identical coordinates", () => {
     fc.assert(
       fc.property(fc.integer(), fc.integer(), (x, y) => {
         const result = areCoordinatesEqual([x, y], [x, y]);
@@ -11,7 +11,7 @@ describe('areCoordinatesEqual', () => {
       }),
     );
   });
-  it('yields false for different x values', () => {
+  it("yields false for different x values", () => {
     fc.assert(
       fc.property(fc.integer(), fc.integer(), fc.integer(), (x1, x2, y) => {
         fc.pre(x1 !== x2);
@@ -20,7 +20,7 @@ describe('areCoordinatesEqual', () => {
       }),
     );
   });
-  it('yields false for different y values', () => {
+  it("yields false for different y values", () => {
     fc.assert(
       fc.property(fc.integer(), fc.integer(), fc.integer(), (x, y1, y2) => {
         fc.pre(y1 !== y2);
@@ -29,7 +29,7 @@ describe('areCoordinatesEqual', () => {
       }),
     );
   });
-  it('yields false for different coordinates', () => {
+  it("yields false for different coordinates", () => {
     fc.assert(
       fc.property(
         fc.integer(),

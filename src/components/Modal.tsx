@@ -1,11 +1,11 @@
-import Button from './Button';
-import '../styles/Modal.css';
+import Button from "./Button";
+import "../styles/Modal.css";
 
 const Modal = ({
   closeModalFunction,
   title,
   content,
-  confirmLabel = 'OK',
+  confirmLabel = "OK",
 }: {
   closeModalFunction: () => void;
   title: string;

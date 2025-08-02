@@ -94,7 +94,7 @@ class MinHeap<T> {
       }
 
       if (smallestChildIndex === null) {
-        throw new Error('Smallest child index is null');
+        throw new Error("Smallest child index is null");
       }
 
       this.swap(smallestChildIndex, currentIndex);

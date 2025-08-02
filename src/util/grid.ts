@@ -1,4 +1,4 @@
-import type { Coordinate } from './coordinate';
+import type { Coordinate } from "./coordinate";
 
 export class Grid<T> {
   private _values: T[][];

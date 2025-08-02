@@ -1,8 +1,8 @@
-import type { PathValue } from '../../settings/paths';
-import type { Terrain, TerrainKey } from '../../settings/terrains';
-import type { TextureWeightValue } from '../../settings/textures';
-import type { Coordinate } from '../../util/coordinate';
-import type { Grid } from '../../util/grid';
+import type { PathValue } from "../../settings/paths";
+import type { Terrain, TerrainKey } from "../../settings/terrains";
+import type { TextureWeightValue } from "../../settings/textures";
+import type { Coordinate } from "../../util/coordinate";
+import type { Grid } from "../../util/grid";
 
 export interface PathFindingState {
   start: Coordinate;
@@ -24,40 +24,40 @@ export type PathReducerAction =
   | UseSampleTerrainAction;
 
 interface AddPathNodeAction {
-  type: 'ADD_PATH_COORDINATE';
+  type: "ADD_PATH_COORDINATE";
   coordinate: Coordinate;
 }
 
 interface AddVisitedNodeAction {
-  type: 'ADD_VISITED_COORDINATE';
+  type: "ADD_VISITED_COORDINATE";
   coordinate: Coordinate;
 }
 
 interface ClearVisitedNodesAction {
-  type: 'CLEAR_VISITED_NODES';
+  type: "CLEAR_VISITED_NODES";
 }
 
 interface ResetPathAction {
-  type: 'RESET_PATH';
+  type: "RESET_PATH";
 }
 
 interface UseSampleTerrainAction {
-  type: 'USE_SAMPLE_TERRAIN';
+  type: "USE_SAMPLE_TERRAIN";
   terrain: Terrain;
 }
 
 interface UpdateTerrainTexture {
-  type: 'UPDATE_TERRAIN_TEXTURE';
+  type: "UPDATE_TERRAIN_TEXTURE";
   coordinate: Coordinate;
   texture: TextureWeightValue;
 }
 
 interface UpdateEndNodeAction {
-  type: 'UPDATE_END_NODE';
+  type: "UPDATE_END_NODE";
   coordinate: Coordinate;
 }
 
 interface UpdateStartNodeAction {
-  type: 'UPDATE_START_NODE';
+  type: "UPDATE_START_NODE";
   coordinate: Coordinate;
 }

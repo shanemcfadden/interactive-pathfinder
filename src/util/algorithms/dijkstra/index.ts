@@ -1,8 +1,8 @@
-import MinHeap from '../../min-heap';
-import { areCoordinatesEqual, type Coordinate } from '../../coordinate';
-import { Grid } from '../../grid';
-import { PreviousCoordinateMap } from './PreviousCoordinateMap';
-import type { CompleteCalculation, CoordinateData, PathAction } from './types';
+import MinHeap from "../../min-heap";
+import { areCoordinatesEqual, type Coordinate } from "../../coordinate";
+import { Grid } from "../../grid";
+import { PreviousCoordinateMap } from "./PreviousCoordinateMap";
+import type { CompleteCalculation, CoordinateData, PathAction } from "./types";
 
 export function* getDijkstraGenerator(
   start: Coordinate,
@@ -21,12 +21,12 @@ export function* getDijkstraGenerator(
   while (!pathToEnd) {
     const currentCoordinateData = coordinatesDataMinHeap.pop();
     if (!currentCoordinateData) {
-      throw new Error('No coordinates left in heap');
+      throw new Error("No coordinates left in heap");
     }
 
     if (currentCoordinateData.distanceFromStart === Infinity) {
       return {
-        type: 'COMPLETE_CALCULATION',
+        type: "COMPLETE_CALCULATION",
         pathFound: false,
       };
     }
@@ -50,7 +50,7 @@ export function* getDijkstraGenerator(
     }
 
     yield {
-      type: 'ADD_VISITED_COORDINATE',
+      type: "ADD_VISITED_COORDINATE",
       coordinate: currentCoordinateData.coordinate,
     };
     addNeighboringCoordinateDataToMinHeap(
@@ -62,13 +62,13 @@ export function* getDijkstraGenerator(
 
   for (const coordinate of pathToEnd) {
     yield {
-      type: 'ADD_PATH_COORDINATE',
+      type: "ADD_PATH_COORDINATE",
       coordinate,
     };
   }
 
   return {
-    type: 'COMPLETE_CALCULATION',
+    type: "COMPLETE_CALCULATION",
     pathFound: true,
   };
 }
