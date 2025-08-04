@@ -1,23 +1,8 @@
-body {
-  margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  color: white;
-  background-color: #222;
-}
+@import "tailwindcss";
 
 code {
   font-family:
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-h1 {
-  font-size: 36px;
-  margin: 16px 0;
 }
 
 label {
@@ -64,22 +49,3 @@ select:focus {
   outline: 0;
 }
 
-.centered-text {
-  text-align: center;
-}
-
-.dark-theme {
-  background-color: #222;
-  color: white;
-}
-
-.light-theme {
-  background-color: white;
-  color: black;
-}
-
-.content-box {
-  border-radius: 2px;
-  margin: 16px 0;
-  padding: 0.1px 32px;
-}

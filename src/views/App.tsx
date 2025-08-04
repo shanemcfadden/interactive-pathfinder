@@ -7,22 +7,15 @@ import {
   PAGE_DESCRIPTION,
   PAGE_HEADER,
 } from "../settings/content";
-import { GRID_WIDTH_PX } from "../settings/grid";
-import "../styles/App.css";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
-    <div className="App dark-theme">
-      <div
-        className="mx-auto max-w-7xl"
-        style={{
-          width: GRID_WIDTH_PX + "px",
-        }}
-      >
-        <div className="content-box light-theme">
-          <h1 className="centered-text">{PAGE_HEADER}</h1>
+    <div className="App bg-slate-900 text-white">
+      <div className="mx-auto max-w-6xl">
+        <div className="rounded-md my-4 px-8 bg-white text-black">
+          <h1 className="text-center my-4 text-4xl">{PAGE_HEADER}</h1>
           {PAGE_DESCRIPTION}
         </div>
         <Dashboard setModalIsOpen={setModalIsOpen} />
