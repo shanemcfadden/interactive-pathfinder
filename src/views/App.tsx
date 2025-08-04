@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App dark-theme">
       <div
-        className="content-container"
+        className="mx-auto max-w-7xl"
         style={{
           width: GRID_WIDTH_PX + "px",
         }}

@@ -4,10 +4,12 @@
   "private": true,
   "homepage": "https://shanemcfadden.github.io/interactive-pathfinder",
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
     "lodash-es": "^4.17.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
