@@ -1,9 +1,13 @@
 import { useCallback } from "react";
-import { useUserActionDispatchContext } from "../../contexts/UserActionContext";
+import {
+  useUserActionContext,
+  useUserActionDispatchContext,
+} from "../../contexts/UserActionContext";
 import Button from "../../components/Button";
 
 export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
+  const userAction = useUserActionContext();
 
   const handleEndButtonClick = useCallback(() => {
     dispatchUserAction({
@@ -12,7 +16,11 @@ export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   }, [dispatchUserAction]);
 
   return (
-    <Button onClickFn={handleEndButtonClick} disabled={disabled}>
+    <Button
+      onClickFn={handleEndButtonClick}
+      disabled={disabled}
+      isActive={userAction.type === "UPDATE_END_NODE"}
+    >
       Select End
     </Button>
   );

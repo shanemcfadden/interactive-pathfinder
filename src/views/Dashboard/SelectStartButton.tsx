@@ -1,9 +1,13 @@
 import { useCallback } from "react";
-import { useUserActionDispatchContext } from "../../contexts/UserActionContext";
+import {
+  useUserActionContext,
+  useUserActionDispatchContext,
+} from "../../contexts/UserActionContext";
 import Button from "../../components/Button";
 
 export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
+  const userAction = useUserActionContext();
 
   const handleStartButtonClick = useCallback(() => {
     dispatchUserAction({
@@ -12,7 +16,11 @@ export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
   }, [dispatchUserAction]);
 
   return (
-    <Button onClickFn={handleStartButtonClick} disabled={disabled}>
+    <Button
+      onClickFn={handleStartButtonClick}
+      disabled={disabled}
+      isActive={userAction.type === "UPDATE_START_NODE"}
+    >
       Select Start
     </Button>
   );
