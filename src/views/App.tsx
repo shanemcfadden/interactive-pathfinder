@@ -12,7 +12,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
-    <div className="App bg-slate-900 text-white">
+    <div className="bg-slate-900 text-white">
       <div className="mx-auto max-w-6xl">
         <div className="rounded-md my-4 px-8 bg-white text-black">
           <h1 className="text-center my-4 text-4xl">{PAGE_HEADER}</h1>
