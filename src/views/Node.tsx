@@ -168,7 +168,8 @@ const getCustomClasses = (configuration: {
   isStart: boolean;
   isEnd: boolean;
   currentPathState: PathValue;
-}): string => [
+}): string =>
+  [
     getOpacity(configuration),
     getColor(configuration),
     getBoxShadow(configuration),
