@@ -1,4 +1,3 @@
-import "../styles/Node.css";
 import { TextureWeight, type TextureWeightValue } from "../settings/textures";
 import { Path, type PathValue } from "../settings/paths";
 import { useCallback, useMemo, type MouseEventHandler } from "react";
@@ -133,57 +132,106 @@ const Node = ({
 
   return (
     <div
-      className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
-        {
+      className={[
+        "aspect-square",
+        "color-white",
+        "duration-1000",
+        "flex",
+        "font-bold",
+        "transition-opacity",
+        "transition-ring",
+        "w-full",
+        getCustomClasses({
+          currentTexture,
           isStart,
           isEnd,
-          path: currentPathState,
-        },
-      )}`}
+          currentPathState,
+        }),
+      ].join(" ")}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
       onMouseUp={onMouseUp}
     >
-      {isStart && "S"}
-      {isEnd && "E"}
+      <div className="m-auto">
+        {isStart && "S"}
+        {isEnd && "E"}
+      </div>
     </div>
   );
 };
 
 export default Node;
 
-const getPathStateClass = ({
+const getCustomClasses = (configuration: {
+  currentTexture: TextureWeightValue;
+  isStart: boolean;
+  isEnd: boolean;
+  currentPathState: PathValue;
+}): string => {
+  return [
+    getOpacity(configuration),
+    getColor(configuration),
+    getBoxShadow(configuration),
+  ].join(" ");
+};
+
+const getOpacity = ({
   isStart,
   isEnd,
-  path,
+  currentPathState,
 }: {
   isStart: boolean;
   isEnd: boolean;
-  path: PathValue;
+  currentPathState: PathValue;
+}) => {
+  if (isStart || isEnd || currentPathState !== Path.Visited) {
+    return "";
+  }
+
+  return "opacity-60";
+};
+
+const getColor = ({
+  currentTexture,
+  isStart,
+  isEnd,
+}: {
+  currentTexture: TextureWeightValue;
+  isStart: boolean;
+  isEnd: boolean;
 }): string => {
   if (isStart) {
-    return "node--start";
+    return "bg-green-700";
   }
 
   if (isEnd) {
-    return "node--end";
+    return "bg-red-500";
   }
 
-  return PATH_VALUE_TO_CLASS_MAP[path];
+  return TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture];
 };
 
-const PATH_VALUE_TO_CLASS_MAP: Record<PathValue, string> = {
-  [Path.Unvisited]: "",
-  [Path.Visited]: "node--visited",
-  [Path.Path]: "node--path",
+const getBoxShadow = ({
+  isStart,
+  isEnd,
+  currentPathState,
+}: {
+  isStart: boolean;
+  isEnd: boolean;
+  currentPathState: PathValue;
+}): string => {
+  if (isStart || isEnd || currentPathState === Path.Path) {
+    return "ring-2";
+  }
+  return "";
 };
 
 const TEXTURE_WEIGHT_TO_CLASS_MAP: Record<TextureWeightValue, string> = {
-  [TextureWeight.Asphalt]: "node--asphalt",
-  [TextureWeight.Dirt]: "node--dirt",
-  [TextureWeight.Grass]: "node--grass",
-  [TextureWeight.Sand]: "node--sand",
-  [TextureWeight.Swamp]: "node--swamp",
-  [TextureWeight.Water]: "node--water",
+  [TextureWeight.Asphalt]: "bg-asphalt",
+  [TextureWeight.Dirt]: "bg-dirt",
+  [TextureWeight.Grass]: "bg-grass",
+  [TextureWeight.Sand]: "bg-sand",
+  [TextureWeight.Swamp]: "bg-swamp",
+  [TextureWeight.Water]: "bg-water",
 };

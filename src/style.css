@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --color-asphalt: hsl(0, 0%, 49%);
+  --color-dirt: hsl(36, 94%, 29%);
+  --color-grass: hsl(123, 64%, 54%);
+  --color-sand: hsl(36, 94%, 79%);
+  --color-swamp: hsl(168, 94%, 49%);
+  --color-water: hsl(241, 94%, 49%);
+}
