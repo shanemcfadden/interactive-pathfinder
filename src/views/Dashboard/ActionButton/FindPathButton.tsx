@@ -6,16 +6,16 @@ import {
   usePathFindingDispatchContext,
 } from "../../../contexts/PathFindingContext";
 import { useUserActionDispatchContext } from "../../../contexts/UserActionContext";
+import { useModalContext } from "../../../contexts/ModalContext/context";
 
 export const FindPathButton = ({
   setCurrentInterval,
-  setModalIsOpen,
   setFindPathButton,
 }: {
   setCurrentInterval: Dispatch<SetStateAction<number | null>>;
-  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setFindPathButton: Dispatch<SetStateAction<"findPath" | "reset" | "cancel">>;
 }) => {
+  const { openModal } = useModalContext();
   const dispatchUserAction = useUserActionDispatchContext();
   const { start, end, terrainMap } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
@@ -28,14 +28,14 @@ export const FindPathButton = ({
       });
 
       if (failedMessage) {
-        setModalIsOpen(true);
+        openModal();
         setFindPathButton("findPath");
         return;
       }
 
       setFindPathButton("reset");
     },
-    [dispatchPath, setModalIsOpen, setCurrentInterval, setFindPathButton],
+    [dispatchPath, openModal, setCurrentInterval, setFindPathButton],
   );
 
   const handleFindPathClick = useCallback(() => {

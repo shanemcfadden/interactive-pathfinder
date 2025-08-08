@@ -21,6 +21,7 @@ const Button = ({
       "font-bold",
       "disabled:cursor-not-allowed",
       "disabled:text-gray-200",
+      "text-white",
       isActive ? "ring-4" : "",
       ACTION_TYPE_TO_CLASS[actionType],
     ].join(" ")}

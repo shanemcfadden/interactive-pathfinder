@@ -1,13 +1,9 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 import { FindPathButton } from "./FindPathButton";
 import { CancelPathButton } from "./CancelPathButton";
 import { ResetPathButton } from "./ResetPathButton";
 
-export const ActionButton = ({
-  setModalIsOpen,
-}: {
-  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
+export const ActionButton = () => {
   const [currentInterval, setCurrentInterval] = useState<number | null>(null);
   const [findPathButton, setFindPathButton] = useState<
     "findPath" | "reset" | "cancel"
@@ -18,7 +14,6 @@ export const ActionButton = ({
       return (
         <FindPathButton
           setCurrentInterval={setCurrentInterval}
-          setModalIsOpen={setModalIsOpen}
           setFindPathButton={setFindPathButton}
         />
       );

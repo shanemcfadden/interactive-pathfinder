@@ -1,4 +1,3 @@
-import { type Dispatch, type SetStateAction } from "react";
 import { usePathFindingContext } from "../../contexts/PathFindingContext";
 import { SelectTexture } from "./SelectTexture";
 import { SelectTerrain } from "./SelectTerrain";
@@ -7,11 +6,7 @@ import { SelectStartButton } from "./SelectStartButton";
 import { SelectEndButton } from "./SelectEndButton";
 import { FlexRowSpacer } from "../../components/FlexRowSpacer";
 
-const Dashboard = ({
-  setModalIsOpen,
-}: {
-  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
+const Dashboard = () => {
   const { isPathFinderActive } = usePathFindingContext();
 
   return (
@@ -24,7 +19,7 @@ const Dashboard = ({
       <FlexRowSpacer />
       <SelectTerrain disabled={isPathFinderActive} />
       <FlexRowSpacer auto />
-      <ActionButton setModalIsOpen={setModalIsOpen} />
+      <ActionButton />
     </div>
   );
 };
