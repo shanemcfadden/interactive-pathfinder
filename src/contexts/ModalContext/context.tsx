@@ -6,6 +6,4 @@ export const ModalContext = createContext({
   closeModal: () => {},
 });
 
-export const useModalContext = () => {
-  return useContext(ModalContext);
-};
+export const useModalContext = () => useContext(ModalContext);
