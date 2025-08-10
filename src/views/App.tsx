@@ -4,10 +4,8 @@ import Modal from "../components/Modal";
 import { MODAL_HEADER } from "../settings/content";
 import { usePathFindingDispatchContext } from "../contexts/PathFindingContext";
 import { Description } from "./Description";
-import { useModalContext } from "../contexts/ModalContext/context";
 
 function App() {
-  const { isModalOpen, closeModal } = useModalContext();
   const dispatchPath = usePathFindingDispatchContext();
 
   return (
@@ -17,18 +15,15 @@ function App() {
         <Dashboard />
         <GridView />
       </div>
-      {isModalOpen && (
-        <Modal
-          closeModalFunction={() => {
-            dispatchPath({
-              type: "RESET_PATH",
-            });
-            closeModal();
-          }}
-          title={MODAL_HEADER}
-          confirmLabel={"Reset"}
-        />
-      )}
+      <Modal
+        onCloseModal={() => {
+          dispatchPath({
+            type: "RESET_PATH",
+          });
+        }}
+        title={MODAL_HEADER}
+        confirmLabel={"Reset"}
+      />
     </div>
   );
 }

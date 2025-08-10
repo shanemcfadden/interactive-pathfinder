@@ -1,29 +1,47 @@
+import { useCallback } from "react";
+import { useModalContext } from "../contexts/ModalContext/context";
 import Button from "./Button";
+import { Card } from "./Card";
 
 const Modal = ({
-  closeModalFunction,
+  onCloseModal = () => {},
   title,
   content,
   confirmLabel = "OK",
 }: {
-  closeModalFunction: () => void;
+  onCloseModal?: () => void;
   title: string;
   content?: string;
   confirmLabel?: string;
-}) => (
-  <>
-    <div
-      className="w-screen h-screen fixed top-0 left-0 bg-black opacity-50 z-100"
-      onClick={() => closeModalFunction()}
-    ></div>
-    <div className="rounded-md m-auto p-4 fixed top-0 left-0 right-0 bottom-0 h-fit max-h-9/10 max-w-1/2 z-110 bg-white text-black">
-      <h3 className="text-center">{title}</h3>
-      {content && <p>{content}</p>}
-      <div className="float-right">
-        <Button onClickFn={closeModalFunction}>{confirmLabel}</Button>
-      </div>
-    </div>
-  </>
-);
+}) => {
+  const { isModalOpen, closeModal } = useModalContext();
+
+  const close = useCallback(() => {
+    onCloseModal();
+    closeModal();
+  }, [onCloseModal, closeModal]);
+
+  return (
+    <>
+      {isModalOpen && (
+        <>
+          <div
+            className="w-screen h-screen fixed top-0 left-0 bg-black opacity-50 z-100"
+            onClick={close}
+          />
+          <div className="m-auto fixed top-0 left-0 right-0 bottom-0 h-fit max-h-9/10 w-1/2 z-110">
+            <Card>
+              <h3 className="text-center">{title}</h3>
+              {content && <p>{content}</p>}
+              <div className="flex justify-end">
+                <Button onClickFn={close}>{confirmLabel}</Button>
+              </div>
+            </Card>
+          </div>
+        </>
+      )}
+    </>
+  );
+};
 
 export default Modal;
