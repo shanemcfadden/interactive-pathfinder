@@ -1,28 +1,41 @@
-import Button from "./Button";
-import "../styles/Modal.css";
+import { useCallback, type PropsWithChildren } from "react";
+import { useModalContext } from "../contexts/ModalContext/context";
+import { Button } from "./Button";
+import { Card } from "./Card";
 
-const Modal = ({
-  closeModalFunction,
-  title,
-  content,
+export const Modal = ({
+  children,
   confirmLabel = "OK",
-}: {
-  closeModalFunction: () => void;
-  title: string;
-  content?: string;
+  onCloseModal = () => {},
+}: PropsWithChildren<{
   confirmLabel?: string;
-}) => (
-  <>
-    <div
-      className="modal__overlay modal__overlay--accent-color modal__overlay--translucent"
-      onClick={() => closeModalFunction()}
-    ></div>
-    <div className="content-box modal__content-box light-theme">
-      <h3 className="centered-text">{title}</h3>
-      {content && <p>{content}</p>}
-      <Button onClickFn={closeModalFunction}>{confirmLabel}</Button>
-    </div>
-  </>
-);
+  onCloseModal?: () => void;
+}>) => {
+  const { isModalOpen, closeModal } = useModalContext();
 
-export default Modal;
+  const close = useCallback(() => {
+    onCloseModal();
+    closeModal();
+  }, [onCloseModal, closeModal]);
+
+  return (
+    <>
+      {isModalOpen && (
+        <>
+          <div
+            className="w-screen h-screen fixed top-0 left-0 bg-black opacity-50 z-100"
+            onClick={close}
+          />
+          <div className="m-auto fixed top-0 left-0 right-0 bottom-0 h-fit max-h-9/10 w-1/2 z-110">
+            <Card>
+              {children}
+              <div className="flex justify-end">
+                <Button onClickFn={close}>{confirmLabel}</Button>
+              </div>
+            </Card>
+          </div>
+        </>
+      )}
+    </>
+  );
+};

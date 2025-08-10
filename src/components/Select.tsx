@@ -21,9 +21,21 @@ export const Select = memo(
     disabled: boolean;
     options: SelectOption[];
   }) => (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <div className="flex items-center">
+      <label className="font-bold mr-2" htmlFor={id}>
+        {label}
+      </label>
       <select
+        className={[
+          "bg-white",
+          "cursor-pointer",
+          "py-2",
+          "px-3",
+          "rounded-full",
+          "text-black",
+          "disabled:bg-gray-200",
+          "disabled:cursor-not-allowed",
+        ].join(" ")}
         id={id}
         value={optionValue}
         onChange={onChange}

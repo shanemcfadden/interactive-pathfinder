@@ -1,18 +1,16 @@
-import "../styles/Node.css";
-import { TextureWeight, type TextureWeightValue } from "../settings/textures";
-import { Path, type PathValue } from "../settings/paths";
 import { useCallback, useMemo, type MouseEventHandler } from "react";
-import { areCoordinatesEqual, type Coordinate } from "../util/coordinate";
+import { areCoordinatesEqual, type Coordinate } from "../../../util/coordinate";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from "../contexts/PathFindingContext";
+} from "../../../contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../contexts/UserActionContext";
+} from "../../../contexts/UserActionContext";
+import { getCustomClasses } from "./class-name-utils";
 
-const Node = ({
+export const Node = ({
   rowIndex,
   columnIndex,
 }: {
@@ -133,57 +131,31 @@ const Node = ({
 
   return (
     <div
-      className={`node ${TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture]} ${getPathStateClass(
-        {
+      className={[
+        "aspect-square",
+        "color-white",
+        "duration-1000",
+        "flex",
+        "font-bold",
+        "transition-opacity",
+        "transition-ring",
+        "w-full",
+        getCustomClasses({
+          currentTexture,
           isStart,
           isEnd,
-          path: currentPathState,
-        },
-      )}`}
+          currentPathState,
+        }),
+      ].join(" ")}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
       onMouseUp={onMouseUp}
     >
-      {isStart && "S"}
-      {isEnd && "E"}
+      <div className="m-auto">
+        {isStart && "S"}
+        {isEnd && "E"}
+      </div>
     </div>
   );
-};
-
-export default Node;
-
-const getPathStateClass = ({
-  isStart,
-  isEnd,
-  path,
-}: {
-  isStart: boolean;
-  isEnd: boolean;
-  path: PathValue;
-}): string => {
-  if (isStart) {
-    return "node--start";
-  }
-
-  if (isEnd) {
-    return "node--end";
-  }
-
-  return PATH_VALUE_TO_CLASS_MAP[path];
-};
-
-const PATH_VALUE_TO_CLASS_MAP: Record<PathValue, string> = {
-  [Path.Unvisited]: "",
-  [Path.Visited]: "node--visited",
-  [Path.Path]: "node--path",
-};
-
-const TEXTURE_WEIGHT_TO_CLASS_MAP: Record<TextureWeightValue, string> = {
-  [TextureWeight.Asphalt]: "node--asphalt",
-  [TextureWeight.Dirt]: "node--dirt",
-  [TextureWeight.Grass]: "node--grass",
-  [TextureWeight.Sand]: "node--sand",
-  [TextureWeight.Swamp]: "node--swamp",
-  [TextureWeight.Water]: "node--water",
 };
