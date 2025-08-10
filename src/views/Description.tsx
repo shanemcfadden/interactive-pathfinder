@@ -5,7 +5,7 @@ import { Paragraph } from "../components/Paragraph";
 
 export const Description = () => (
   <Card>
-    <Heading>Interactive Pathfinder</Heading>
+    <Heading level={1}>Interactive Pathfinder</Heading>
     <Paragraph>
       Find the easiest path! Select a starting block and an ending block. To
       make things more interesting, add some challenges like water and swamp for

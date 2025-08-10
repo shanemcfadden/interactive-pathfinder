@@ -14,7 +14,7 @@ export const NoPossiblePathsModal = () => {
         });
       }}
     >
-      <Heading>There are no possible paths!</Heading>
+      <Heading level={2}>There are no possible paths!</Heading>
     </Modal>
   );
 };
