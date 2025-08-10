@@ -3,25 +3,25 @@ import {
   useUserActionContext,
   useUserActionDispatchContext,
 } from "../../contexts/UserActionContext";
-import Button from "../../components/Button";
+import { Button } from "../../components/Button";
 
-export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
+export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();
   const userAction = useUserActionContext();
 
-  const handleStartButtonClick = useCallback(() => {
+  const handleEndButtonClick = useCallback(() => {
     dispatchUserAction({
-      type: "UPDATE_START_NODE",
+      type: "UPDATE_END_NODE",
     });
   }, [dispatchUserAction]);
 
   return (
     <Button
-      onClickFn={handleStartButtonClick}
+      onClickFn={handleEndButtonClick}
       disabled={disabled}
-      isActive={userAction.type === "UPDATE_START_NODE"}
+      isActive={userAction.type === "UPDATE_END_NODE"}
     >
-      Select Start
+      Select End
     </Button>
   );
 };

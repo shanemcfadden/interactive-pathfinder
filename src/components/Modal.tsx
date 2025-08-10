@@ -1,9 +1,9 @@
 import { useCallback, type PropsWithChildren } from "react";
 import { useModalContext } from "../contexts/ModalContext/context";
-import Button from "./Button";
+import { Button } from "./Button";
 import { Card } from "./Card";
 
-const Modal = ({
+export const Modal = ({
   children,
   confirmLabel = "OK",
   onCloseModal = () => {},
@@ -39,5 +39,3 @@ const Modal = ({
     </>
   );
 };
-
-export default Modal;

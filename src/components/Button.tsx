@@ -1,39 +1,39 @@
 import { memo, type PropsWithChildren } from "react";
 
-const Button = ({
-  actionType = "default",
-  children,
-  disabled = false,
-  isActive = false,
-  onClickFn,
-}: PropsWithChildren<{
-  actionType?: ButtonActionType;
-  disabled?: boolean;
-  isActive?: boolean;
-  onClickFn: () => void;
-}>) => (
-  <button
-    className={[
-      "rounded-full",
-      "py-2",
-      "px-4",
-      "cursor-pointer",
-      "font-bold",
-      "disabled:cursor-not-allowed",
-      "disabled:text-gray-200",
-      "text-white",
-      isActive ? "ring-4" : "",
-      ACTION_TYPE_TO_CLASS[actionType],
-    ].join(" ")}
-    type="button"
-    onClick={onClickFn}
-    disabled={disabled}
-  >
-    {children}
-  </button>
+export const Button = memo(
+  ({
+    actionType = "default",
+    children,
+    disabled = false,
+    isActive = false,
+    onClickFn,
+  }: PropsWithChildren<{
+    actionType?: ButtonActionType;
+    disabled?: boolean;
+    isActive?: boolean;
+    onClickFn: () => void;
+  }>) => (
+    <button
+      className={[
+        "rounded-full",
+        "py-2",
+        "px-4",
+        "cursor-pointer",
+        "font-bold",
+        "disabled:cursor-not-allowed",
+        "disabled:text-gray-200",
+        "text-white",
+        isActive ? "ring-4" : "",
+        ACTION_TYPE_TO_CLASS[actionType],
+      ].join(" ")}
+      type="button"
+      onClick={onClickFn}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  ),
 );
-
-export default memo(Button);
 
 export type ButtonActionType = "danger" | "default" | "submit";
 

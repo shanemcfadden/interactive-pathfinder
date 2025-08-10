@@ -1,17 +1,16 @@
-import { TextureWeight, type TextureWeightValue } from "../settings/textures";
-import { Path, type PathValue } from "../settings/paths";
 import { useCallback, useMemo, type MouseEventHandler } from "react";
-import { areCoordinatesEqual, type Coordinate } from "../util/coordinate";
+import { areCoordinatesEqual, type Coordinate } from "../../../util/coordinate";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from "../contexts/PathFindingContext";
+} from "../../../contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../contexts/UserActionContext";
+} from "../../../contexts/UserActionContext";
+import { getCustomClasses } from "./class-name-utils";
 
-const Node = ({
+export const Node = ({
   rowIndex,
   columnIndex,
 }: {
@@ -159,78 +158,4 @@ const Node = ({
       </div>
     </div>
   );
-};
-
-export default Node;
-
-const getCustomClasses = (configuration: {
-  currentTexture: TextureWeightValue;
-  isStart: boolean;
-  isEnd: boolean;
-  currentPathState: PathValue;
-}): string =>
-  [
-    getOpacity(configuration),
-    getColor(configuration),
-    getBoxShadow(configuration),
-  ].join(" ");
-
-const getOpacity = ({
-  isStart,
-  isEnd,
-  currentPathState,
-}: {
-  isStart: boolean;
-  isEnd: boolean;
-  currentPathState: PathValue;
-}) => {
-  if (isStart || isEnd || currentPathState !== Path.Visited) {
-    return "";
-  }
-
-  return "opacity-60";
-};
-
-const getColor = ({
-  currentTexture,
-  isStart,
-  isEnd,
-}: {
-  currentTexture: TextureWeightValue;
-  isStart: boolean;
-  isEnd: boolean;
-}): string => {
-  if (isStart) {
-    return "bg-green-700";
-  }
-
-  if (isEnd) {
-    return "bg-red-500";
-  }
-
-  return TEXTURE_WEIGHT_TO_CLASS_MAP[currentTexture];
-};
-
-const getBoxShadow = ({
-  isStart,
-  isEnd,
-  currentPathState,
-}: {
-  isStart: boolean;
-  isEnd: boolean;
-  currentPathState: PathValue;
-}): string => {
-  if (isStart || isEnd || currentPathState === Path.Path) {
-    return "ring-2";
-  }
-  return "";
-};
-
-const TEXTURE_WEIGHT_TO_CLASS_MAP: Record<TextureWeightValue, string> = {
-  [TextureWeight.Asphalt]: "bg-asphalt",
-  [TextureWeight.Dirt]: "bg-dirt",
-  [TextureWeight.Grass]: "bg-grass",
-  [TextureWeight.Sand]: "bg-sand",
-  [TextureWeight.Swamp]: "bg-swamp",
-  [TextureWeight.Water]: "bg-water",
 };

@@ -1,5 +1,5 @@
 import { Heading } from "../components/Heading";
-import Modal from "../components/Modal";
+import { Modal } from "../components/Modal";
 import { usePathFindingDispatchContext } from "../contexts/PathFindingContext/context";
 
 export const NoPossiblePathsModal = () => {

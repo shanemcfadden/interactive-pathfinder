@@ -1,4 +1,4 @@
-import MinHeap from "../../min-heap";
+import { MinHeap } from "../../min-heap";
 import { areCoordinatesEqual, type Coordinate } from "../../coordinate";
 import { Grid } from "../../grid";
 import { PreviousCoordinateMap } from "./PreviousCoordinateMap";

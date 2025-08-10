@@ -4,7 +4,7 @@ type CompareFunction<T> = (a: T, b: T) => number;
  * Class representing a binary heap sorted with the minimum value at the top.
  * Functions as a priority queue.
  */
-class MinHeap<T> {
+export class MinHeap<T> {
   private heap: T[];
   private compareFunction: CompareFunction<T>;
 
@@ -107,5 +107,3 @@ class MinHeap<T> {
     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 }
-
-export default MinHeap;

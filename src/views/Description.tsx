@@ -1,9 +1,10 @@
+import { memo } from "react";
 import { Card } from "../components/Card";
 import { Heading } from "../components/Heading";
 import { Link } from "../components/Link";
 import { Paragraph } from "../components/Paragraph";
 
-export const Description = () => (
+export const Description = memo(() => (
   <Card>
     <Heading level={1}>Interactive Pathfinder</Heading>
     <Paragraph>
@@ -28,4 +29,4 @@ export const Description = () => (
       .
     </Paragraph>
   </Card>
-);
+));

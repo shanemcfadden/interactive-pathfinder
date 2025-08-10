@@ -1,17 +1,15 @@
-import Dashboard from "./Dashboard";
-import GridView from "./GridView";
+import { Toolbar } from "./Toolbar";
+import { PathFindingMap } from "./PathFindingMap";
 import { Description } from "./Description";
 import { NoPossiblePathsModal } from "./NoPossiblePathsModal";
 
-const App = () => (
+export const App = () => (
   <div className="bg-slate-900 text-white">
     <div className="mx-auto max-w-6xl">
       <Description />
-      <Dashboard />
-      <GridView />
+      <Toolbar />
+      <PathFindingMap />
     </div>
     <NoPossiblePathsModal />
   </div>
 );
-
-export default App;

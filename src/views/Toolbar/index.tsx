@@ -6,7 +6,7 @@ import { SelectStartButton } from "./SelectStartButton";
 import { SelectEndButton } from "./SelectEndButton";
 import { FlexRowSpacer } from "../../components/FlexRowSpacer";
 
-const Dashboard = () => {
+export const Toolbar = () => {
   const { isPathFinderActive } = usePathFindingContext();
 
   return (
@@ -23,5 +23,3 @@ const Dashboard = () => {
     </div>
   );
 };
-
-export default Dashboard;

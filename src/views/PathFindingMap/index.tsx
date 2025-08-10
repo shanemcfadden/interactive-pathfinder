@@ -1,12 +1,12 @@
 import { useCallback, type MouseEventHandler } from "react";
-import Node from "./Node";
-import { usePathFindingContext } from "../contexts/PathFindingContext";
+import { Node } from "./Node";
+import { usePathFindingContext } from "../../contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../contexts/UserActionContext";
+} from "../../contexts/UserActionContext";
 
-const GridView = () => {
+export const PathFindingMap = () => {
   const { terrainMap: terrain } = usePathFindingContext();
   const userAction = useUserActionContext();
   const dispatchUserAction = useUserActionDispatchContext();
@@ -15,14 +15,12 @@ const GridView = () => {
     (e) => {
       e.preventDefault();
 
-      if (userAction.type !== "APPLY_TEXTURE") {
-        return;
+      if (userAction.type === "APPLY_TEXTURE") {
+        dispatchUserAction({
+          type: "PREPARE_APPLY_TEXTURE",
+          texture: userAction.texture,
+        });
       }
-
-      dispatchUserAction({
-        type: "PREPARE_APPLY_TEXTURE",
-        texture: userAction.texture,
-      });
     },
     [userAction, dispatchUserAction],
   );
@@ -37,5 +35,3 @@ const GridView = () => {
     </div>
   );
 };
-
-export default GridView;
