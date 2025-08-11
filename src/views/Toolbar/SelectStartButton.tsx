@@ -11,7 +11,7 @@ export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
 
   const handleStartButtonClick = useCallback(() => {
     dispatchUserAction({
-      type: "UPDATE_START_NODE",
+      type: "UPDATE_START_COORDINATE",
     });
   }, [dispatchUserAction]);
 
@@ -19,7 +19,7 @@ export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
     <Button
       onClickFn={handleStartButtonClick}
       disabled={disabled}
-      isActive={userAction.type === "UPDATE_START_NODE"}
+      isActive={userAction.type === "UPDATE_START_COORDINATE"}
     >
       Select Start
     </Button>

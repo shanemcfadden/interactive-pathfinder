@@ -17,14 +17,14 @@ export const FindPathButton = ({
 }) => {
   const { openModal } = useModalContext();
   const dispatchUserAction = useUserActionDispatchContext();
-  const { start, end, terrainMap } = usePathFindingContext();
+  const { start, end, textureMap: terrainMap } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
 
   const afterDijkstraSuccess = useCallback(
     (failedMessage?: string) => {
       setCurrentInterval(null);
       dispatchPath({
-        type: "CLEAR_VISITED_NODES",
+        type: "CLEAR_VISITED_COORDINATES",
       });
 
       if (failedMessage) {

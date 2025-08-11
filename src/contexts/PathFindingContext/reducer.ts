@@ -14,7 +14,7 @@ export const reducer = (
         path: state.path.map(() => Path.Unvisited),
       };
 
-    case "CLEAR_VISITED_NODES":
+    case "CLEAR_VISITED_COORDINATES":
       return {
         ...state,
         isPathFinderActive: true,
@@ -23,11 +23,11 @@ export const reducer = (
         ),
       };
 
-    case "UPDATE_START_NODE": {
+    case "UPDATE_START_COORDINATE": {
       if (
-        // Replacing start node with start should not trigger a rerender
+        // Replacing start coordinate with start should not trigger a rerender
         areCoordinatesEqual(action.coordinate, state.start) ||
-        // Replacing end node with start is invalid
+        // Replacing end coordinate with start is invalid
         areCoordinatesEqual(action.coordinate, state.end)
       ) {
         return state;
@@ -40,11 +40,11 @@ export const reducer = (
       };
     }
 
-    case "UPDATE_END_NODE": {
+    case "UPDATE_END_COORDINATE": {
       if (
-        // Replacing end node with end should not trigger a rerender
+        // Replacing end coordinate with end should not trigger a rerender
         areCoordinatesEqual(action.coordinate, state.end) ||
-        // Replacing start node with end is invalid
+        // Replacing start coordinate with end is invalid
         areCoordinatesEqual(action.coordinate, state.start)
       ) {
         return state;
@@ -61,10 +61,10 @@ export const reducer = (
       const coordinateValue = state.path.getCoordinate(action.coordinate);
 
       if (
-        // Adding a path node on start or end is not valid
+        // Adding a path coordinate on start or end is not valid
         areCoordinatesEqual(action.coordinate, state.start) ||
         areCoordinatesEqual(action.coordinate, state.end) ||
-        // Replacing a path node with a path node should not trigger a rerender
+        // Replacing a path coordinate with a path coordinate should not trigger a rerender
         coordinateValue === Path.Path
       ) {
         return state;
@@ -86,10 +86,10 @@ export const reducer = (
       const coordinateValue = state.path.getCoordinate(action.coordinate);
 
       if (
-        // Adding a visited node on start or end is not valid
+        // Adding a visited coordinate on start or end is not valid
         areCoordinatesEqual(action.coordinate, state.start) ||
         areCoordinatesEqual(action.coordinate, state.end) ||
-        // Replacing a visited node with a visited node should not trigger a rerender
+        // Replacing a visited coordinate with a visited coordinate should not trigger a rerender
         coordinateValue === Path.Visited
       ) {
         return state;
@@ -111,16 +111,18 @@ export const reducer = (
       return {
         ...state,
         sampleTerrain: action.terrain.key,
-        terrainMap: action.terrain.stateOfNodes,
-        ...(action.terrain.startNode
-          ? { start: action.terrain.startNode }
+        textureMap: action.terrain.textureMap,
+        ...(action.terrain.startCoordinate
+          ? { start: action.terrain.startCoordinate }
           : {}),
-        ...(action.terrain.endNode ? { end: action.terrain.endNode } : {}),
+        ...(action.terrain.endCoordinate
+          ? { end: action.terrain.endCoordinate }
+          : {}),
       };
     }
 
     case "UPDATE_TERRAIN_TEXTURE": {
-      const currentTexture = state.terrainMap.getCoordinate(action.coordinate);
+      const currentTexture = state.textureMap.getCoordinate(action.coordinate);
 
       // Replacing a texture with the same texture should not trigger a rerender
       if (currentTexture === action.texture) {
@@ -129,7 +131,7 @@ export const reducer = (
 
       return {
         ...state,
-        terrainMap: state.terrainMap.map((value, [i, j]) => {
+        textureMap: state.textureMap.map((value, [i, j]) => {
           if (areCoordinatesEqual(action.coordinate, [i, j])) {
             return action.texture;
           }

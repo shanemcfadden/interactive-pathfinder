@@ -9,32 +9,32 @@ export interface PathFindingState {
   end: Coordinate;
   isPathFinderActive: boolean;
   path: Grid<PathValue>;
-  terrainMap: Grid<TextureWeightValue>;
+  textureMap: Grid<TextureWeightValue>;
   sampleTerrain: TerrainKey | null;
 }
 
 export type PathReducerAction =
-  | AddPathNodeAction
-  | AddVisitedNodeAction
-  | ClearVisitedNodesAction
+  | AddPathCoordinateAction
+  | AddVisitedCoordinateAction
+  | ClearVisitedCoordinatesAction
   | ResetPathAction
-  | UpdateEndNodeAction
-  | UpdateStartNodeAction
+  | UpdateEndCoordinateAction
+  | UpdateStartCoordinateAction
   | UpdateTerrainTexture
   | UseSampleTerrainAction;
 
-interface AddPathNodeAction {
+interface AddPathCoordinateAction {
   type: "ADD_PATH_COORDINATE";
   coordinate: Coordinate;
 }
 
-interface AddVisitedNodeAction {
+interface AddVisitedCoordinateAction {
   type: "ADD_VISITED_COORDINATE";
   coordinate: Coordinate;
 }
 
-interface ClearVisitedNodesAction {
-  type: "CLEAR_VISITED_NODES";
+interface ClearVisitedCoordinatesAction {
+  type: "CLEAR_VISITED_COORDINATES";
 }
 
 interface ResetPathAction {
@@ -52,12 +52,12 @@ interface UpdateTerrainTexture {
   texture: TextureWeightValue;
 }
 
-interface UpdateEndNodeAction {
-  type: "UPDATE_END_NODE";
+interface UpdateEndCoordinateAction {
+  type: "UPDATE_END_COORDINATE";
   coordinate: Coordinate;
 }
 
-interface UpdateStartNodeAction {
-  type: "UPDATE_START_NODE";
+interface UpdateStartCoordinateAction {
+  type: "UPDATE_START_COORDINATE";
   coordinate: Coordinate;
 }
