@@ -17,17 +17,17 @@ export const FindPathButton = ({
 }) => {
   const { openModal } = useModalContext();
   const dispatchUserAction = useUserActionDispatchContext();
-  const { start, end, textureMap: terrainMap } = usePathFindingContext();
+  const { start, end, textureMap } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
 
   const afterDijkstraSuccess = useCallback(
-    (failedMessage?: string) => {
+    (isPathFound: boolean) => {
       setCurrentInterval(null);
       dispatchPath({
         type: "CLEAR_VISITED_COORDINATES",
       });
 
-      if (failedMessage) {
+      if (isPathFound) {
         openModal();
         setFindPathButton("findPath");
         return;
@@ -43,14 +43,12 @@ export const FindPathButton = ({
     dispatchUserAction({
       type: "NO_ACTION",
     });
-    const dijkstraGenerator = getDijkstraGenerator(start, end, terrainMap);
+    const dijkstraGenerator = getDijkstraGenerator(start, end, textureMap);
     const interval = setInterval(() => {
       const generated = dijkstraGenerator.next();
       if (generated.done) {
         clearInterval(interval);
-        afterDijkstraSuccess(
-          generated.value.pathFound ? undefined : "Path not found",
-        );
+        afterDijkstraSuccess(generated.value.isPathFound);
       } else {
         switch (generated.value.type) {
           case "ADD_VISITED_COORDINATE":
@@ -71,7 +69,7 @@ export const FindPathButton = ({
   }, [
     start,
     end,
-    terrainMap,
+    textureMap,
     afterDijkstraSuccess,
     dispatchPath,
     dispatchUserAction,

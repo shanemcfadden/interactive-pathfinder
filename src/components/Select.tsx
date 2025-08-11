@@ -23,7 +23,7 @@ export const Select = memo(
   }) => (
     <div className="flex items-center">
       <label className="font-bold mr-2" htmlFor={id}>
-        {label}
+        {label}:
       </label>
       <select
         className={[

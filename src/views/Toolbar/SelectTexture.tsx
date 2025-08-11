@@ -63,7 +63,7 @@ export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   return (
     <Select
       id="select-texture"
-      label="Draw Texture:"
+      label="Draw Texture"
       value={currentTexture == null ? "none" : currentTexture.toString()}
       disabled={disabled}
       onChange={onChange}

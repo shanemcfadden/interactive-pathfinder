@@ -27,7 +27,7 @@ export function* getDijkstraGenerator(
     if (currentCoordinateData.distanceFromStart === Infinity) {
       return {
         type: "COMPLETE_CALCULATION",
-        pathFound: false,
+        isPathFound: false,
       };
     }
 
@@ -69,7 +69,7 @@ export function* getDijkstraGenerator(
 
   return {
     type: "COMPLETE_CALCULATION",
-    pathFound: true,
+    isPathFound: true,
   };
 }
 

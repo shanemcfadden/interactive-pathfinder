@@ -49,7 +49,7 @@ export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
   return (
     <Select
       id="select-sample"
-      label="Sample Terrains:"
+      label="Sample Terrains"
       value={sampleTerrain == null ? "none" : sampleTerrain}
       onChange={handleSampleTerrainChange}
       disabled={disabled}
