@@ -2,8 +2,8 @@ import type { TextureWeightValue } from "../../settings/textures";
 
 export type UserAction =
   | NoAction
-  | UpdateStartNode
-  | UpdateEndNode
+  | UpdateStartCoordinate
+  | UpdateEndCoordinate
   | ApplyTexture
   | PrepareApplyTexture;
 
@@ -11,12 +11,12 @@ interface NoAction {
   type: "NO_ACTION";
 }
 
-interface UpdateStartNode {
-  type: "UPDATE_START_NODE";
+interface UpdateStartCoordinate {
+  type: "UPDATE_START_COORDINATE";
 }
 
-interface UpdateEndNode {
-  type: "UPDATE_END_NODE";
+interface UpdateEndCoordinate {
+  type: "UPDATE_END_COORDINATE";
 }
 
 interface ApplyTexture {

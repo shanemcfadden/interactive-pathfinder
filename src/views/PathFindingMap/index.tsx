@@ -7,7 +7,7 @@ import {
 } from "../../contexts/UserActionContext";
 
 export const PathFindingMap = () => {
-  const { terrainMap: terrain } = usePathFindingContext();
+  const { textureMap: terrain } = usePathFindingContext();
   const userAction = useUserActionContext();
   const dispatchUserAction = useUserActionDispatchContext();
 

@@ -1,6 +1,6 @@
 import {
-  DEFAULT_END_NODE,
-  DEFAULT_START_NODE,
+  DEFAULT_END_COORDINATE,
+  DEFAULT_START_COORDINATE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
 } from "../../settings/grid";
@@ -10,8 +10,8 @@ import { DEFAULT_STARTING_TERRAIN } from "../../settings/terrains";
 import type { PathFindingState } from "./types";
 
 export const INITIAL_PATH_FINDING_STATE: PathFindingState = {
-  start: DEFAULT_START_NODE,
-  end: DEFAULT_END_NODE,
+  start: DEFAULT_START_COORDINATE,
+  end: DEFAULT_END_COORDINATE,
   isPathFinderActive: false,
   path: new Grid<PathValue>(
     Array.from({ length: GRID_HEIGHT_NODES }, () =>
@@ -19,5 +19,5 @@ export const INITIAL_PATH_FINDING_STATE: PathFindingState = {
     ),
   ),
   sampleTerrain: DEFAULT_STARTING_TERRAIN.key,
-  terrainMap: DEFAULT_STARTING_TERRAIN.stateOfNodes,
+  textureMap: DEFAULT_STARTING_TERRAIN.textureMap,
 };

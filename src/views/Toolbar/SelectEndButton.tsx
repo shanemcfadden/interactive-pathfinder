@@ -11,7 +11,7 @@ export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
 
   const handleEndButtonClick = useCallback(() => {
     dispatchUserAction({
-      type: "UPDATE_END_NODE",
+      type: "UPDATE_END_COORDINATE",
     });
   }, [dispatchUserAction]);
 
@@ -19,7 +19,7 @@ export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
     <Button
       onClickFn={handleEndButtonClick}
       disabled={disabled}
-      isActive={userAction.type === "UPDATE_END_NODE"}
+      isActive={userAction.type === "UPDATE_END_COORDINATE"}
     >
       Select End
     </Button>

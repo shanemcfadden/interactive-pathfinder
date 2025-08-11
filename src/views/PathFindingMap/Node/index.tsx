@@ -21,7 +21,7 @@ export const Node = ({
     () => [rowIndex, columnIndex],
     [rowIndex, columnIndex],
   );
-  const { start, end, path, terrainMap: terrain } = usePathFindingContext();
+  const { start, end, path, textureMap: terrain } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
 
   const userAction = useUserActionContext();
@@ -52,15 +52,15 @@ export const Node = ({
       e.preventDefault();
 
       switch (userAction.type) {
-        case "UPDATE_START_NODE":
+        case "UPDATE_START_COORDINATE":
           dispatchPath({
-            type: "UPDATE_START_NODE",
+            type: "UPDATE_START_COORDINATE",
             coordinate,
           });
           break;
-        case "UPDATE_END_NODE":
+        case "UPDATE_END_COORDINATE":
           dispatchPath({
-            type: "UPDATE_END_NODE",
+            type: "UPDATE_END_COORDINATE",
             coordinate,
           });
           break;

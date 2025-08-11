@@ -6,9 +6,9 @@ import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from './grid';
 export interface Terrain {
   key: TerrainKey;
   displayText: string;
-  stateOfNodes: Grid<TextureWeightValue>;
-  startNode?: Coordinate;
-  endNode?: Coordinate;
+  textureMap: Grid<TextureWeightValue>;
+  startCoordinate?: Coordinate;
+  endCoordinate?: Coordinate;
 }
 
 export type TerrainKey = 'all-grass' | 'all-water' | 'beachside-drive' | 'jackson-pollock' | 'swamp-maze';
@@ -26,7 +26,7 @@ export const ASCII_TO_TEXTURE_WEIGHT: Record<AsciiTextureWeight, TextureWeightVa
 export const DEFAULT_STARTING_TERRAIN: Terrain = {
   key: 'all-grass',
   displayText: 'All Grass',
-  stateOfNodes: new Grid(Array.from({ length: GRID_HEIGHT_NODES }, () => Array.from({ length: GRID_WIDTH_NODES }, () => TextureWeight.Grass))),
+  textureMap: new Grid(Array.from({ length: GRID_HEIGHT_NODES }, () => Array.from({ length: GRID_WIDTH_NODES }, () => TextureWeight.Grass))),
 };
 
 export const SAMPLE_TERRAINS: Terrain[] = [
@@ -34,14 +34,14 @@ export const SAMPLE_TERRAINS: Terrain[] = [
   {
     key: 'all-water',
     displayText: 'All Water',
-    stateOfNodes: new Grid(Array.from({ length: GRID_HEIGHT_NODES }, () => Array.from({ length: GRID_WIDTH_NODES }, () => TextureWeight.Water))),
+    textureMap: new Grid(Array.from({ length: GRID_HEIGHT_NODES }, () => Array.from({ length: GRID_WIDTH_NODES }, () => TextureWeight.Water))),
   },
   {
     key: 'beachside-drive',
     displayText: 'Beachside Drive',
-    startNode: [0, 0],
-    endNode: [17, 34],
-    stateOfNodes: new Grid<AsciiTextureWeight>([
+    startCoordinate: [0, 0],
+    endCoordinate: [17, 34],
+    textureMap: new Grid<AsciiTextureWeight>([
       ['a', 'a', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'd', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g'],
       ['g', 'a', 'a', 'a', 'a', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'd', 'g', 'g'],
       ['g', 'g', 'g', 'g', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g'],
@@ -68,9 +68,9 @@ export const SAMPLE_TERRAINS: Terrain[] = [
   {
     key: 'jackson-pollock',
     displayText: 'Jackson Pollock',
-    startNode: [15, 4],
-    endNode: [5, 28],
-    stateOfNodes: new Grid<AsciiTextureWeight>([
+    startCoordinate: [15, 4],
+    endCoordinate: [5, 28],
+    textureMap: new Grid<AsciiTextureWeight>([
       ['w', 'w', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'g', 'w', 'w', 'g', 'g', 'g', 'g', 'g', 'w', 'w', 'w', 'w', 'g', 'a', 'a', 'a', 'g', 'g', 'g', 'g', 'g', 'g'],
       ['w', 'g', 'w', 'w', 'g', 'g', 'g', 'w', 'w', 'w', 'g', 'g', 'g', 'g', 'g', 's', 's', 'g', 'g', 'g', 'g', 'w', 'g', 'g', 'w', 'g', 'g', 'g', 'a', 'a', 'a', 'g', 'w', 'w', 'g'],
       ['g', 'w', 'g', 'g', 's', 'a', 'a', 'w', 'x', 'x', 's', 'g', 'w', 'w', 'g', 's', 's', 's', 'd', 'd', 'g', 'a', 'g', 'g', 'w', 'd', 'g', 'g', 'd', 'g', 'g', 'a', 'w', 'w', 'g'],
@@ -97,9 +97,9 @@ export const SAMPLE_TERRAINS: Terrain[] = [
   {
     key: 'swamp-maze',
     displayText: 'Swamp Maze',
-    startNode: [0, 0],
-    endNode: [20, 34],
-    stateOfNodes: new Grid<AsciiTextureWeight>([
+    startCoordinate: [0, 0],
+    endCoordinate: [20, 34],
+    textureMap: new Grid<AsciiTextureWeight>([
       ['x', 'w', 'x', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'w', 'w', 'w', 'w', 'x', 'x', 'x', 'x', 'x', 'w', 'w', 'w', 'w', 'w', 'w', 'x', 'x', 'x'],
       ['x', 'w', 'x', 'x', 'x', 'w', 'x', 'x', 'x', 'x', 'x', 'w', 'w', 'w', 'w', 'w', 'x', 'x', 'x', 'x', 'x', 'w', 'w', 'w', 'w', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'w', 'x'],
       ['x', 'w', 'w', 'w', 'x', 'w', 'x', 'w', 'x', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'x', 'x', 'x', 'w', 'x', 'w', 'w', 'w', 'x', 'w', 'w', 'w', 'w', 'x'],
