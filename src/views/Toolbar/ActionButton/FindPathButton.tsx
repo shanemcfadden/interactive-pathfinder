@@ -27,7 +27,7 @@ export const FindPathButton = ({
         type: "CLEAR_VISITED_COORDINATES",
       });
 
-      if (isPathFound) {
+      if (!isPathFound) {
         openModal();
         setFindPathButton("findPath");
         return;
