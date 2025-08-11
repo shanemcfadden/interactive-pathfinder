@@ -13,7 +13,7 @@ interface AddPathCoordinate {
 
 export interface CompleteCalculation {
   type: "COMPLETE_CALCULATION";
-  pathFound: boolean;
+  isPathFound: boolean;
 }
 
 export interface CoordinateData {

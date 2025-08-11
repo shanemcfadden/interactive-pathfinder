@@ -21,7 +21,7 @@ export const Node = ({
     () => [rowIndex, columnIndex],
     [rowIndex, columnIndex],
   );
-  const { start, end, path, textureMap: terrain } = usePathFindingContext();
+  const { start, end, path, textureMap } = usePathFindingContext();
   const dispatchPath = usePathFindingDispatchContext();
 
   const userAction = useUserActionContext();
@@ -38,8 +38,8 @@ export const Node = ({
   );
 
   const currentTexture = useMemo(
-    () => terrain.getCoordinate(coordinate),
-    [terrain, coordinate],
+    () => textureMap.getCoordinate(coordinate),
+    [textureMap, coordinate],
   );
 
   const currentPathState = useMemo(

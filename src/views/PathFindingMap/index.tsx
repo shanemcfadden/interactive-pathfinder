@@ -7,7 +7,7 @@ import {
 } from "../../contexts/UserActionContext";
 
 export const PathFindingMap = () => {
-  const { textureMap: terrain } = usePathFindingContext();
+  const { textureMap } = usePathFindingContext();
   const userAction = useUserActionContext();
   const dispatchUserAction = useUserActionDispatchContext();
 
@@ -27,7 +27,7 @@ export const PathFindingMap = () => {
 
   return (
     <div className="grid grid-cols-35 gap-0.5 my-4" onMouseLeave={onMouseLeave}>
-      {terrain.values.map((row, i) =>
+      {textureMap.values.map((row, i) =>
         row.map((_, j) => (
           <Node rowIndex={i} columnIndex={j} key={`${i}-${j}`} />
         )),
