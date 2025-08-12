@@ -4,7 +4,9 @@ import { CancelPathButton } from "./CancelPathButton";
 import { ResetPathButton } from "./ResetPathButton";
 
 export const ActionButton = () => {
-  const [currentInterval, setCurrentInterval] = useState<number | null>(null);
+  const [currentInterval, setCurrentInterval] = useState<NodeJS.Timeout | null>(
+    null,
+  );
   const [findPathButton, setFindPathButton] = useState<
     "findPath" | "reset" | "cancel"
   >("findPath");

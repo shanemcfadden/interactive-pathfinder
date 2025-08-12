@@ -38,8 +38,29 @@ jobs:
         run: pnpm format:check
       - name: Lint
         run: pnpm lint
-  test:
-    name: Test
+  test-browser:
+    name: Test - Browser
+    runs-on: ubuntu-latest
+    needs: [build]
+    env:
+      SERVE_PORT: 4173
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/jod"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: pnpm build
+          start: pnpm serve
+  test-unit:
+    name: Test - Unit
     runs-on: ubuntu-latest
     needs: [build]
     steps:
@@ -52,13 +73,13 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Run tests
-        run: pnpm test
+      - name: Run unit tests
+        run: pnpm unit
   deploy:
     name: Deploy
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [lint, test-browser, test-unit]
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
