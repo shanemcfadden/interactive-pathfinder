@@ -8,12 +8,12 @@ export const Description = memo(() => (
   <Card>
     <Heading level={1}>Interactive Pathfinder</Heading>
     <Paragraph>
-      Find the easiest path! Select a starting block and an ending block. To
-      make things more interesting, add some challenges like water and swamp for
-      the pathfinder to avoid. You can also make things easier by drawing roads
-      made of dirt and asphalt. Once you press <em>Find Path</em>, the computer
-      will search for the easiest path using Dijkstra's algorithm. Make a guess,
-      and see if you can beat the computer at its own game.
+      Find the easiest path! Select a start block and an end block. To make
+      things more interesting, add some challenges like water and swamp for the
+      pathfinder to avoid. You can also make things easier by drawing roads made
+      of dirt and asphalt. Once you press <em>Find Path</em>, the computer will
+      search for the easiest path using Dijkstra's algorithm. Make a guess, and
+      see if you can beat the computer at its own game.
     </Paragraph>
     <Paragraph>
       <strong>
