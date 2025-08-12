@@ -39,7 +39,7 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "serve": "vite preview",
-    "test": "vitest"
+    "unit": "vitest"
   },
   "browserslist": {
     "production": [

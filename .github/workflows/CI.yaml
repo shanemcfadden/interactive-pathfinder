@@ -73,8 +73,8 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Run tests
-        run: pnpm test
+      - name: Run unit tests
+        run: pnpm unit
   deploy:
     name: Deploy
     if: github.ref == 'refs/heads/main'
