@@ -12,7 +12,7 @@ export const FindPathButton = ({
   setCurrentInterval,
   setFindPathButton,
 }: {
-  setCurrentInterval: Dispatch<SetStateAction<number | null>>;
+  setCurrentInterval: Dispatch<SetStateAction<NodeJS.Timeout | null>>;
   setFindPathButton: Dispatch<SetStateAction<"findPath" | "reset" | "cancel">>;
 }) => {
   const { openModal } = useModalContext();

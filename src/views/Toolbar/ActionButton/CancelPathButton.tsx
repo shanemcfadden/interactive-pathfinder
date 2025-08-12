@@ -7,8 +7,8 @@ export const CancelPathButton = ({
   setCurrentInterval,
   setFindPathButton,
 }: {
-  currentInterval: number | null;
-  setCurrentInterval: Dispatch<SetStateAction<number | null>>;
+  currentInterval: NodeJS.Timeout | null;
+  setCurrentInterval: Dispatch<SetStateAction<NodeJS.Timeout | null>>;
   setFindPathButton: Dispatch<SetStateAction<"findPath" | "reset" | "cancel">>;
 }) => {
   const dispatchPath = usePathFindingDispatchContext();
