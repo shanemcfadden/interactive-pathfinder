@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     env:
-      CYPRESS_PORT: 4173
+      SERVE_PORT: 4173
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

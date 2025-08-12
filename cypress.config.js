@@ -1,6 +1,6 @@
 import { defineConfig } from "cypress";
 
-const port = process.env.CYPRESS_PORT || 5173;
+const port = process.env.SERVE_PORT || 5173;
 
 export default defineConfig({
   viewportHeight: 900,
