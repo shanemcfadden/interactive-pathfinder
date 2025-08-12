@@ -38,8 +38,8 @@
     "lint": "eslint .",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "test": "vitest",
-    "preview": "vite preview"
+    "serve": "vite preview",
+    "test": "vitest"
   },
   "browserslist": {
     "production": [

@@ -1,5 +1,7 @@
 import { defineConfig } from "cypress";
 
+const port = process.env.CYPRESS_PORT || 5173;
+
 export default defineConfig({
   viewportHeight: 900,
   viewportWidth: 1440,
@@ -7,6 +9,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: "http://localhost:5173",
+    baseUrl: `http://localhost:${port}`,
   },
 });
