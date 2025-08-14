@@ -147,6 +147,7 @@ export const Node = ({
           currentPathState,
         }),
       ].join(" ")}
+      data-testid={`node-${rowIndex}-${columnIndex}`}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}

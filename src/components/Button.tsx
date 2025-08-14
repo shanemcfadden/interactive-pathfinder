@@ -7,11 +7,13 @@ export const Button = memo(
     disabled = false,
     isActive = false,
     onClickFn,
+    "data-testid": dataTestId,
   }: PropsWithChildren<{
     actionType?: ButtonActionType;
     disabled?: boolean;
     isActive?: boolean;
     onClickFn: () => void;
+    "data-testid"?: string;
   }>) => (
     <button
       className={[
@@ -28,6 +30,7 @@ export const Button = memo(
       ].join(" ")}
       type="button"
       onClick={onClickFn}
+      data-testid={dataTestId}
       disabled={disabled}
     >
       {children}
