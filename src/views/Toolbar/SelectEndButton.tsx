@@ -18,6 +18,7 @@ export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <Button
       onClickFn={handleEndButtonClick}
+      data-testid="select-end-button"
       disabled={disabled}
       isActive={userAction.type === "UPDATE_END_COORDINATE"}
     >

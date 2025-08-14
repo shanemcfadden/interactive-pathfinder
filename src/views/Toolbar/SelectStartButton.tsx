@@ -18,6 +18,7 @@ export const SelectStartButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <Button
       onClickFn={handleStartButtonClick}
+      data-testid="select-start-button"
       disabled={disabled}
       isActive={userAction.type === "UPDATE_START_COORDINATE"}
     >
