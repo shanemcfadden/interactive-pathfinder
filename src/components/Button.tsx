@@ -31,6 +31,7 @@ export const Button = memo(
       type="button"
       onClick={onClickFn}
       data-testid={dataTestId}
+      data-active={isActive}
       disabled={disabled}
     >
       {children}
