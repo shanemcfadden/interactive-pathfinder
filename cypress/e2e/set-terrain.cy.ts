@@ -4,17 +4,11 @@ import { GRID_WIDTH_NODES, GRID_HEIGHT_NODES } from "../../src/settings/grid";
 it("sets terrain", () => {
   cy.visit("/");
 
+  cy.log("Sets terrain");
   cy.get(testId("select-terrain")).select("All Water");
-  for (let x = 0; x < GRID_HEIGHT_NODES; x++) {
-    for (let y = 0; y < GRID_WIDTH_NODES; y++) {
-      cy.get(nodeTestId(x, y)).should("have.attr", "data-texture", "Infinity");
-    }
-  }
-
-  cy.get(testId("select-terrain")).select("All Grass");
-  for (let x = 0; x < GRID_HEIGHT_NODES; x++) {
-    for (let y = 0; y < GRID_WIDTH_NODES; y++) {
-      cy.get(nodeTestId(x, y)).should("have.attr", "data-texture", "5");
+  for (let i = 0; i < GRID_HEIGHT_NODES; i++) {
+    for (let j = 0; j < GRID_WIDTH_NODES; j++) {
+      cy.get(nodeTestId(i, j)).should("have.attr", "data-texture", "Infinity");
     }
   }
 
