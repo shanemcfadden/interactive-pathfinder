@@ -148,6 +148,7 @@ export const Node = ({
         }),
       ].join(" ")}
       data-testid={`node-${rowIndex}-${columnIndex}`}
+      data-texture={currentTexture}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseEnter={onMouseEnter}
