@@ -78,7 +78,11 @@ export const FindPathButton = ({
   ]);
 
   return (
-    <Button onClickFn={handleFindPathClick} actionType={"submit"}>
+    <Button
+      data-testid="find-path-button"
+      onClickFn={handleFindPathClick}
+      actionType={"submit"}
+    >
       Find Path
     </Button>
   );

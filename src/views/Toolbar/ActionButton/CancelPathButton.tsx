@@ -25,7 +25,11 @@ export const CancelPathButton = ({
   }, [currentInterval, handleFindPathReset, setCurrentInterval]);
 
   return (
-    <Button onClickFn={handleCancelFindPath} actionType={"danger"}>
+    <Button
+      data-testid="cancel-path-button"
+      onClickFn={handleCancelFindPath}
+      actionType={"danger"}
+    >
       Cancel
     </Button>
   );
