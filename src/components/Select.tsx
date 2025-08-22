@@ -8,17 +8,19 @@ export interface SelectOption {
 export const Select = memo(
   ({
     id,
-    label,
-    value: optionValue,
-    onChange,
+    "data-testid": dataTestId,
     disabled,
+    label,
+    onChange,
     options,
+    value: optionValue,
   }: {
     id: string;
     label: string;
     value: string;
-    onChange: ChangeEventHandler<HTMLSelectElement>;
+    "data-testid"?: string;
     disabled: boolean;
+    onChange: ChangeEventHandler<HTMLSelectElement>;
     options: SelectOption[];
   }) => (
     <div className="flex items-center">
@@ -36,6 +38,7 @@ export const Select = memo(
           "disabled:bg-gray-200",
           "disabled:cursor-not-allowed",
         ].join(" ")}
+        data-testid={dataTestId}
         id={id}
         value={optionValue}
         onChange={onChange}

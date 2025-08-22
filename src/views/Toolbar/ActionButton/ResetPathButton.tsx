@@ -16,5 +16,9 @@ export const ResetPathButton = ({
     setFindPathButton("findPath");
   }, [dispatchPath, setFindPathButton]);
 
-  return <Button onClickFn={handleFindPathReset}>Reset</Button>;
+  return (
+    <Button data-testid="reset-path-button" onClickFn={handleFindPathReset}>
+      Reset
+    </Button>
+  );
 };

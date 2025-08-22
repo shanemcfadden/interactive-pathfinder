@@ -23,14 +23,20 @@ export const Modal = ({
       {isModalOpen && (
         <>
           <div
+            data-testid="modal-overlay"
             className="w-screen h-screen fixed top-0 left-0 bg-black opacity-50 z-100"
             onClick={close}
           />
-          <div className="m-auto fixed top-0 left-0 right-0 bottom-0 h-fit max-h-9/10 w-1/2 z-110">
+          <div
+            data-testid="modal-content"
+            className="m-auto fixed top-0 left-0 right-0 bottom-0 h-fit max-h-9/10 w-1/2 z-110"
+          >
             <Card>
               {children}
               <div className="flex justify-end">
-                <Button onClickFn={close}>{confirmLabel}</Button>
+                <Button data-testid="modal-close-button" onClickFn={close}>
+                  {confirmLabel}
+                </Button>
               </div>
             </Card>
           </div>
