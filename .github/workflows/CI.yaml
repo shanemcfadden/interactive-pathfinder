@@ -20,6 +20,12 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+      - name: Save build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          if-no-files-found: error
+          path: dist
   lint:
     name: Format/Lint
     runs-on: ubuntu-latest
@@ -54,10 +60,14 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: dist
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: pnpm build
           start: pnpm serve
   test-unit:
     name: Test - Unit
@@ -90,8 +100,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Build
-        run: pnpm build --base=/interactive-pathfinder
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: dist
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
