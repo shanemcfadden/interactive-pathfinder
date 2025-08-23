@@ -1,10 +1,10 @@
 import { useCallback, type MouseEventHandler } from "react";
 import { Node } from "./Node";
-import { usePathFindingContext } from "../../contexts/PathFindingContext";
+import { usePathFindingContext } from "@contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../../contexts/UserActionContext";
+} from "@contexts/UserActionContext";
 
 export const PathFindingMap = () => {
   const { textureMap } = usePathFindingContext();

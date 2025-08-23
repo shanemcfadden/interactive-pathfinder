@@ -1,12 +1,12 @@
 import { useCallback, type Dispatch, type SetStateAction } from "react";
-import { getDijkstraGenerator } from "../../../util/algorithms/dijkstra";
-import { Button } from "../../../components/Button";
+import { getDijkstraGenerator } from "@utils";
+import { Button } from "@components/Button";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from "../../../contexts/PathFindingContext";
-import { useUserActionDispatchContext } from "../../../contexts/UserActionContext";
-import { useModalContext } from "../../../contexts/ModalContext/context";
+} from "@contexts/PathFindingContext";
+import { useUserActionDispatchContext } from "@contexts/UserActionContext";
+import { useModalContext } from "@contexts/ModalContext";
 
 export const FindPathButton = ({
   setCurrentInterval,

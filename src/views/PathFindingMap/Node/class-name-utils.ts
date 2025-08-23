@@ -1,8 +1,9 @@
 import {
   TextureWeight,
   type TextureWeightValue,
-} from "../../../settings/textures";
-import { Path, type PathValue } from "../../../settings/paths";
+  Path,
+  type PathValue,
+} from "@constants";
 
 export const getCustomClasses = (configuration: {
   currentTexture: TextureWeightValue;

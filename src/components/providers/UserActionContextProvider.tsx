@@ -1,7 +1,10 @@
 import { isEqual } from "lodash-es";
 import { useReducer, type PropsWithChildren } from "react";
-import { UserActionContext, UserActionDispatchContext } from "./context";
-import type { UserAction } from "./types";
+import {
+  UserActionContext,
+  UserActionDispatchContext,
+  type UserAction,
+} from "@contexts/UserActionContext";
 
 export const UserActionContextProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(reducer, {

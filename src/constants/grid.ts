@@ -1,4 +1,4 @@
-import type { Coordinate } from "../util/coordinate";
+import type { Coordinate } from "../utils";
 
 export const DEFAULT_START_COORDINATE: Coordinate = [4, 4];
 export const DEFAULT_END_COORDINATE: Coordinate = [7, 16];

@@ -1,5 +1,5 @@
 import { useState, useCallback, type PropsWithChildren } from "react";
-import { ModalContext } from "./context";
+import { ModalContext } from "@contexts/ModalContext";
 
 export const ModalContextProvider = ({ children }: PropsWithChildren) => {
   const [isModalOpen, setIsOpen] = useState(false);

@@ -2,8 +2,8 @@ import { useCallback } from "react";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../../contexts/UserActionContext";
-import { Button } from "../../components/Button";
+} from "@contexts/UserActionContext";
+import { Button } from "@components/Button";
 
 export const SelectEndButton = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();

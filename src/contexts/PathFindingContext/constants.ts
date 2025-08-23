@@ -3,10 +3,11 @@ import {
   DEFAULT_START_COORDINATE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
-} from "../../settings/grid";
-import { Path, type PathValue } from "../../settings/paths";
-import { Grid } from "../../util/grid";
-import { DEFAULT_STARTING_TERRAIN } from "../../settings/terrains";
+  Path,
+  type PathValue,
+  DEFAULT_STARTING_TERRAIN,
+} from "@constants";
+import { Grid } from "../../utils";
 import type { PathFindingState } from "./types";
 
 export const INITIAL_PATH_FINDING_STATE: PathFindingState = {

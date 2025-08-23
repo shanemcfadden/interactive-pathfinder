@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { Card } from "../components/Card";
-import { Heading } from "../components/Heading";
-import { Link } from "../components/Link";
-import { Paragraph } from "../components/Paragraph";
+import { Card } from "@components/Card";
+import { Heading } from "@components/Heading";
+import { Link } from "@components/Link";
+import { Paragraph } from "@components/Paragraph";
 
 export const Description = memo(() => (
   <Card>

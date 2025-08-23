@@ -2,13 +2,13 @@ import { useCallback, useMemo, type ChangeEventHandler } from "react";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../../contexts/UserActionContext";
+} from "@contexts/UserActionContext";
 import {
   TEXTURES_ARRAY,
   TextureWeight,
   type TextureWeightValue,
-} from "../../settings/textures";
-import { Select, type SelectOption } from "../../components/Select";
+} from "@constants";
+import { Select, type SelectOption } from "@components/Select";
 
 export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   const userAction = useUserActionContext();
