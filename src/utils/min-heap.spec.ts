@@ -1,5 +1,5 @@
+import { expect, it } from "vitest";
 import { MinHeap } from "./min-heap";
-import { it, expect } from "vitest";
 import fc from "fast-check";
 
 it("MinHeap pops the number of values that have been pushed.", () => {

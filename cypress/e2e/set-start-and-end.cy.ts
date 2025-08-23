@@ -1,4 +1,4 @@
-import { testId, nodeTestId } from "../support/selectors";
+import { nodeTestId, testId } from "../support/selectors";
 
 it("Sets start and end nodes", () => {
   cy.visit("/");

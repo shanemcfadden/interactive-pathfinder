@@ -1,7 +1,7 @@
-import { useCallback, type PropsWithChildren } from "react";
-import { useModalContext } from "../contexts/ModalContext/context";
+import { type PropsWithChildren, useCallback } from "react";
 import { Button } from "./Button";
 import { Card } from "./Card";
+import { useModalContext } from "@contexts/ModalContext";
 
 export const Modal = ({
   children,

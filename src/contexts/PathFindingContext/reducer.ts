@@ -1,6 +1,6 @@
-import { Path } from "../../settings/paths";
-import { areCoordinatesEqual } from "../../util/coordinate";
-import type { PathReducerAction, PathFindingState } from "./types";
+import type { PathFindingState, PathReducerAction } from "./types";
+import { Path } from "@constants";
+import { areCoordinatesEqual } from "@utils";
 
 export const reducer = (
   state: PathFindingState,

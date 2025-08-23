@@ -1,4 +1,4 @@
-import { memo, type PropsWithChildren } from "react";
+import { type PropsWithChildren, memo } from "react";
 import { Margin } from "./Margin";
 
 export const Paragraph = memo(({ children }: PropsWithChildren) => (

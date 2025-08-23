@@ -6,7 +6,7 @@ This project is a single page web application that allows users to select start 
 
 Click [here](https://shanemcfadden.dev/interactive-pathfinder) to use the app in your desktop browser. **Note: the app is not optimized for mobile or tablet use.**
 
-[![Pathfinder demonstration](src/images/screencap.gif)](https://shanemcfadden.dev/interactive-pathfinder)
+[![Pathfinder demonstration](static/screencap.gif)](https://shanemcfadden.dev/interactive-pathfinder)
 
 ## Tools used
 

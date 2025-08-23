@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import fc from "fast-check";
 import { Grid } from "./grid";
 import { areCoordinatesEqual } from "./coordinate";
+import fc from "fast-check";
 
 const mockGridHeight = 8;
 const mockGridWidth = 10;

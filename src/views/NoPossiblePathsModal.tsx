@@ -1,6 +1,6 @@
-import { Heading } from "../components/Heading";
-import { Modal } from "../components/Modal";
-import { usePathFindingDispatchContext } from "../contexts/PathFindingContext/context";
+import { Heading } from "@components/Heading";
+import { Modal } from "@components/Modal";
+import { usePathFindingDispatchContext } from "@contexts/PathFindingContext";
 
 export const NoPossiblePathsModal = () => {
   const dispatchPath = usePathFindingDispatchContext();

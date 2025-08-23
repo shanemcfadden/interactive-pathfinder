@@ -1,13 +1,13 @@
-import { useCallback, useMemo, type MouseEventHandler } from "react";
-import { areCoordinatesEqual, type Coordinate } from "../../../util/coordinate";
+import { type Coordinate, areCoordinatesEqual } from "@utils";
+import { type MouseEventHandler, useCallback, useMemo } from "react";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
-} from "../../../contexts/PathFindingContext";
+} from "@contexts/PathFindingContext";
 import {
   useUserActionContext,
   useUserActionDispatchContext,
-} from "../../../contexts/UserActionContext";
+} from "@contexts/UserActionContext";
 import { getCustomClasses } from "./class-name-utils";
 
 export const Node = ({

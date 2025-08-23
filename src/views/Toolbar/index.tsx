@@ -1,10 +1,10 @@
-import { usePathFindingContext } from "../../contexts/PathFindingContext";
-import { SelectTexture } from "./SelectTexture";
-import { SelectTerrain } from "./SelectTerrain";
 import { ActionButton } from "./ActionButton";
-import { SelectStartButton } from "./SelectStartButton";
+import { FlexRowSpacer } from "@components/FlexRowSpacer";
 import { SelectEndButton } from "./SelectEndButton";
-import { FlexRowSpacer } from "../../components/FlexRowSpacer";
+import { SelectStartButton } from "./SelectStartButton";
+import { SelectTerrain } from "./SelectTerrain";
+import { SelectTexture } from "./SelectTexture";
+import { usePathFindingContext } from "@contexts/PathFindingContext";
 
 export const Toolbar = () => {
   const { isPathFinderActive } = usePathFindingContext();

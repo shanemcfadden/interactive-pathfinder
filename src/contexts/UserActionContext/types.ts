@@ -1,4 +1,4 @@
-import type { TextureWeightValue } from "../../settings/textures";
+import type { TextureWeightValue } from "@constants";
 
 export type UserAction =
   | NoAction
