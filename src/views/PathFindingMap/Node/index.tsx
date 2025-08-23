@@ -1,5 +1,5 @@
-import { useCallback, useMemo, type MouseEventHandler } from "react";
-import { areCoordinatesEqual, type Coordinate } from "@utils";
+import { type Coordinate, areCoordinatesEqual } from "@utils";
+import { type MouseEventHandler, useCallback, useMemo } from "react";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,

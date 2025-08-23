@@ -1,5 +1,5 @@
-import type { PropsWithChildren } from "react";
 import { Margin } from "./Margin";
+import type { PropsWithChildren } from "react";
 
 export const Card = ({ children }: PropsWithChildren) => (
   <Margin>

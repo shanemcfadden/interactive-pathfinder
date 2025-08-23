@@ -1,8 +1,8 @@
-import { MinHeap } from "../../min-heap";
-import { areCoordinatesEqual, type Coordinate } from "../../coordinate";
-import { Grid } from "../../grid";
-import { PreviousCoordinateMap } from "./PreviousCoordinateMap";
 import type { CompleteCalculation, CoordinateData, PathAction } from "./types";
+import { type Coordinate, areCoordinatesEqual } from "../../coordinate";
+import { Grid } from "../../grid";
+import { MinHeap } from "../../min-heap";
+import { PreviousCoordinateMap } from "./PreviousCoordinateMap";
 
 export function* getDijkstraGenerator(
   start: Coordinate,

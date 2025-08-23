@@ -1,11 +1,11 @@
 import {
   DEFAULT_END_COORDINATE,
+  DEFAULT_STARTING_TERRAIN,
   DEFAULT_START_COORDINATE,
   GRID_HEIGHT_NODES,
   GRID_WIDTH_NODES,
   Path,
   type PathValue,
-  DEFAULT_STARTING_TERRAIN,
 } from "@constants";
 import { Grid } from "../../utils";
 import type { PathFindingState } from "./types";

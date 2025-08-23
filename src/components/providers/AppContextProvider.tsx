@@ -1,7 +1,7 @@
-import type { PropsWithChildren } from "react";
-import { PathFindingContextProvider } from "./PathFindingContextProvider";
-import { UserActionContextProvider } from "./UserActionContextProvider";
 import { ModalContextProvider } from "./ModalContextProvider";
+import { PathFindingContextProvider } from "./PathFindingContextProvider";
+import type { PropsWithChildren } from "react";
+import { UserActionContextProvider } from "./UserActionContextProvider";
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => (
   <ModalContextProvider>

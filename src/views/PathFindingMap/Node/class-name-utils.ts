@@ -1,8 +1,8 @@
 import {
-  TextureWeight,
-  type TextureWeightValue,
   Path,
   type PathValue,
+  TextureWeight,
+  type TextureWeightValue,
 } from "@constants";
 
 export const getCustomClasses = (configuration: {

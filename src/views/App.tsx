@@ -1,8 +1,8 @@
-import { Toolbar } from "./Toolbar";
-import { PathFindingMap } from "./PathFindingMap";
+import { AppContextProvider } from "@components/providers/AppContextProvider";
 import { Description } from "./Description";
 import { NoPossiblePathsModal } from "./NoPossiblePathsModal";
-import { AppContextProvider } from "@components/providers/AppContextProvider";
+import { PathFindingMap } from "./PathFindingMap";
+import { Toolbar } from "./Toolbar";
 
 export const App = () => (
   <AppContextProvider>

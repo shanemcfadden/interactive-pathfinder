@@ -1,4 +1,4 @@
-import { memo, type JSX, type PropsWithChildren } from "react";
+import { type JSX, type PropsWithChildren, memo } from "react";
 import { Margin } from "./Margin";
 
 type HeadingLevel = 1 | 2;

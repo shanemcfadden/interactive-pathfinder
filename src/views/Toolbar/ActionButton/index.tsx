@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { FindPathButton } from "./FindPathButton";
 import { CancelPathButton } from "./CancelPathButton";
+import { FindPathButton } from "./FindPathButton";
 import { ResetPathButton } from "./ResetPathButton";
+import { useState } from "react";
 
 export const ActionButton = () => {
   const [currentInterval, setCurrentInterval] = useState<NodeJS.Timeout | null>(

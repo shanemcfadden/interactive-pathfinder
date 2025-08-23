@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import fc from "fast-check";
 import { areCoordinatesEqual } from "./coordinate";
+import fc from "fast-check";
 
 describe("areCoordinatesEqual", () => {
   it("yields true for identical coordinates", () => {

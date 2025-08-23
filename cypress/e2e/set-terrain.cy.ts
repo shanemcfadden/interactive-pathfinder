@@ -1,5 +1,5 @@
+import { GRID_HEIGHT_NODES, GRID_WIDTH_NODES } from "../../src/constants/grid";
 import { nodeTestId, testId } from "../support/selectors";
-import { GRID_WIDTH_NODES, GRID_HEIGHT_NODES } from "../../src/settings/grid";
 
 it("sets terrain", () => {
   cy.visit("/");

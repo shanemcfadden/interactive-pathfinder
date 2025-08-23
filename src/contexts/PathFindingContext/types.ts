@@ -1,10 +1,10 @@
+import type { Coordinate, Grid } from "../../utils";
 import type {
   PathValue,
   Terrain,
   TerrainKey,
   TextureWeightValue,
 } from "@constants";
-import type { Coordinate, Grid } from "../../utils";
 
 export interface PathFindingState {
   start: Coordinate;

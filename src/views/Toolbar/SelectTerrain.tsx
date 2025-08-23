@@ -1,11 +1,11 @@
-import { useCallback, useMemo, type ChangeEventHandler } from "react";
-import { useUserActionDispatchContext } from "@contexts/UserActionContext";
-import { SAMPLE_TERRAINS } from "@constants";
+import { type ChangeEventHandler, useCallback, useMemo } from "react";
+import { Select, type SelectOption } from "@components/Select";
 import {
   usePathFindingContext,
   usePathFindingDispatchContext,
 } from "@contexts/PathFindingContext";
-import { Select, type SelectOption } from "@components/Select";
+import { SAMPLE_TERRAINS } from "@constants";
+import { useUserActionDispatchContext } from "@contexts/UserActionContext";
 
 export const SelectTerrain = ({ disabled }: { disabled: boolean }) => {
   const dispatchUserAction = useUserActionDispatchContext();

@@ -1,4 +1,4 @@
-import { useState, useCallback, type PropsWithChildren } from "react";
+import { type PropsWithChildren, useCallback, useState } from "react";
 import { ModalContext } from "@contexts/ModalContext";
 
 export const ModalContextProvider = ({ children }: PropsWithChildren) => {

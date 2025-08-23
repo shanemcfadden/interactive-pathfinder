@@ -1,4 +1,4 @@
-import { useCallback, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { Button } from "@components/Button";
 import { usePathFindingDispatchContext } from "@contexts/PathFindingContext";
 

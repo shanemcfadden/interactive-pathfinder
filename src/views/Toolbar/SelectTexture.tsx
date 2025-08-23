@@ -1,14 +1,14 @@
-import { useCallback, useMemo, type ChangeEventHandler } from "react";
-import {
-  useUserActionContext,
-  useUserActionDispatchContext,
-} from "@contexts/UserActionContext";
+import { type ChangeEventHandler, useCallback, useMemo } from "react";
+import { Select, type SelectOption } from "@components/Select";
 import {
   TEXTURES_ARRAY,
   TextureWeight,
   type TextureWeightValue,
 } from "@constants";
-import { Select, type SelectOption } from "@components/Select";
+import {
+  useUserActionContext,
+  useUserActionDispatchContext,
+} from "@contexts/UserActionContext";
 
 export const SelectTexture = ({ disabled }: { disabled: boolean }) => {
   const userAction = useUserActionContext();

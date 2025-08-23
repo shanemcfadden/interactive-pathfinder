@@ -1,4 +1,4 @@
-import { createContext, useContext, type Dispatch } from "react";
+import { type Dispatch, createContext, useContext } from "react";
 import type { UserAction } from "./types";
 
 export const UserActionContext = createContext<UserAction>({
