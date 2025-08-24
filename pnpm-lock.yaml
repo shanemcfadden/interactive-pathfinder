@@ -1,5 +1,7 @@
 lockfileVersion: '9.0'
 
+
+
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
@@ -14,9 +16,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
-      react:
-        specifier: ^19.1.0
-        version: 19.1.0
+      # react:
+      #   specifier: ^19.1.0
+      #   version: 19.1.0
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
